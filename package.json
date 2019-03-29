@@ -10,15 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/siakaramalegos/perf-workshop.git"
+    "url": "git+https://github.com/siakaramalegos/perf_workshop.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/siakaramalegos/perf-workshop/issues"
+    "url": "https://github.com/siakaramalegos/perf_workshop/issues"
   },
-  "homepage": "https://github.com/siakaramalegos/perf-workshop#readme",
+  "homepage": "https://github.com/siakaramalegos/perf_workshop#readme",
   "devDependencies": {
     "gh-pages": "^2.0.1"
   }

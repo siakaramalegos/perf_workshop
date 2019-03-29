@@ -40,4 +40,4 @@ Please come with a laptop ready for development. You must have Chrome, Node (v 8
 
 ## Slides and Controls
 
-The slides are deployed [here](https://siakaramalegos.github.io/perf-workshop/#/). To advance the slides, use `n` for next and `p` for previous. The right arrow jumps to the next section (and left for previous section). Up and down to advance through slides within a section.
+The slides are deployed [here](https://siakaramalegos.github.io/perf_workshop/#/). To advance the slides, use `n` for next and `p` for previous. The right arrow jumps to the next section (and left for previous section). Up and down to advance through slides within a section.
