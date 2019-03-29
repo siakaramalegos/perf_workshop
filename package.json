@@ -1,0 +1,25 @@
+{
+  "name": "perf-workshop",
+  "version": "1.0.0",
+  "description": "Workshop on web performance and developer tools",
+  "main": "index.js",
+  "scripts": {
+    "start": "reveal-md perf.md --watch",
+    "build": "rm -rf build && reveal-md perf.md --static build --static-dirs=images && mkdir build/_assets && cp style.css build/_assets && touch build/.nojekyll",
+    "deploy": "gh-pages -d build --dotfiles"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/siakaramalegos/perf-workshop.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/siakaramalegos/perf-workshop/issues"
+  },
+  "homepage": "https://github.com/siakaramalegos/perf-workshop#readme",
+  "devDependencies": {
+    "gh-pages": "^2.0.1"
+  }
+}
