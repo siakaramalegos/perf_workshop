@@ -30,19 +30,42 @@ Note: Suggest pair programming and give them an opportunity to change seats.
 
 # Topics
 
-- [Intro](#/2)
-- [Which metrics matter](#/3)
-- [Synthetic vs real-user testing](#/4)
-- [Toolbox: Chrome DevTools](#/5)
-- [More tools in the toolbox](#/6)
-- [Download cost: Latency &amp; Caching](#/7)
-- [Download cost: Images](#/8)
-- [Download cost: JavaScript](#/9)
-- [Smooth UI: Script execution costs](#/10)
-- [Real User Monitoring](#/11)
-- [Smooth UI: Other costs](#/12)
-- [Accessibility debugging](#/13)
-- [Closing](#/14)
+<table id="contents-table" style="font-size:0.9em;">
+  <tbody>
+    <tr>
+      <td>[Intro: Why?](#/2)</td>
+      <td>[Smooth UI: Script execution costs](#/10)</td>
+    </tr>
+    <tr>
+      <td>[Which metrics matter](#/3)</td>
+      <td>[Real User Monitoring](#/11)</td>
+    </tr>
+    <tr>
+      <td>[Synthetic vs real-user testing](#/4)</td>
+      <td>[Smooth UI: Other costs](#/12)</td>
+    </tr>
+    <tr>
+      <td>[Toolbox: Chrome DevTools](#/5)</td>
+      <td>[Accessibility debugging](#/13)</td>
+    </tr>
+    <tr>
+      <td>[More tools in the toolbox](#/6)</td>
+      <td>[Closing: Perceived performance](#/14)</td>
+    </tr>
+    <tr>
+      <td>[Download cost: Latency &amp; Caching](#/7)</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>[Download cost: Images](#/8)</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>[Download cost: JavaScript](#/9)</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
 
 ---
 
@@ -195,6 +218,10 @@ Note: from Alex Russell's video
 
 Note: Performance budgets at Google are $200 Android phone on a slow 3G network to target 5s initial load and 2s for subsequent. Converts to 130-170kb gzipped.
 
+-v-
+
+## Exercise: WebPageTest.org
+
 ---
 
 # Toolbox: Chrome DevTools
@@ -303,6 +330,7 @@ Note: In addition, header compression. HTTP2 server push has not lived up to the
 1. Go to this webpagetest profile: [tinyurl.com/y5bl5ksn](https://tinyurl.com/y5bl5ksn)
 2. Click on the waterfall for Run 2 (the median run).
 3. Focus on the all the font-related lines. What do you notice?
+4. What would happen if we requested the font in the CSS?
 
 <video autoplay loop playsinline muted>
   <source src="./images/hamster.mp4" type="video/mp4">
