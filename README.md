@@ -2,7 +2,7 @@
 
 - [Abstract](#abstract)
 - [Prerequisites](#prerequisites)
-- [About the trainers](#about-the-trainers)
+- [About the trainer](#about-the-trainer)
 - [Slides and controls](#slides-and-controls)
 - [Resources](#resources)
 
