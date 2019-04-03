@@ -4,8 +4,8 @@
   "description": "Workshop on web performance and developer tools",
   "main": "index.js",
   "scripts": {
-    "start": "reveal-md perf.md --watch",
-    "build": "rm -rf build && reveal-md perf.md --static build --static-dirs=images && mkdir build/_assets && cp style.css build/_assets && touch build/.nojekyll",
+    "start": "reveal-md perf.md --scripts footerLink.js --watch",
+    "build": "rm -rf build && reveal-md perf.md --scripts footerLink.js --static build --static-dirs=images && mkdir build/_assets && cp style.css build/_assets && cp -a fonts/. build/_assets/fonts/ && touch build/.nojekyll",
     "deploy": "gh-pages -d build --dotfiles"
   },
   "repository": {
