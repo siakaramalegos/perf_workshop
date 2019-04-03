@@ -366,3 +366,7 @@ li.arrow:before {
 .highlighter {
   background-color: rgba(0,0,0,0.5);
 }
+#contents-table table, #contents-table tr, #contents-table td {
+  border: 0;
+  text-align: left;
+}
