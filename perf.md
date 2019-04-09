@@ -12,11 +12,17 @@ highlightTheme: github
 
 ## hi, i'm sia
 
-<img src="./images/sia.gif" alt="Sia at Mardi Gras" height="500px">
+⚡ 👩🏻‍💻 🇬🇷 🐶 🐺 🎨 📓 ✈️
+
+<img src="./images/sia.gif" alt="Sia at Mardi Gras" height="450px" style="border:none;">
 
 -v-
 
-## introduce yourself to your neighbors
+## Coding is more fun with friends 🧑🏽‍🤝‍🧑🏻
+
+- 👋 Introduce yourself to your neighbors
+- 🍐Pair programming is a great option!
+- 💬 Ask lots of questions
 
 Note: Suggest pair programming and give them an opportunity to change seats.
 
@@ -33,15 +39,15 @@ Note: Suggest pair programming and give them an opportunity to change seats.
 <table id="contents-table" style="font-size:0.9em;">
   <tbody>
     <tr>
-      <td>[Intro: Why?](#/2)</td>
+      <td>[🤷🏼 Intro: Why?](#/2)</td>
       <td>[Smooth UI: Script execution costs](#/10)</td>
     </tr>
     <tr>
-      <td>[Which metrics matter](#/3)</td>
+      <td>[🧪 Test environments](#/3)</td>
       <td>[Real User Monitoring](#/11)</td>
     </tr>
     <tr>
-      <td>[Synthetic vs real-user testing](#/4)</td>
+      <td>[📈 Metrics](#/4)</td>
       <td>[Smooth UI: Other costs](#/12)</td>
     </tr>
     <tr>
@@ -108,17 +114,207 @@ Note: In 2016, Doubleclick by Google released a report saying that 53% of mobile
 
 ---
 
-# Which metrics matter?
+# 🧪 Test Environments 🧪
+
+-v-
+
+## Exercise: Flying Blind ✈️
+
+Pick a website you work on. Run it through each of these tools, keeping each open in separate tabs:
+
+- **Lighthouse** (DevTools audit tab, only check performance)
+- **PageSpeed Insights** [developers.google.com/speed/pagespeed/insights/](https://developers.google.com/speed/pagespeed/insights/)
+- **WebPageTest** [webpagetest.org/easy](http://webpagetest.org/easy)
+- **Test My Site** [testmysite.thinkwithgoogle.com](https://testmysite.thinkwithgoogle.com)
+- **RespImageLint** [ausi.github.io/respimagelint/](https://ausi.github.io/respimagelint/) (requires some set up)
+
+Note: **Discussion**: What do you notice about each? What are the similarities/differences? What do you like/dislike?
+
+-v-
+
+## Testing Environments
+
+<br>
+
+<table class="fixed-two-column" id="invisible-gridlines">
+  <thead>
+    <tr>
+      <th>Lab/Synthetic</th>
+      <th>Field/Real User Monitoring (RUM)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <ul class="plus-minus" style="display:inline;">
+          <li class="plus">Controlled environment</li>
+          <li class="plus">Predefined network and device settings</li>
+          <li class="plus">Reproducible for better performance debugging</li>
+          <li class="minus">May not capture real-world bottlenecks</li>
+        </ul>
+      </td>
+      <td>
+        <ul class="plus-minus" style="display:inline;">
+          <li class="plus">Performance data from **real user page loads** and interactions</li>
+          <li class="minus">Limited data and performance debugging capability</li>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+-v-
+
+## Lab/Synthetic Environment Tools
+
+_Emulated CPU and network throttling_
+
+<div id="dev-tool">
+  <img class="nooutline" width="150px" src="./images/tool-devtools.svg" alt="Chrome DevTools"/>
+  <div>Chrome DevTools</div>
+</div>
+<div id="dev-tool">
+  <img class="nooutline" width="150px" src="./images/tool-lighthouse.svg" alt="Lighthouse"/>
+  <div>Lighthouse</div>
+</div>
+<div id="dev-tool">
+  <img class="nooutline" width="150px" src="./images/tool-psi.svg" alt="PageSpeed Insights"/>
+  <div>PageSpeed Insights</div>
+</div>
+
+Note: DevTools for Network tab (load) and Performance tab (script execution costs)
+
+-v-
+
+> Your laptop is a filthy liar.
+
+<small>Alex Russell, [Progressive Performance talk at Chrome Dev Summit 2016](https://www.youtube.com/watch?v=4bZvq3nodf4)</small>
+
+Note: network and CPU throttling are not representative of real user experiences. mobile CPUs process in a completely different way, and heat management is especially different.
+
+-v-
+
+## Optimize for the device and network your users have
+
+- 2-5x difference in fastest vs slowest phones
+- 75% of worldwide mobile connections on 2G or 3G
+- Not just developing countries but rural areas or spotty networks like conference wifi
+- Use Google Analytics data to profile your users and configure [webpagetest.org](https://www.webpagetest.org/) to reflect them more closely
+
+<small>https://infrequently.org/2017/10/can-you-afford-it-real-world-web-performance-budgets/</small>
+
+Note: Performance budgets at Google are $200 Android phone on a slow 3G network to target 5s initial load and 2s for subsequent. Converts to 130-170kb gzipped.
+
+-v-
+
+## Lab/Synthetic Environment Tools
+
+_Real devices and networks_
+
+<div id="dev-tool">
+  <img class="nooutline" width="150px" src="./images/tool-webpagetest.svg" alt="WebPageTest"/>
+  <div>WebPageTest<br>&nbsp;</div>
+</div>
+
+<div id="dev-tool">
+  <img class="nooutline" width="150px" src="./images/tool-devtools.svg" alt="Chrome DevTools"/>
+  <div>DevTools +<br>connected device</div>
+</div>
+
+Note: Buy a shitty phone and connect it to your computer for on-device debugging. webpagetest.org/easy has a basic set up - $200 phone, slow 3G?
+
+-v-
+
+## WebPageTest
+
+<img src="./images/webpagetest_phones.jpeg" alt="Basement phone bank for webpagetest.org" width="80%" >
+
+<small>https://twitter.com/HenriHelvetica/status/1109557588411203584</small>
+
+-v-
+
+## Field/RUM Testing Tools
+
+_Publicly available data_
+
+<div id="dev-tool">
+  <img class="nooutline" width="150px" src="./images/tool-crux.png" alt="CrUX"/>
+  <div>CrUX</div>
+</div>
+
+<div id="dev-tool">
+  <img class="nooutline" width="150px" src="./images/tool-psi.svg" alt="PageSpeed Insights"/>
+  <div>PageSpeed Insights</div>
+</div>
+
+<div id="dev-tool">
+  <img class="nooutline" width="150px" src="./images/tool-big-query.svg" alt="Big Query"/>
+  <div>Google BigQuery</div>
+</div>
+
+<small>Chrome User Experience (CrUX) data is available in PageSpeed Insights or BigQuery.</small>
+
+-v-
+
+## Field/RUM Testing Tools
+
+_Self-run data sent to your backend or analytics tool_
+
+- Navigation Timing API
+- Resource Timing API
+- User Timing API for custom timings
+
+<small>
+  https://developers.google.com/web/fundamentals/performance/navigation-and-resource-timing/
+  <br />https://www.keycdn.com/blog/user-timing/
+<small>
+
+-v-
+
+# More tools in the toolbox
+
+-v-
+
+## Test My Site
+
+<img class="nooutline" width="150px" src="./images/tool-testmysite.svg" alt="Test My Site" >
+
+- Snazzy-looking and gives pretty pdf
+- High-level data from WebPageTest and PageSpeed Insights
+- Good for the speed scorecard and impact calculator
+
+-v-
+
+## RespImageLint
+
+[RespImageLint](https://github.com/ausi/respimagelint) is a bookmarklet linter for responsive images.
+
+<img src="./images/RespImageLint.png" alt="Screenshot of RespImageLint feedback saying multiple images for different screen sizes needed" style="border:none;box-shadow:none;">
+
+Note: Lighthouse audits also does this better now, but I still like this quick tool and the prescriptive suggestions.
+
+-v-
+
+## Bundle Analyzers
+
+- Several webpack tools exist - check out options on [SurviveJS](https://survivejs.com/webpack/optimizing/build-analysis/)
+- One of my favorites: `webpack-bundle-analyzer`
+
+<img src="./images/webpack_bundle_analyzer.gif" alt="Webpack bundle analyzer in action showing marimekko chart of dependencies based on size" width="80%">
+
+---
+
+# 📈 Metrics 📈
 
 -v-
 
 ## ~~Load time~~ Speed Index
 
-Measures how quickly the page contents are visually populated
+How quickly the page contents are visually populated
 
 - Expressed in milliseconds
 - Dependent on size of the view port
-- Use [webpagetest.org](https://www.webpagetest.org/) to measure your pages
+- Measured in Lighthouse and WebPageTest
 
 > Note: It is particularly useful for comparing experiences of pages against each other (before/after optimizing, my site vs competitor, etc) and should be used in combination with the other metrics (load time, start render, etc) to better understand a site's performance. Historically we have relied on milestone timings to determine how fast or slow web pages were.  The most common of these is the time until the browser reaches the load event for the main document (onload).  The load event is easy to measure both in a lab environment and in the real world.  Unfortunately, it isn't a very good indicator of the actual end-user experience.  As pages grow and load a lot of content that is not visible to the user or off the screen (below the fold) the time to reach the load event is extended even if the user-visible content has long-since rendered. Lighthouse may use a node module called Speedline for this.
 
@@ -128,15 +324,17 @@ Measures how quickly the page contents are visually populated
 
 ## Time to Interactive
 
+How long it takes a page to become fully interactive
+
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Lx1cYJAVnzA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 <small>End to End Apps with Polymer by Kevin Schaaf, Polymer Summit 2017</small>
 
-Note: the point at which layout has stabilized, key webfonts are visible, and the main thread is available enough to handle user input.
+Note: the point at which layout has stabilized, key webfonts are visible, and the main thread is available enough to handle user input within 50ms.
 
 -v-
 
-## Jank or Responsiveness
+## Frame Rate
 
 <img src="./images/frames_per_second.gif" alt="Frames per second comparison for visual jank" >
 
@@ -155,72 +353,16 @@ Note: Frame rate or frames per second (fps), is one measure of responsiveness. M
 
 Note: R:Complete a transition initiated by user input within 100ms. A: Have 16ms, but browsers need about 6ms to render each frame. I: Maximize idle time to increase the odds that the page responds to user input within 50ms. L:on mid-range mobile devices with slow 3G connections
 
----
-
-# Synthetic Testing vs Real-User Monitoring
-
 -v-
 
-## Synthetic testing with Emulation
-- DevTools network tab for optimizing load and speed index
-- DevTools performance tab for optimizing responsiveness
+## Exercise: Speed Index + TTI
 
--v-
+Look at the tools you ran earlier, and write down:
 
-> Your laptop is a filthy liar.
-
-<small>Alex Russell, [Progressive Performance talk at Chrome Dev Summit 2016](https://www.youtube.com/watch?v=4bZvq3nodf4)</small>
-
-Note: network and CPU throttling are not representative of real user experiences. mobile CPUs process in a completely different way, and heat management is especially different.
-
--v-
-
-## Synthetic testing with Real Devices:
-- WebPageTest.org
-- DevTools on a connected device for on-device debugging
-
-<img src="./images/webpagetest_phones.jpeg" alt="Basement phone bank for webpagetest.org" width="80%" >
-
-<small>https://twitter.com/HenriHelvetica/status/1109557588411203584</small>
-
-Note: Buy a shitty phone and connect it to your computer for on-device debugging. webpagetest.org/easy has a basic set up - $200 phone, slow 3G?
-
--v-
-
-## Real-User Monitoring (RUM):
-- Navigation Timing API
-- Resource Timing API
-- User Timing API for custom timings
-
-<small>
-  https://developers.google.com/web/fundamentals/performance/navigation-and-resource-timing/
-  <br />https://www.keycdn.com/blog/user-timing/
-<small>
-
--v-
-
-> A 4G User isn't a 4G user most of the time.
-
-<small>Ilya Grigorik</small>
-
-Note: from Alex Russell's video
-
--v-
-
-## Optimize for the device and network your users have
-
-- 2-5x difference in fastest vs slowest phones
-- 75% of worldwide mobile connections on 2G or 3G
-- Not just developing countries but rural areas or spotty networks like conference wifi
-- Use Google Analytics data to profile your users and configure [webpagetest.org](https://www.webpagetest.org/) to reflect them more closely
-
-<small>https://infrequently.org/2017/10/can-you-afford-it-real-world-web-performance-budgets/</small>
-
-Note: Performance budgets at Google are $200 Android phone on a slow 3G network to target 5s initial load and 2s for subsequent. Converts to 130-170kb gzipped.
-
--v-
-
-## Exercise: WebPageTest.org
+1. The site's speed index
+2. The site's time-to-interactive
+3. Under what conditions were these run (device, network, emulated/real?
+4. Bonus: where might you be able to test performance while using the app?
 
 ---
 
@@ -355,6 +497,7 @@ Note: In addition, header compression. HTTP2 server push has not lived up to the
 <ul class="plus-minus">
   <li class="plus">Hosted on fast and reliable CDNs</li>
   <li class="plus">Can provide optimized variants based on user's browser</li>
+   <li class="plus">Opportunity for shared caching on popular fonts</li>
   <li class="minus">Minumum of 2 separate requests</li>
   <li class="minus">Can't use resource hints on the font file</li>
   <li class="minus">Doesn't take advantage of HTTP2 multiplexing</li>
