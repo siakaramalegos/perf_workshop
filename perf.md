@@ -51,11 +51,14 @@ Note: Suggest pair programming and give them an opportunity to change seats.
       <td>[Smooth UI: Other costs](#/12)</td>
     </tr>
     <tr>
-      <td>[Toolbox: Chrome DevTools](#/5)</td>
+      <td>
+        <img class="nooutline" width="32px" style="margin:0 0 -6px 0" src="./images/tool-devtools.svg" alt="Chrome DevTools"/>
+        [Set up DevTools #LikeABoss](#/5)
+      </td>
       <td>[Accessibility debugging](#/13)</td>
     </tr>
     <tr>
-      <td>[More tools in the toolbox](#/6)</td>
+      <td></td>
       <td>[Closing: Perceived performance](#/14)</td>
     </tr>
     <tr>
@@ -63,7 +66,7 @@ Note: Suggest pair programming and give them an opportunity to change seats.
       <td></td>
     </tr>
     <tr>
-      <td>[Download cost: Images](#/8)</td>
+      <td>[📸 Download cost: Images](#/8)</td>
       <td></td>
     </tr>
     <tr>
@@ -122,11 +125,11 @@ Note: In 2016, Doubleclick by Google released a report saying that 53% of mobile
 
 Pick a website you work on. Run it through each of these tools, keeping each open in separate tabs:
 
-- **Lighthouse** (DevTools audit tab, only check performance)
-- **PageSpeed Insights** [developers.google.com/speed/pagespeed/insights/](https://developers.google.com/speed/pagespeed/insights/)
-- **WebPageTest** [webpagetest.org/easy](http://webpagetest.org/easy)
-- **Test My Site** [testmysite.thinkwithgoogle.com](https://testmysite.thinkwithgoogle.com)
-- **RespImageLint** [ausi.github.io/respimagelint/](https://ausi.github.io/respimagelint/) (requires some set up)
+1. **Lighthouse** (DevTools audit tab, only check performance)
+2. **PageSpeed Insights** [developers.google.com/speed/pagespeed/insights/](https://developers.google.com/speed/pagespeed/insights/)
+3. **WebPageTest** [webpagetest.org/easy](http://webpagetest.org/easy)
+4. **Test My Site** [testmysite.thinkwithgoogle.com](https://testmysite.thinkwithgoogle.com)
+5. **RespImageLint** [ausi.github.io/respimagelint/](https://ausi.github.io/respimagelint/) (requires some set up)
 
 Note: **Discussion**: What do you notice about each? What are the similarities/differences? What do you like/dislike?
 
@@ -218,7 +221,7 @@ _Real devices and networks_
 
 <div id="dev-tool">
   <img class="nooutline" width="150px" src="./images/tool-devtools.svg" alt="Chrome DevTools"/>
-  <div>DevTools +<br>connected device</div>
+  <div>DevTools +<br>connected device 📱</div>
 </div>
 
 Note: Buy a shitty phone and connect it to your computer for on-device debugging. webpagetest.org/easy has a basic set up - $200 phone, slow 3G?
@@ -362,20 +365,19 @@ Look at the tools you ran earlier, and write down:
 1. The site's speed index
 2. The site's time-to-interactive
 3. Under what conditions were these run (device, network, emulated/real?
-4. Bonus: where might you be able to test performance while using the app?
+4. Bonus: where might you be able to test performance while using the app (not loading)?
 
 ---
 
-# Toolbox: Chrome DevTools
+# Set up DevTools #LikeABoss
+
+<img class="nooutline" width="150px" src="./images/tool-devtools.svg" alt="Chrome DevTools"/>
 
 -v-
 
-## Exercise: Using DevTools like a Boss
+## Exercise: Set up DevTools #LikeABoss
 
-<video autoplay loop>
-  <source src="./images/arnold_cats.mp4" type="video/mp4">
-  Sorry, your browser doesn't support embedded videos.
-</video>
+<img class="nooutline" width="80%" src="./images/no_extensions.png" alt="Chrome extensions negatively affected this page's load performance. Try auditing the page in incognito mode or from a Chrome profile without extensions.">
 
 Note: Go through handout. Drag tabs to reorder.
 
@@ -388,29 +390,6 @@ Note: Go through handout. Drag tabs to reorder.
 - **Audits**: scores performance, PWAs, accessibility, etc (Lighthouse)
 
 Note: Lots of other cool tools exist like local overrides, paint layers, etc.
-
----
-
-# More tools in the toolbox
-
--v-
-
-## RespImageLint
-
-[RespImageLint](https://github.com/ausi/respimagelint) is a bookmarklet linter for responsive images.
-
-<img src="./images/RespImageLint.png" alt="Screenshot of RespImageLint feedback saying multiple images for different screen sizes needed" style="border:none;box-shadow:none;">
-
-Note: Lighthouse audits also does this better now, but I still like this quick tool and the prescriptive suggestions.
-
--v-
-
-## Bundle Analyzers
-
-- Several webpack tools exist - check out options on [SurviveJS](https://survivejs.com/webpack/optimizing/build-analysis/)
-- One of my favorites: `webpack-bundle-analyzer`
-
-<img src="./images/webpack_bundle_analyzer.gif" alt="Webpack bundle analyzer in action showing marimekko chart of dependencies based on size" width="80%">
 
 ---
 
@@ -590,7 +569,7 @@ Note: PRPL pattern - push, render, pre-cache, lazy-load
 
 ---
 
-# Optimized, Responsive Images
+# Optimized, Responsive <br>📸 Images 📸 
 
 -v-
 
@@ -601,16 +580,12 @@ Note: PRPL pattern - push, render, pre-cache, lazy-load
 
 -v-
 
-<section>
-  <h1>Image Responsiveness Toolbox</h1>
-  <ul>
-	  <li class="fragment fade-in-then-semi-out">Best file format</li>
-	  <li class="fragment fade-in-then-semi-out">Right size and resolution</li>
-	  <li class="fragment fade-in-then-semi-out">Art direction</li>
-  </ul>
-</section>
+## Responsive &amp; Optimized Toolbox
 
-Note: These are the 3 main topics I'm going to talk about today.
+- Best file format <!-- .element: class="fragment fade-in-then-semi-out" -->
+- Right size and resolution <!-- .element: class="fragment fade-in-then-semi-out" -->
+- Art direction <!-- .element: class="fragment fade-in-then-semi-out" -->
+- Lazy loading <!-- .element: class="fragment fade-in-then-semi-out" -->
 
 -v-
 
@@ -762,7 +737,7 @@ Note: (1) In this `picture` tag, we have 2 sources and an img. Older browsers si
 
 -v-
 
-## Bonus: Bleeding-Edge File Formats
+## Bleeding-Edge File Formats
 
 - Use `<picture>` for new file formats like `webp`!
 - The browser uses the first compatible file type listed.
@@ -1338,3 +1313,9 @@ Note: “Often the psychology of queuing is more important than the statistics o
 <h1 class="title dark-background">Thanks!</h1>
 Slides, resources, and more at <a href="https://bit.ly/siaspeaks" class="dark-background">bit.ly/siaspeaks</a>
 
+-v-
+
+<video autoplay loop>
+  <source src="./images/arnold_cats.mp4" type="video/mp4">
+  Sorry, your browser doesn't support embedded videos.
+</video>

@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/siakaramalegos/perf_workshop#readme",
   "devDependencies": {
-    "gh-pages": "^2.0.1"
+    "gh-pages": "^2.0.1",
+    "reveal-md": "^3.0.4"
   }
 }
