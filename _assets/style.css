@@ -337,6 +337,9 @@ body {
 ul.plus-minus {
   list-style: none;
 }
+ul.plus-minus li {
+  margin-bottom: 0.2em;
+}
 li.plus:before {
   color: darkgreen;
   content: '\2714';
@@ -369,4 +372,21 @@ li.arrow:before {
 #contents-table table, #contents-table tr, #contents-table td {
   border: 0;
   text-align: left;
+}
+table.fixed-two-column td {
+  padding: 0.3em 0.5em 0.3em 1.8em;
+  vertical-align: text-top;
+  width: 50%;
+}
+#invisible-gridlines table, #invisible-gridlines tr, #invisible-gridlines td, #invisible-gridlines th {
+  border: 0;
+  background-color: transparent;
+}
+.reveal section img.nooutline {
+  border: none;
+  box-shadow:none;
+}
+#dev-tool {
+  display: inline-block;
+  margin: 20px;
 }
