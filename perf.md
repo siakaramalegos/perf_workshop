@@ -40,33 +40,33 @@ Note: Suggest pair programming and give them an opportunity to change seats.
   <tbody>
     <tr>
       <td>[🤷🏼 Intro: Why?](#/2)</td>
-      <td>[Smooth UI: Script execution costs](#/9)</td>
+      <td>[🏊🏿‍♀️ Deep-Dive: JavaScript in Webpack](#/9)</td>
     </tr>
     <tr>
       <td>[🧪 Test environments](#/3)</td>
-      <td>[Real User Monitoring](#/10)</td>
+      <td>[Smooth UI: Script execution costs](#/10)</td>
     </tr>
     <tr>
       <td>[📈 Metrics](#/4)</td>
-      <td>[Smooth UI: Other costs](#/11)</td>
+      <td>[Real User Monitoring](#/11)</td>
     </tr>
     <tr>
       <td>
         <img class="nooutline" width="32px" style="margin:0 0 -6px 0" src="./images/tool-devtools.svg" alt="Chrome DevTools"/>
         [Set up DevTools #LikeABoss](#/5)
       </td>
-      <td>[Accessibility debugging](#/13)</td>
+      <td>[Smooth UI: Other costs](#/12)</td>
     </tr>
     <tr>
       <td>[⌚ Download cost: Latency](#/6)</td>
-      <td>[Closing: Perceived performance](#/14)</td>
+      <td>[Accessibility debugging](#/13)</td>
     </tr>
     <tr>
       <td>[📸 Download cost: Images](#/7)</td>
-      <td></td>
+      <td>[Closing: Perceived performance](#/14)</td>
     </tr>
     <tr>
-      <td>[Download cost: JavaScript](#/8)</td>
+      <td>[💰 Download cost: JavaScript](#/8)</td>
       <td></td>
     </tr>
   </tbody>
@@ -885,7 +885,7 @@ How big is our initial load now?
 
 ---
 
-# Download cost: JavaScript
+# Download cost:<br>💰 JavaScript 💰
 
 Note: Are all assets created equally?
 
@@ -1086,6 +1086,10 @@ Note: PRPL - push minimal code for initial route, render route and get interacti
 <small>https://philipwalton.com/articles/deploying-es2015-code-in-production-today/</small>
 
 Note: We transpile and polyfill most code, but most users are on modern browsers. So why are we shippping Unnecessary code? What's the impact?  Webpack can create 2 bundles for you - transpiled to ES5 and not-transpiled ES2015+. These are the results from a small blog app - remember since JS is most expensive asset this affects not just download but parse and compile time. <strong>Bigger apps mean bigger gains</strong>. No time to go through how, but this article goes through the steps. (test using script type=module, set up separate webpack config and need to include modules
+
+---
+
+# 🏊🏿‍♀️ Deep-Dive: 🏊🏿‍♀️<br>JavaScript in Webpack
 
 ---
 
