@@ -40,15 +40,15 @@ Note: Suggest pair programming and give them an opportunity to change seats.
   <tbody>
     <tr>
       <td>[🤷🏼 Intro: Why?](#/2)</td>
-      <td>[Smooth UI: Script execution costs](#/10)</td>
+      <td>[Smooth UI: Script execution costs](#/9)</td>
     </tr>
     <tr>
       <td>[🧪 Test environments](#/3)</td>
-      <td>[Real User Monitoring](#/11)</td>
+      <td>[Real User Monitoring](#/10)</td>
     </tr>
     <tr>
       <td>[📈 Metrics](#/4)</td>
-      <td>[Smooth UI: Other costs](#/12)</td>
+      <td>[Smooth UI: Other costs](#/11)</td>
     </tr>
     <tr>
       <td>
@@ -58,19 +58,15 @@ Note: Suggest pair programming and give them an opportunity to change seats.
       <td>[Accessibility debugging](#/13)</td>
     </tr>
     <tr>
-      <td></td>
+      <td>[⌚ Download cost: Latency](#/6)</td>
       <td>[Closing: Perceived performance](#/14)</td>
     </tr>
     <tr>
-      <td>[Download cost: Latency &amp; Caching](#/7)</td>
+      <td>[📸 Download cost: Images](#/7)</td>
       <td></td>
     </tr>
     <tr>
-      <td>[📸 Download cost: Images](#/8)</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>[Download cost: JavaScript](#/9)</td>
+      <td>[Download cost: JavaScript](#/8)</td>
       <td></td>
     </tr>
   </tbody>
@@ -118,6 +114,15 @@ Note: In 2016, Doubleclick by Google released a report saying that 53% of mobile
 ---
 
 # 🧪 Test Environments 🧪
+
+-v-
+
+## Exercise Time!
+
+<video autoplay loop>
+  <source src="./images/arnold_cats.mp4" type="video/mp4">
+  Sorry, your browser doesn't support embedded videos.
+</video>
 
 -v-
 
@@ -393,7 +398,7 @@ Note: Lots of other cool tools exist like local overrides, paint layers, etc.
 
 ---
 
-# Latency &amp; Caching
+# ⌚ Latency ⌚
 
 Note: Who is brave enough to admit they don't really know what that means?
 
@@ -446,28 +451,9 @@ Note: In addition, header compression. HTTP2 server push has not lived up to the
 
 -v-
 
-## Latency Exercise #2
+# Fonts
 
-1. Go to this webpagetest profile: [tinyurl.com/y5bl5ksn](https://tinyurl.com/y5bl5ksn)
-2. Click on the waterfall for Run 2 (the median run).
-3. Focus on the all the font-related lines. What do you notice?
-4. What would happen if we requested the font in the CSS?
-
-<video autoplay loop playsinline muted>
-  <source src="./images/hamster.mp4" type="video/mp4">
-  Sorry, your browser doesn't support embedded videos.
-</video>
-
--v-
-
-## Loading Google Fonts
-
-```html
-<link href="https://fonts.googleapis.com/css?family=Muli:400"
-      rel="stylesheet">
-```
-
-<img src="./images/webfonts_before.png" alt="Google fonts load waterfall showing wasted time">
+<img class="nooutline" width="50%" src="./images/fonts.png" alt="Screenshot of a Google fonts font option" />
 
 -v-
 
@@ -482,6 +468,50 @@ Note: In addition, header compression. HTTP2 server push has not lived up to the
   <li class="minus">Doesn't take advantage of HTTP2 multiplexing</li>
   <li class="minus">No control over FOUT or FOIT</li>
 </ul>
+
+-v-
+
+## Exercise Time!
+
+<video autoplay loop playsinline muted>
+  <source src="./images/hamster.mp4" type="video/mp4">
+  Sorry, your browser doesn't support embedded videos.
+</video>
+
+-v-
+
+## Latency Exercise #2
+
+1. Run a network profile on https://turtle-markdown-viewer.netlify.com/.
+<!-- TODO: Add a wbt profile -->
+<!-- Go to this webpagetest profile: [tinyurl.com/y5bl5ksn](https://tinyurl.com/y5bl5ksn). Click on the waterfall for Run 2 (the median run). -->
+2. Focus on the all the CSS and font-related lines.
+3. Write down the steps that are happening. What do you notice?
+
+Note: Need to answer question for both Google and local font. Google font is waiting to DL CSS until after current CSS, and local font is waiting until after current CSS though we know we want it.
+
+-v-
+
+## Loading Google Fonts from CSS
+
+```css
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+```
+
+<img src="./images/webfonts_css.png" alt="Google fonts load waterfall showing wasted time from loading from css">
+
+Note: pause here and ask what else seems wasteful - the connection time to fonts.gstatic.com
+
+-v-
+
+## Loading Google Fonts from HTML
+
+```html
+<link href="https://fonts.googleapis.com/css?family=Muli:400"
+      rel="stylesheet">
+```
+<!-- TODO: animate the image to show circle on click and slow bc no preconnect -->
+<img src="./images/webfonts_before.png" alt="Google fonts load waterfall showing wasted time">
 
 -v-
 
@@ -515,7 +545,7 @@ Note: pdf version of this is in the replies to this tweet
   href="./fonts/muli-v12-latin-700.woff2" crossorigin>
 ```
 
-Note: This alone does not fix perf problem.
+<img src="./images/no-preload.png" alt="Google fonts load waterfall showing local font waiting to load until after CSS">
 
 -v-
 
@@ -553,6 +583,16 @@ Note: FOIT in action — note the missing navbar text in the filmstrip scree
 
 Note: add the `font-display` property to the `@font-face` declaration
 
+-v-
+
+## Exercise: Font Latency &amp; Display Optimization
+
+For each step, confirm the expected benefit by running a network profile in DevTools:
+
+1. Move the Google font load to HTML from CSS.
+2. Preconnect to fonts.gstatic.com.
+3. Preload the local fonts.
+4. Fix the FOIT.
 
 -v-
 
@@ -569,7 +609,7 @@ Note: PRPL pattern - push, render, pre-cache, lazy-load
 
 ---
 
-# Optimized, Responsive <br>📸 Images 📸 
+# Optimized, Responsive <br>📸 Images 📸
 
 -v-
 
@@ -689,20 +729,20 @@ Note: `srcset` can accept DPR instead of widths, though I find this more confusi
 
 -v-
 
-## Exercise: Debugging &amp; analyzing images
+## Image Exercise 1
 
-1. Find your screen DPR: `window.devicePixelRatio`.
-2. Inspect `<img>` then hover on filename to see displayed and natural sizes.
-3. Which file is being used:
-  - Inspect > Properties > `img` > `currentSrc`, or...
-  - `performance.getEntriesByType('resource')` and pair with `.filter()`, then look for the resource `name`
-4. Analyze one of your websites with [RespImageLint](https://ausi.github.io/respimagelint/).
+1. **Analyze**
+  - Write down how big our initial load is now.
+  - Inspect an `<img>` then hover on filename to see displayed and natural sizes.
+  - Run the RespImageLint bookmarklet to get suggestions.
+2. **Optimize**
+  - Replace the large `png` images with `jpg` ones.
+  - Use `srcset` and `sizes` to provide options for screens with DPRs of 1 and 2 (optional: 4).
+2. **Debug**
+  - Find your screen DPR: `window.devicePixelRatio`.
+  - Discover which file is being used: Inspect > Properties > `img` > `currentSrc`. Start with a small screen size, then observe how this changes as you increase.
 
-```javascript
-performance.getEntriesByType('resource').filter(resource =>
-  resource.name.includes('pug_life')
-)
-```
+Note: Demo pups? Mention how behavior is different in different browsers.
 
 -v-
 
@@ -745,24 +785,103 @@ Note: (1) In this `picture` tag, we have 2 sources and an img. Older browsers si
 
 ```html
 <picture>
-  <source type="image/webp" srcset="pyramid.webp">
-  <source type="image/svg+xml" srcset="pyramid.svg">
-  <img src="pyramid.png"
-       alt="regular pyramid built from four equilateral triangles">
+  <source type="image/webp" srcset="pug_life.webp">
+  <img src="pug_life.jpg"
+       alt="pug wearing a striped t-shirt like a boss">
 </picture>
 ```
 
 -v-
 
-## Do I really have to write all that markup myself? No.
+## `webp`, `srcset`, &amp; `sizes`, oh my!
 
-Some (not all) tooling options:
+```html
+<picture>
+  <source srcset="./images/sofa_pug_400.webp 400w,
+                  ./images/sofa_pug_800.webp 800w"
+          type="image/webp" />
+  <img src="./images/sofa_pug_400.jpg"
+        srcset="./images/sofa_pug_400.jpg 400w,
+                ./images/sofa_pug_800.jpg 800w"
+        sizes="400px"
+        width="400px"
+        alt="pug on a sofa looking sad" />
+</picture>
+```
 
-- Simple markup and server selects better image
-- Cloud-based services like [Cloudinary](https://cloudinary.com)
+-v-
+
+## Image Exercise 2
+
+1. Provide `webp` formats with `jpg` fallbacks, full source sets, and sizes for one picture (see `webp` files provided).
+2. (Optional) Install `cwebp` and create `webp` versions of the other images, then update them as well. See next slide for getting started...
+
+<!-- TODO: provide install and sample commands -->
+<small>[developers.google.com/speed/webp/docs/cwebp](https://developers.google.com/speed/webp/docs/cwebp)
+
+-v-
+
+## `cwebp`
+
+- Install:
+  - Mac `brew install cwebp`, Windows `choco install webp`, Red Hat `yum install libwebp-tools`, Node-based `npm i -g cwebp-bin`
+- Use:
+  - Convert `source.png` to a lossy webp file `output.webp` with a quality of 75 (0-100): `cwebp -q 75 source.png -o output.webp`
+  - Convert `source.png` to a lossless webp file `output.webp`: `cwebp -lossless source.png -o output.webp`
+  - For lossless, control compression with `-z` (0-9 with 9 being highest compression but also longest encoding)
+
+<small>[developers.google.com/speed/webp/docs/cwebp](https://developers.google.com/speed/webp/docs/cwebp)
+
+-v-
+
+## Do I really have to write all this markup?
+
+Nope. Some (not all) tooling options:
+
+- Simple `<img>` and server selects best image to respond with
+- Paid cloud-based services like [Cloudinary](https://cloudinary.com)
 - Build tools like various webpack loaders
 
 Note: (1) Many people have their server hijack the request and serve the best image to minimize markup. Could also use a serverless function. (2) Cost money. (3) So many options - both create your srcset code and process the images
+
+-v-
+
+# Lazy Loading Images
+
+-v-
+
+## I can't wait for the future
+
+<small>Native lazy-loading for `<img>` and `<iframe>` hopefully in Chrome ~75</small>
+
+<img src="./images/native_lazy.png_large" alt="<img loading=lazy> examples" class="nooutline" width="60%">
+
+<small>[addyosmani.com/blog/lazy-loading/](https://addyosmani.com/blog/lazy-loading/)</small>
+
+-v-
+
+## Image Exercise 3: Lazy Loading for Today &trade;
+
+In the meantime, let's install `yall` in our project:
+
+```bash
+npm i yall --save
+```
+
+```js
+document.addEventListener("DOMContentLoaded", yall);
+```
+
+```html
+<!-- An src-only <img> element example -->
+<img class="lazy" src="placeholder.jpg"
+     data-src="image-to-lazy-load.jpg"
+     alt="Alternative text to describe image.">
+```
+
+How big is our initial load now?
+
+<small>See repo for all details and for `IntersectionObserver` polyfill: [github.com/malchata/yall.js](https://github.com/malchata/yall.js)</small>
 
 ---
 
@@ -1312,10 +1431,3 @@ Note: “Often the psychology of queuing is more important than the statistics o
 <!-- .slide: data-background="./images/hero_bg.jpg" -->
 <h1 class="title dark-background">Thanks!</h1>
 Slides, resources, and more at <a href="https://bit.ly/siaspeaks" class="dark-background">bit.ly/siaspeaks</a>
-
--v-
-
-<video autoplay loop>
-  <source src="./images/arnold_cats.mp4" type="video/mp4">
-  Sorry, your browser doesn't support embedded videos.
-</video>
