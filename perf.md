@@ -736,8 +736,8 @@ Note: `srcset` can accept DPR instead of widths, though I find this more confusi
   - Inspect an `<img>` then hover on filename to see displayed and natural sizes.
   - Run the RespImageLint bookmarklet to get suggestions.
 2. **Optimize**
-  - Replace the large `png` images with `jpg` ones.
-  - Use `srcset` and `sizes` to provide options for screens with DPRs of 1 and 2 (optional: 4).
+  - Replace the `png` image with an `svg`.
+  - Use `srcset` and `sizes` to provide options for screens with DPRs of 1 and 2 (optional: 4). `html-loader` work-around: `<%=require('./images/code_400.jpg')%>`
 2. **Debug**
   - Find your screen DPR: `window.devicePixelRatio`.
   - Discover which file is being used: Inspect > Properties > `img` > `currentSrc`. Start with a small screen size, then observe how this changes as you increase.
@@ -862,7 +862,7 @@ Note: (1) Many people have their server hijack the request and serve the best im
 
 ## Image Exercise 3: Lazy Loading for Today &trade;
 
-In the meantime, let's install `yall` in our project:
+In the meantime, let's install `yall` in our project. See [`html-loader`](https://webpack.js.org/loaders/html-loader/) docs for including the `data-src`.
 
 ```bash
 npm i yall --save
