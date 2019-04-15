@@ -30,7 +30,7 @@ Note: Suggest pair programming and give them an opportunity to change seats.
 
 ## Take out a piece of paper...
 
-<img src="./images/notes.jpg" alt="Note paper with three columns of implement, research, or seek assistance" height="500px">
+<img src="./images/Notes_caps.jpg" alt="Note paper with three columns of implement, research, or seek assistance" height="500px">
 
 ---
 
@@ -40,7 +40,7 @@ Note: Suggest pair programming and give them an opportunity to change seats.
   <tbody>
     <tr>
       <td>[🤷🏼 Intro: Why?](#/2)</td>
-      <td>[🏊🏿‍♀️ Deep-Dive: JavaScript in Webpack](#/9)</td>
+      <td>[🏊🏿‍♀️ Deep-Dive: JavaScript+ in Webpack](#/9)</td>
     </tr>
     <tr>
       <td>[🧪 Test environments](#/3)</td>
@@ -593,6 +593,7 @@ For each step, confirm the expected benefit by running a network profile in DevT
 2. Preconnect to fonts.gstatic.com.
 3. Preload the local fonts.
 4. Fix the FOIT.
+5. Bonus: Use cmd + shift + p to turn on "Show coverage". Record a load and click on the results. What do you notice?
 
 -v-
 
@@ -602,6 +603,8 @@ For each step, confirm the expected benefit by running a network profile in DevT
 - Use appropriate **caching headers**
 - Use **service workers** for precaching and offline optimization
 - **Lazy-load** non-critical assets (below-the-fold assets like images, components in JavaScript, etc.)
+- Use SVGs instead of icon fonts or subset the font.
+- Inline critical CSS with [Critical](https://github.com/addyosmani/critical) and asynchronously load non-critical CSS with [loadCSS](https://github.com/filamentgroup/loadCSS).
 
 <small>[Preload, Prefetch And Priorities in Chrome](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf) by Addy Osmani</small>
 
@@ -733,7 +736,7 @@ Note: `srcset` can accept DPR instead of widths, though I find this more confusi
 
 1. **Analyze**
   - Write down how big our initial load is now.
-  - Inspect an `<img>` then hover on filename to see displayed and natural sizes.
+  - Inspect `<img>`, hover on filename to see displayed/ natural sizes.
   - Run the RespImageLint bookmarklet to get suggestions.
 2. **Optimize**
   - Replace the `png` image with an `svg`.
@@ -742,7 +745,9 @@ Note: `srcset` can accept DPR instead of widths, though I find this more confusi
   - Find your screen DPR: `window.devicePixelRatio`.
   - Discover which file is being used: Inspect > Properties > `img` > `currentSrc`. Start with a small screen size, then observe how this changes as you increase.
 
-Note: Demo pups? Mention how behavior is different in different browsers.
+<small>[Sharp](https://www.npmjs.com/package/sharp) &amp; [Imagemagick](https://www.imagemagick.org/script/index.php) are great for resizing images. Examples at [Serve Responsive Images](https://web.dev/fast/serve-responsive-images).</small>
+
+Note: Demo pups? Mention how behavior is different in different browsers. Sharp for JS and batch, Imagemagick for CLI. `convert galaxy.jpg -resize 720 galaxy_720.jpg`
 
 -v-
 
@@ -846,6 +851,32 @@ Note: (1) Many people have their server hijack the request and serve the best im
 
 -v-
 
+## CSS Background Image Performance
+
+- Use media queries to select the best width image for a chosen screen size and DPR (use postcss/autoprefixer to get rest of prefixes):
+  ```css
+  @media only screen and (min-width: 320px) {
+    /* small screen, DPR = 1 */ }
+  @media only screen and (min-device-pixel-ratio: 2) and (min-width: 320px),
+    only screen and (min-resolution: 192dpi) and (min-width: 320px),
+    only screen and (min-resolution: 2dppx) and (min-width: 320px),{
+    /* small screen, DPR = 2 */ }
+  ```
+- Don't use `display: none;` as a perf strategy. Some browsers will still load hidden images.
+- [Generate a CSS gradient](https://www.louisbourque.ca/Color-Extractor/) of your image to show during load.
+- Lazy-load your background images.
+
+<small>Check out this cool [Color-Extractor](https://www.louisbourque.ca/Color-Extractor/) tool built by Louis Bourque.</small>
+
+-v-
+
+## Image Exercise 3
+
+1. Check out the footer background image HTML and CSS. Observe that a gradient has already been generated. Uncomment that line to implement.
+2. Generate at least one set of media queries to provide better options for different screen sizes.
+
+-v-
+
 # Lazy Loading Images
 
 -v-
@@ -860,7 +891,7 @@ Note: (1) Many people have their server hijack the request and serve the best im
 
 -v-
 
-## Image Exercise 3: Lazy Loading for Today &trade;
+## Image Exercise 4: Lazy Loading for Today &trade;
 
 In the meantime, let's install `yall` in our project. See [`html-loader`](https://webpack.js.org/loaders/html-loader/) docs for including the `data-src`.
 
@@ -879,7 +910,8 @@ document.addEventListener("DOMContentLoaded", yall);
      alt="Alternative text to describe image.">
 ```
 
-How big is our initial load now?
+- How big is our initial load now?
+- Optional: Lazy-load the CSS background image too.
 
 <small>See repo for all details and for `IntersectionObserver` polyfill: [github.com/malchata/yall.js](https://github.com/malchata/yall.js)</small>
 
@@ -943,37 +975,39 @@ Note: 3rd party scripts can be your biggest JS offender. Know how to find and me
 
 ## Exercise: Bundle Analysis, Part 1
 
-1. Clone this webpack workshop repo: [tinyurl.com/webpack-workshop](https://tinyurl.com/webpack-workshop).
-2. `cd` into the directory and run `npm install`.
-3. Note that webpack-bundle-analyzer is installed (see webpack.config.js).
-4. Run `npm run build` to run the production build which currently also triggers webpack-bundle-analyzer.
-5. What do you notice about our JavaScript bundle?
+1. Note that webpack-bundle-analyzer is already installed in our project.
+2. Go to webpack.config.js and change `openAnalyzer` to `true`
+3. Run `npm run build` to run the production build.
+4. What do you notice about our JavaScript bundle? What are the biggest dependencies?
+5. What would you see if you ran it in development?
 
 -v-
 
 ## Module Imports
 
 ```javascript
-// Big
+// Big = 527kb
 import _ from 'lodash';
 _.isEmpty({});
 
-// Big
+// Big = 527kb
 import {isEmpty} from 'lodash';
 isEmpty({});
 
-// Little
+// Little = 24kb
 import isEmpty from 'lodash/isEmpty';
 isEmpty({})
 
-// Big
+// Big = 544kb
 import moment from 'moment';
 
-// Little
-import addMinutes from 'date-fns/addMinutes';
+// Little = 11kb
+import addMinutes from 'date-fns/add_minutes';
 ```
 
 <small>Use Moment? Try [date-fns](https://date-fns.org/) instead.</small>
+
+Note: Tree-shaking can help do this for us so we don't have to worry so much about doing our imports "correctly".
 
 -v-
 
@@ -983,6 +1017,17 @@ import addMinutes from 'date-fns/addMinutes';
 2. Update the import to only import the function(s) needed.
 3. Re-run `npm run build` to see if it improved.
 4. Hover over the various blocks. How did the sizes change for the whole bundle and for just Lodash?
+5. Replace Moment with Date-fns single-function imports. How did the sizes change?
+
+-v-
+
+We can do so much more to optimize TTI, but we need to use our build tool to implement...
+
+---
+
+# 🏊🏿‍♀️ Deep-Dive: 🏊🏿‍♀️<br>JavaScript+ in Webpack
+
+<small>+ CSS + images + ...</small>
 
 -v-
 
@@ -996,6 +1041,23 @@ import addMinutes from 'date-fns/addMinutes';
 - Set up **performance budgets** to prevent performance creep.
 
 <small>https://webpack.js.org/configuration/performance/</small>
+
+-v-
+
+## Low-hanging fruit
+
+- Compression
+
+-v-
+
+## Compression
+
+- `brotli` offers higher compression with a better algorithm, but `gzip` is more widely supported.
+- Your hosting platform or CDN might be able to do this by default without you having to do it.
+- Dynamic: the server compresses on request. Simpler build but potentially slower response.
+- Static: performed at build. Slower build, but faster response.
+
+Use [brotli-webpack-plugin](https://github.com/mynameiswhm/brotli-webpack-plugin) or [compression-webpack-plugin](https://github.com/webpack-contrib/compression-webpack-plugin) (gzip) for static compression with webpack.
 
 -v-
 
@@ -1086,10 +1148,6 @@ Note: PRPL - push minimal code for initial route, render route and get interacti
 <small>https://philipwalton.com/articles/deploying-es2015-code-in-production-today/</small>
 
 Note: We transpile and polyfill most code, but most users are on modern browsers. So why are we shippping Unnecessary code? What's the impact?  Webpack can create 2 bundles for you - transpiled to ES5 and not-transpiled ES2015+. These are the results from a small blog app - remember since JS is most expensive asset this affects not just download but parse and compile time. <strong>Bigger apps mean bigger gains</strong>. No time to go through how, but this article goes through the steps. (test using script type=module, set up separate webpack config and need to include modules
-
----
-
-# 🏊🏿‍♀️ Deep-Dive: 🏊🏿‍♀️<br>JavaScript in Webpack
 
 ---
 
