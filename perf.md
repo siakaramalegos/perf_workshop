@@ -44,26 +44,26 @@ Note: Suggest pair programming and give them an opportunity to change seats.
     </tr>
     <tr>
       <td>[🧪 Test environments](#/3)</td>
-      <td>[Smooth UI: Script execution costs](#/10)</td>
+      <td>[💸 Smooth UI: Script execution costs](#/10)</td>
     </tr>
     <tr>
       <td>[📈 Metrics](#/4)</td>
-      <td>[Real User Monitoring](#/11)</td>
+      <td>[🍹 Real User Monitoring](#/11)</td>
     </tr>
     <tr>
       <td>
         <img class="nooutline" width="32px" style="margin:0 0 -6px 0" src="./images/tool-devtools.svg" alt="Chrome DevTools"/>
         [Set up DevTools #LikeABoss](#/5)
       </td>
-      <td>[Smooth UI: Other costs](#/12)</td>
+      <td>[ 🎷 Smooth UI: Other costs](#/12)</td>
     </tr>
     <tr>
       <td>[⌚ Download cost: Latency](#/6)</td>
-      <td>[Accessibility debugging](#/13)</td>
+      <td>[🦸🏻‍♀️ Accessibility debugging](#/13)</td>
     </tr>
     <tr>
       <td>[📸 Download cost: Images](#/7)</td>
-      <td>[Closing: Perceived performance](#/14)</td>
+      <td>[🤔 Closing: Perceived performance](#/14)</td>
     </tr>
     <tr>
       <td>[💰 Download cost: JavaScript](#/8)</td>
@@ -737,10 +737,10 @@ Note: `srcset` can accept DPR instead of widths, though I find this more confusi
 1. **Analyze**
   - Write down how big our initial load is now.
   - Inspect `<img>`, hover on filename to see displayed/ natural sizes.
-  - Run the RespImageLint bookmarklet to get suggestions.
+  - Run the RespImageLint bookmarklet to get suggestions here and in step 2 for `sizes`. Be lazy!
 2. **Optimize**
   - Replace the `png` image with an `svg`.
-  - Use `srcset` and `sizes` to provide options for screens with DPRs of 1 and 2 (optional: 4). `html-loader` work-around: `<%=require('./images/code_400.jpg')%>`
+  - Use `srcset` and `sizes` to provide options for screens with DPRs of 1 and 2 (optional: 4). Switch to `html-loader-srcset`.
 2. **Debug**
   - Find your screen DPR: `window.devicePixelRatio`.
   - Discover which file is being used: Inspect > Properties > `img` > `currentSrc`. Start with a small screen size, then observe how this changes as you increase.
@@ -818,8 +818,28 @@ Note: (1) In this `picture` tag, we have 2 sources and an img. Older browsers si
 
 ## Image Exercise 2
 
-1. Provide `webp` formats with `jpg` fallbacks, full source sets, and sizes for one picture (see `webp` files provided).
-2. (Optional) Install `cwebp` and create `webp` versions of the other images, then update them as well. See next slide for getting started...
+1. Provide `webp` formats with `jpg` fallbacks for one picture. Update webpack.config.js:
+
+```diff
+     rules: [
+       {
+         test: /\.html$/,
+-        loader: 'html-loader-srcset'
++        use: {
++          loader: 'html-loader-srcset',
++          options: {
++            attrs: ['img:src', 'img:srcset', 'source:srcset']
++          }
++        }
+       },
+       {
+-        test: /\.(png|jpg|gif|svg)$/,
++        test: /\.(png|jpg|gif|svg|webp)$/,
+         use: ['file-loader']
+       },
+```
+
+2. (Optional) Install `cwebp` and create `webp` versions of the other images. See next slide for getting started...
 
 <!-- TODO: provide install and sample commands -->
 <small>[developers.google.com/speed/webp/docs/cwebp](https://developers.google.com/speed/webp/docs/cwebp)
@@ -853,7 +873,7 @@ Note: (1) Many people have their server hijack the request and serve the best im
 
 ## CSS Background Image Performance
 
-- Use media queries to select the best width image for a chosen screen size and DPR (use postcss/autoprefixer to get rest of prefixes):
+- Use media queries to select the best width image for a chosen screen size and DPR (use postcss/autoprefixer to get prefixes):
   ```css
   @media only screen and (min-width: 320px) {
     /* small screen, DPR = 1 */ }
@@ -873,7 +893,24 @@ Note: (1) Many people have their server hijack the request and serve the best im
 ## Image Exercise 3
 
 1. Check out the footer background image HTML and CSS. Observe that a gradient has already been generated. Uncomment that line to implement.
-2. Generate at least one set of media queries to provide better options for different screen sizes.
+2. Generate media queries to accommodate different screen sizes using `(min-resolution: 2dppx)`. Add `postcss-loader` and `autoprefixer` for the remaining prefixes ([docs](https://github.com/postcss/autoprefixer#what-is-the-unprefixed-version-of--webkit-min-device-pixel-ratio)):
+
+```diff
+       {
+         test: /\.css$/,
+-        use: ['style-loader', 'css-loader']
++        use: ['style-loader', 'css-loader', 'postcss-loader']
+       },
+```
+
+```javascript
+// postcss.config.js
+module.exports = {
+  plugins: [
+    require('autoprefixer')
+  ]
+}
+```
 
 -v-
 
@@ -893,27 +930,23 @@ Note: (1) Many people have their server hijack the request and serve the best im
 
 ## Image Exercise 4: Lazy Loading for Today &trade;
 
-In the meantime, let's install `yall` in our project. See [`html-loader`](https://webpack.js.org/loaders/html-loader/) docs for including the `data-src`.
-
-```bash
-npm i yall --save
-```
-
-```js
-document.addEventListener("DOMContentLoaded", yall);
-```
-
-```html
-<!-- An src-only <img> element example -->
-<img class="lazy" src="placeholder.jpg"
-     data-src="image-to-lazy-load.jpg"
-     alt="Alternative text to describe image.">
-```
-
+- Install `lazysizes` ([docs](https://github.com/aFarkas/lazysizes)): `npm i lazysizes --save`
+- Import in index.js: `import 'lazysizes';`
+- Replace `src` with `data-src` and `srcset` with `data-srcset`. Add `lazyload` class to each `<img>`. Add our small placeholder svg in the `src`.
+  ```html
+  <img class="lazyload" src="placeholder.svg"
+      data-src="image-to-lazy-load.jpg"
+      alt="Alternative text to describe image.">
+  ```
+- In webpack config, add `:data-src` and `:data-srcset` to the `attrs` for `html-loader-srcset`.
 - How big is our initial load now?
-- Optional: Lazy-load the CSS background image too.
 
-<small>See repo for all details and for `IntersectionObserver` polyfill: [github.com/malchata/yall.js](https://github.com/malchata/yall.js)</small>
+-v-
+
+## Optimize your images
+
+- Use [imagemin-webpack-plugin](https://web.dev/fast/use-imagemin-to-compress-images/codelab-imagemin-webpack) to optimize on build every time.
+- Use [ImageOptim](https://imageoptim.com/) or similar to do manually.
 
 ---
 
@@ -975,7 +1008,7 @@ Note: 3rd party scripts can be your biggest JS offender. Know how to find and me
 
 ## Exercise: Bundle Analysis, Part 1
 
-1. Note that webpack-bundle-analyzer is already installed in our project.
+1. Note that `webpack-bundle-analyzer` is already installed in our project.
 2. Go to webpack.config.js and change `openAnalyzer` to `true`
 3. Run `npm run build` to run the production build.
 4. What do you notice about our JavaScript bundle? What are the biggest dependencies?
@@ -1031,9 +1064,14 @@ We can do so much more to optimize TTI, but we need to use our build tool to imp
 
 -v-
 
+## Why is my app so slow?
+
+Let's profile our app with DevTools and Bundle Analyzer to generate a list of things to fix.
+
+-v-
+
 ## Optimizing Time to Interactive
 
-- **Analyze your loads and bundles! Don't over-optimize!**
 - **Only ship what's immediately needed** - use code splitting, pre-caching, and deferred or lazy loading.
 - **Minify** to speed up both download and parse/compile.
 - **Compress** with gzip or brotli.
@@ -1044,9 +1082,85 @@ We can do so much more to optimize TTI, but we need to use our build tool to imp
 
 -v-
 
-## Low-hanging fruit
+## Exercise: Low-hanging fruit
 
-- Compression
+- Set production mode
+- Extract CSS from JS and minify
+- Set browser targets for Babel
+- Generate compressed bundles
+- Disable source maps in production
+
+-v-
+
+## Set production mode
+
+Sets `NODE_ENV` to `production` for smaller builds of some libraries and turns on script minification with Terser
+
+```diff
+  {
+    ...
+    "scripts": {
+      "start": "NODE_ENV=development webpack-dev-server",
+-     "build": "webpack"
++     "build": "webpack -p"
+    },
+    ...
+  }
+```
+
+<small>See also: [the webpack docs for production builds](https://webpack.js.org/guides/production/)</small>
+
+-v-
+
+## Extract CSS from JS and minify
+
+The MiniCssExtractPlugin docs have a great [section on production](https://webpack.js.org/plugins/mini-css-extract-plugin/#minimizing-for-production) that shows how to combine these:
+
+- Use [`mini-css-extract-plugin`](https://github.com/webpack-contrib/mini-css-extract-plugin) to extract CSS from JS
+- Use [`optimize-css-assets-webpack-plugin`](https://github.com/NMFR/optimize-css-assets-webpack-plugin) to optimize
+
+-v-
+
+## webpack.config.js
+
+```diff
++const MiniCssExtractPlugin = require('mini-css-extract-plugin')
++const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
++const TerserJSPlugin = require('terser-webpack-plugin');
+
+ module.exports = {
+   module: {
+    rules: [
+       {
+         test: /\.css$/,
+-        use: ['style-loader', 'css-loader']
++        use: [ MiniCssExtractPlugin.loader, 'css-loader' ]
+       },
++  optimization: {
++    minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
++  },
+   plugins: [
+-    new CleanWebpackPlugin()
++    new CleanWebpackPlugin(),
++    new MiniCssExtractPlugin({
++      filename: '[name].[hash].css',
++    }),
+   ],
+```
+
+-v-
+
+## Set browser targets for Babel
+
+Create a `.browserslistrc`
+
+```
+last 2 versions
+> 0.2%
+not dead
+```
+
+<small>See also: [the Browserslist docs](https://github.com/browserslist/browserslist)</small>
 
 -v-
 
@@ -1058,6 +1172,40 @@ We can do so much more to optimize TTI, but we need to use our build tool to imp
 - Static: performed at build. Slower build, but faster response.
 
 Use [brotli-webpack-plugin](https://github.com/mynameiswhm/brotli-webpack-plugin) or [compression-webpack-plugin](https://github.com/webpack-contrib/compression-webpack-plugin) (gzip) for static compression with webpack.
+
+-v-
+
+## Compressing with `compression-webpack-plugin`
+
+```bash
+npm install -D compression-webpack-plugin
+```
+
+```diff
++const CompressionPlugin = require('compression-webpack-plugin');
+
+ module.exports = {
+   plugins: [
+     new MiniCssExtractPlugin({
+       filename: '[name].[hash].css',
+     }),
++    new CompressionPlugin(),
+   ],
+```
+
+-v-
+
+## Disable source maps in production
+
+```diff
+  module.exports = {
+    ...
+-   devtool: 'source-map',
++   devtool: process.env.NODE_ENV === 'production' ? 'none' : 'source-map',
+    ...
+};
+
+```
 
 -v-
 
@@ -1103,9 +1251,63 @@ Note: Paul Lewis coined the term "uncanny valley". Optimizing for content visibi
 
 Note: PRPL - push minimal code for initial route, render route and get interactive, pre-cache using service workers, and lazy-load async routes. Progressive bootstrapping - Send down a minimally functional page (composed of just the HTML/JS/CSS needed for the current route). As more resources arrive, the app can lazy-load and unlock more features.
 
+
 -v-
 
-## The Cost of Unnecessary Transpiling
+## Code Splitting Strategies
+
+1. By **entry point** manually with `entry` config (better combined with #2 to prevent dupes)
+2. Prevent duplication and **split chunks** with [SplitChunksPlugin](https://webpack.js.org/plugins/split-chunks-plugin/)
+3. **Dynamic imports** via inline functions that are only imported when needed
+
+<small>[webpack guide on code splitting](https://webpack.js.org/guides/code-splitting)</small>
+
+-v-
+
+## Exercise: Code Splitting
+
+- Let's split our code to only ship what's immediately needed on load. We'll use [dynamic imports](https://webpack.js.org/guides/code-splitting#dynamic-imports) for the rest:
+  ```diff
+  - import thing from 'packagename';
+  + import('packagename' /* webpackChunkName: "packagename" */)
+  +   .then(thing => {
+  +     // do stuff with the module here
+  +   })
+  ```
+- First, add the Babel dependencies for dynamic imports:
+  ```bash
+  npm install -D @babel/plugin-syntax-dynamic-import @babel/plugin-transform-runtime
+  npm install @babel/runtime
+  ```
+  ```diff
+   {
+     "presets": [
+       "@babel/preset-env",
+     ],
+  +  "plugins": [
+  +    "@babel/plugin-syntax-dynamic-import",
+  +    "@babel/plugin-transform-runtime"
+  +  ]
+   }
+  ```
+
+Note: The reason we need default is that since webpack 4, when importing a CommonJS module, the import will no longer resolve to the value of module.exports, it will instead create an artificial namespace object for the CommonJS module
+
+-v-
+
+## Prefetch chunks while idle
+
+```javascript
+import('marked' /* webpackChunkName: "marked", webpackPrefetch: true */)
+```
+
+<small>Read more: [`<link rel="prefetch/preload">` in webpack](https://medium.com/webpack/link-rel-prefetch-preload-in-webpack-51a52358f84c) by Tobias Koppers</small>
+
+Note: caveats about the prefetch queue even if suddenly needed now also definitely downloads so don't do too much of this
+
+-v-
+
+## Differential Serving, a.k.a. Serve modern code to modern browsers
 
 ```html
 <!-- Browsers with ES module support load this file. -->
@@ -1149,9 +1351,220 @@ Note: PRPL - push minimal code for initial route, render route and get interacti
 
 Note: We transpile and polyfill most code, but most users are on modern browsers. So why are we shippping Unnecessary code? What's the impact?  Webpack can create 2 bundles for you - transpiled to ES5 and not-transpiled ES2015+. These are the results from a small blog app - remember since JS is most expensive asset this affects not just download but parse and compile time. <strong>Bigger apps mean bigger gains</strong>. No time to go through how, but this article goes through the steps. (test using script type=module, set up separate webpack config and need to include modules
 
+-v-
+
+## Differential Serving Exercise 1: What's Babel doing?
+
+1. Run Bundle Analyzer on prod to see our starting bundle size. Run the coverage checker in DevTools to see some of the unused code. Much of this is polyfills.
+2. Update `.babelrc` to add debug:
+  ```diff
+   {
+    "presets": [
+  -    "@babel/preset-env",
+  +    [
+  +      "@babel/preset-env",
+  +      {
+  +        "debug": true
+  +      }
+  +    ]
+    ],
+    "plugins": [
+      "@babel/plugin-syntax-dynamic-import",
+  ```
+
+-v-
+
+## Differential Serving Exercise 1: What's Babel doing?
+
+- Run `npm start` and look for the targets in your terminal log:
+  ```bash
+  Using targets:
+  {
+    "android": "4.4.3",
+    "chrome": "49",
+    "edge": "17",
+    "firefox": "65",
+    "ie": "11",
+    "ios": "10.3",
+    "opera": "58",
+    "safari": "5.1",
+    "samsung": "4"
+  }
+  ```
+- Notice this line - it means it's importing ALL of babel/polyfill:
+```bash
+Using polyfills: No polyfills were added, since the `useBuiltIns`
+option was not set.
+```
+
+-v-
+
+## Differential Serving Exercise 2: Better polyfills
+
+1. Limit the polyfills to only match the targeted browsers:
+  ```diff
+       {
+         "debug": true
+  +      "useBuiltIns": "entry"
+       }
+  ```
+2. Limit the polyfills to only match those used:
+  ```diff
+  -      "useBuiltIns": "entry"
+  +      "useBuiltIns": "usage"
+  ```
+3. Delete `import "@babel/polyfill";` from index.js.
+4. Narrow the browsers supported to NOT include IE `.browserslistrc`:
+  ```bash
+  >0.25%
+  not IE 11
+  ```
+
+-v-
+
+## Differential Serving Exercise 3: Hold on to your butts
+
+1. Add new dependencies:
+  ```bash
+  npm i --save core-js
+  npm i --save-dev webpack-merge script-ext-html-webpack-plugin
+  ```
+2. Create webpack.common.js and move most of our config there except the JS rules and the `output` property.
+3. In webpack.config.js, import merge and common:
+  ```javascript
+  const merge = require('webpack-merge')
+  const common = require('./webpack.common.js')
+  ```
+4. Merge it with our existing `output` and JS rules to make sure it works before moving forward.
+
+-v-
+
+Create separate Babel configs for legacy and modernJS parts of the config for modern and legacy...
+
+```javascript
+// babel.legacy.js
+module.exports = {
+  presets: [
+    [
+      "@babel/preset-env",
+      {
+        corejs: 3,
+        modules: false,
+        useBuiltIns: "usage",
+        targets: "last 2 versions, > 0.2%, not dead"
+      }
+    ]
+  ],
+  plugins: [
+    "@babel/plugin-syntax-dynamic-import",
+    "@babel/plugin-transform-runtime"
+  ]
+}
+```
+
+-v-
+
+Also, delete .babelrc.
+
+```javascript
+// babel.modern.js
+module.exports = {
+  presets: [
+    [
+      "@babel/preset-env",
+      {
+        // corejs: 3,
+        modules: false,
+        // useBuiltIns: "usage",
+        targets: { esmodules: true }
+      }
+    ]
+  ],
+    plugins: [
+      "@babel/plugin-syntax-dynamic-import",
+      "@babel/plugin-transform-runtime"
+    ]
+}
+```
+
+-v-
+
+Create separate webpack configs for modern and legacy in webpack.config.js:
+
+```javascript
+const legacyConfig = merge(common, {
+  output: {
+    filename: '[name].js',
+    path: path.resolve('./dist')
+  },
+  module: {
+    rules: [
+      {
+        test: /\.m?js$/,
+        exclude: [/node_modules/],
+        use: {
+          loader: 'babel-loader',
+          options: babelLegacy,
+        }
+      },
+    ],
+  },
+  optimization: {
+    minimizer: [new TerserJSPlugin({})],
+  },
+})
+```
+
+-v-
+
+```javascript
+const modernConfig = merge(common, {
+  output: {
+    filename: '[name].mjs',
+    path: path.resolve('./dist')
+  },
+  module: {
+    rules: [
+      {
+        test: /\.m?js$/,
+        exclude: [/node_modules/],
+        use: {
+          loader: 'babel-loader',
+          options: babelModern,
+        }
+      },
+    ],
+  },
+  optimization: {
+    minimizer: [
+      new TerserJSPlugin({
+        test: /\.m?js(\?.*)?$/i,
+        terserOptions: {
+          ecma: 6 // This can be set to 7 or 8, too.
+        }
+      }),
+    ],
+  },
+})
+
+module.exports = [ legacyConfig, modernConfig ]
+```
+
+-v-
+
+## Tada! Oops...
+
+-v-
+
+## Differential Serving Resources
+
+- [Deploying ES2015+ Code in Production Today](https://philipwalton.com/articles/deploying-es2015-code-in-production-today/) by Philip Walton
+- [Doing Differential Serving in 2019](https://calendar.perfplanet.com/2018/doing-differential-serving-in-2019/) by Jeremy Wagner and [repo](https://github.com/malchata/diff-serving)
+- [Serve modern code to modern browsers for faster page loads](https://web.dev/fast/serve-modern-code-to-modern-browsers) by Houssein Djirdeh (and click through for codelab)
+
 ---
 
-# Smooth UI: Script execution costs
+# 💸 Smooth UI: 💸<br>Script execution costs
 
 -v-
 
@@ -1438,7 +1851,7 @@ window.addEventListener("visibilitychange", function() {
 
 ---
 
-# Smooth UI: Other costs
+# 🎷 Smooth UI: Other costs
 
 -v-
 
@@ -1451,7 +1864,7 @@ Check out Umar Hansa's [Modern DevTools](https://moderndevtools.com/) course to 
 
 ---
 
-# Accessibility debugging
+# 🦸🏻‍♀️ Accessibility 🦸🏻‍♀️<br> debugging
 
 -v-
 
@@ -1467,7 +1880,7 @@ Note: Inspect text, click on color box, unfurl contrast info. up/down arrow icon
 
 ---
 
-# Perceived Performance
+# 🤔 Perceived 🤔<br>Performance
 
 Note: Using psychology to make an app feel faster than it actually is
 
