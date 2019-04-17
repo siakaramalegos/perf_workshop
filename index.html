@@ -1,19 +1,21 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>reveal-md</title>
-    <link rel="stylesheet" href="./css/reveal.css" />
-    <link rel="stylesheet" href="./_assets/style.css" id="theme" />
-    <link rel="stylesheet" href="./css/highlight/github.css" />
-    <link rel="stylesheet" href="./css/print/paper.css" type="text/css" media="print" />
+        <title>reveal-md</title>
+        <link rel="stylesheet" href="./css/reveal.css">
+        <link rel="stylesheet" href="./_assets/style.css" id="theme">
+        <link rel="stylesheet" href="./css/highlight/github.css">
+        <link rel="stylesheet" href="./css/print/paper.css" type="text/css" media="print">
 
-  </head>
-  <body>
-    <div class="reveal">
-      <div class="slides"><section ><section data-markdown><script type="text/template">
+
+    </head>
+    <body>
+
+        <div class="reveal">
+            <div class="slides"><section ><section data-markdown><script type="text/template">
 
 <!-- .slide: data-background="./images/hero_bg.jpg" -->
 <h1 class="title dark-background"><span class="translucent">Get in the Fast Lane:</span> Measuring Web Performance</h1>
@@ -40,7 +42,7 @@
 
 ## Take out a piece of paper...
 
-<img src="./images/notes.jpg" alt="Note paper with three columns of implement, research, or seek assistance" height="500px">
+<img src="./images/Notes_caps.jpg" alt="Note paper with three columns of implement, research, or seek assistance" height="500px">
 </script></section></section><section  data-markdown><script type="text/template">
 # Topics
 
@@ -48,37 +50,33 @@
   <tbody>
     <tr>
       <td>[🤷🏼 Intro: Why?](#/2)</td>
-      <td>[Smooth UI: Script execution costs](#/10)</td>
+      <td>[🏊🏿‍♀️ Deep-Dive: JavaScript+ in Webpack](#/9)</td>
     </tr>
     <tr>
       <td>[🧪 Test environments](#/3)</td>
-      <td>[Real User Monitoring](#/11)</td>
+      <td>[💸 Smooth UI: Script execution costs](#/10)</td>
     </tr>
     <tr>
       <td>[📈 Metrics](#/4)</td>
-      <td>[Smooth UI: Other costs](#/12)</td>
+      <td>[🍹 Real User Monitoring](#/11)</td>
     </tr>
     <tr>
       <td>
         <img class="nooutline" width="32px" style="margin:0 0 -6px 0" src="./images/tool-devtools.svg" alt="Chrome DevTools"/>
         [Set up DevTools #LikeABoss](#/5)
       </td>
-      <td>[Accessibility debugging](#/13)</td>
+      <td>[ 🎷 Smooth UI: Other costs](#/12)</td>
     </tr>
     <tr>
-      <td></td>
-      <td>[Closing: Perceived performance](#/14)</td>
+      <td>[⌚ Download cost: Latency](#/6)</td>
+      <td>[🦸🏻‍♀️ Accessibility debugging](#/13)</td>
     </tr>
     <tr>
-      <td>[Download cost: Latency &amp; Caching](#/7)</td>
-      <td></td>
+      <td>[📸 Download cost: Images](#/7)</td>
+      <td>[🤔 Closing: Perceived performance](#/14)</td>
     </tr>
     <tr>
-      <td>[📸 Download cost: Images](#/8)</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>[Download cost: JavaScript](#/9)</td>
+      <td>[💰 Download cost: JavaScript](#/8)</td>
       <td></td>
     </tr>
   </tbody>
@@ -121,6 +119,15 @@
 <aside class="notes"><p>In 2016, Doubleclick by Google released a report saying that 53% of mobile sites are abandoned if pages take longer than 3 seconds to load.</p>
 </aside></script></section></section><section ><section data-markdown><script type="text/template">
 # 🧪 Test Environments 🧪
+
+</script></section><section data-markdown><script type="text/template">
+
+## Exercise Time!
+
+<video autoplay loop>
+  <source src="./images/arnold_cats.mp4" type="video/mp4">
+  Sorry, your browser doesn't support embedded videos.
+</video>
 
 </script></section><section data-markdown><script type="text/template">
 
@@ -378,7 +385,7 @@ Look at the tools you ran earlier, and write down:
 
 <aside class="notes"><p>Lots of other cool tools exist like local overrides, paint layers, etc.</p>
 </aside></script></section></section><section ><section data-markdown><script type="text/template">
-# Latency &amp; Caching
+# ⌚ Latency ⌚
 
 <aside class="notes"><p>Who is brave enough to admit they don&#39;t really know what that means?</p>
 </aside></script></section><section data-markdown><script type="text/template">
@@ -428,28 +435,9 @@ Look at the tools you ran earlier, and write down:
 
 </script></section><section data-markdown><script type="text/template">
 
-## Latency Exercise #2
+# Fonts
 
-1. Go to this webpagetest profile: [tinyurl.com/y5bl5ksn](https://tinyurl.com/y5bl5ksn)
-2. Click on the waterfall for Run 2 (the median run).
-3. Focus on the all the font-related lines. What do you notice?
-4. What would happen if we requested the font in the CSS?
-
-<video autoplay loop playsinline muted>
-  <source src="./images/hamster.mp4" type="video/mp4">
-  Sorry, your browser doesn't support embedded videos.
-</video>
-
-</script></section><section data-markdown><script type="text/template">
-
-## Loading Google Fonts
-
-```html
-<link href="https://fonts.googleapis.com/css?family=Muli:400"
-      rel="stylesheet">
-```
-
-<img src="./images/webfonts_before.png" alt="Google fonts load waterfall showing wasted time">
+<img class="nooutline" width="50%" src="./images/fonts.png" alt="Screenshot of a Google fonts font option" />
 
 </script></section><section data-markdown><script type="text/template">
 
@@ -464,6 +452,48 @@ Look at the tools you ran earlier, and write down:
   <li class="minus">Doesn't take advantage of HTTP2 multiplexing</li>
   <li class="minus">No control over FOUT or FOIT</li>
 </ul>
+
+</script></section><section data-markdown><script type="text/template">
+
+## Exercise Time!
+
+<video autoplay loop playsinline muted>
+  <source src="./images/hamster.mp4" type="video/mp4">
+  Sorry, your browser doesn't support embedded videos.
+</video>
+
+</script></section><section data-markdown><script type="text/template">
+
+## Latency Exercise #2
+
+1. Run a network profile on https://turtle-markdown-viewer.netlify.com/.
+<!-- TODO: Add a wbt profile -->
+<!-- Go to this webpagetest profile: [tinyurl.com/y5bl5ksn](https://tinyurl.com/y5bl5ksn). Click on the waterfall for Run 2 (the median run). -->
+2. Focus on the all the CSS and font-related lines.
+3. Write down the steps that are happening. What do you notice?
+
+<aside class="notes"><p>Need to answer question for both Google and local font. Google font is waiting to DL CSS until after current CSS, and local font is waiting until after current CSS though we know we want it.</p>
+</aside></script></section><section data-markdown><script type="text/template">
+
+## Loading Google Fonts from CSS
+
+```css
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+```
+
+<img src="./images/webfonts_css.png" alt="Google fonts load waterfall showing wasted time from loading from css">
+
+<aside class="notes"><p>pause here and ask what else seems wasteful - the connection time to fonts.gstatic.com</p>
+</aside></script></section><section data-markdown><script type="text/template">
+
+## Loading Google Fonts from HTML
+
+```html
+<link href="https://fonts.googleapis.com/css?family=Muli:400"
+      rel="stylesheet">
+```
+<!-- TODO: animate the image to show circle on click and slow bc no preconnect -->
+<img src="./images/webfonts_before.png" alt="Google fonts load waterfall showing wasted time">
 
 </script></section><section data-markdown><script type="text/template">
 
@@ -496,8 +526,9 @@ Look at the tools you ran earlier, and write down:
   href="./fonts/muli-v12-latin-700.woff2" crossorigin>
 ```
 
-<aside class="notes"><p>This alone does not fix perf problem.</p>
-</aside></script></section><section data-markdown><script type="text/template">
+<img src="./images/no-preload.png" alt="Google fonts load waterfall showing local font waiting to load until after CSS">
+
+</script></section><section data-markdown><script type="text/template">
 
 ## Preloading self-hosted fonts
 
@@ -532,18 +563,32 @@ Look at the tools you ran earlier, and write down:
 <aside class="notes"><p>add the <code>font-display</code> property to the <code>@font-face</code> declaration</p>
 </aside></script></section><section data-markdown><script type="text/template">
 
+## Exercise: Font Latency &amp; Display Optimization
+
+For each step, confirm the expected benefit by running a network profile in DevTools:
+
+1. Move the Google font load to HTML from CSS.
+2. Preconnect to fonts.gstatic.com.
+3. Preload the local fonts.
+4. Fix the FOIT.
+5. Bonus: Use cmd + shift + p to turn on "Show coverage". Record a load and click on the results. What do you notice?
+
+</script></section><section data-markdown><script type="text/template">
+
 ## More Latency and Caching Strategies
 
 - Adjust network download priority with **priority hints**
 - Use appropriate **caching headers**
 - Use **service workers** for precaching and offline optimization
 - **Lazy-load** non-critical assets (below-the-fold assets like images, components in JavaScript, etc.)
+- Use SVGs instead of icon fonts or subset the font.
+- Inline critical CSS with [Critical](https://github.com/addyosmani/critical) and asynchronously load non-critical CSS with [loadCSS](https://github.com/filamentgroup/loadCSS).
 
 <small>[Preload, Prefetch And Priorities in Chrome](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf) by Addy Osmani</small>
 
 <aside class="notes"><p>PRPL pattern - push, render, pre-cache, lazy-load</p>
 </aside></script></section></section><section ><section data-markdown><script type="text/template">
-# Optimized, Responsive <br>📸 Images 📸 
+# Optimized, Responsive <br>📸 Images 📸
 
 </script></section><section data-markdown><script type="text/template">
 
@@ -657,22 +702,23 @@ Look at the tools you ran earlier, and write down:
 <aside class="notes"><p><code>srcset</code> can accept DPR instead of widths, though I find this more confusing.</p>
 </aside></script></section><section data-markdown><script type="text/template">
 
-## Exercise: Debugging &amp; analyzing images
+## Image Exercise 1
 
-1. Find your screen DPR: `window.devicePixelRatio`.
-2. Inspect `<img>` then hover on filename to see displayed and natural sizes.
-3. Which file is being used:
-  - Inspect > Properties > `img` > `currentSrc`, or...
-  - `performance.getEntriesByType('resource')` and pair with `.filter()`, then look for the resource `name`
-4. Analyze one of your websites with [RespImageLint](https://ausi.github.io/respimagelint/).
+1. **Analyze**
+  - Write down how big our initial load is now.
+  - Inspect `<img>`, hover on filename to see displayed/ natural sizes.
+  - Run the RespImageLint bookmarklet to get suggestions here and in step 2 for `sizes`. Be lazy!
+2. **Optimize**
+  - Replace the `png` image with an `svg`.
+  - Use `srcset` and `sizes` to provide options for screens with DPRs of 1 and 2 (optional: 4). Switch to `html-loader-srcset`.
+2. **Debug**
+  - Find your screen DPR: `window.devicePixelRatio`.
+  - Discover which file is being used: Inspect > Properties > `img` > `currentSrc`. Start with a small screen size, then observe how this changes as you increase.
 
-```javascript
-performance.getEntriesByType('resource').filter(resource =>
-  resource.name.includes('pug_life')
-)
-```
+<small>[Sharp](https://www.npmjs.com/package/sharp) &amp; [Imagemagick](https://www.imagemagick.org/script/index.php) are great for resizing images. Examples at [Serve Responsive Images](https://web.dev/fast/serve-responsive-images).</small>
 
-</script></section><section data-markdown><script type="text/template">
+<aside class="notes"><p>Demo pups? Mention how behavior is different in different browsers. Sharp for JS and batch, Imagemagick for CLI. <code>convert galaxy.jpg -resize 720 galaxy_720.jpg</code></p>
+</aside></script></section><section data-markdown><script type="text/template">
 
 # 🎨 Art Direction 🎨
 
@@ -711,26 +757,164 @@ performance.getEntriesByType('resource').filter(resource =>
 
 ```html
 <picture>
-  <source type="image/webp" srcset="pyramid.webp">
-  <source type="image/svg+xml" srcset="pyramid.svg">
-  <img src="pyramid.png"
-       alt="regular pyramid built from four equilateral triangles">
+  <source type="image/webp" srcset="pug_life.webp">
+  <img src="pug_life.jpg"
+       alt="pug wearing a striped t-shirt like a boss">
 </picture>
 ```
 
 </script></section><section data-markdown><script type="text/template">
 
-## Do I really have to write all that markup myself? No.
+## `webp`, `srcset`, &amp; `sizes`, oh my!
 
-Some (not all) tooling options:
+```html
+<picture>
+  <source srcset="./images/sofa_pug_400.webp 400w,
+                  ./images/sofa_pug_800.webp 800w"
+          type="image/webp" />
+  <img src="./images/sofa_pug_400.jpg"
+        srcset="./images/sofa_pug_400.jpg 400w,
+                ./images/sofa_pug_800.jpg 800w"
+        sizes="400px"
+        width="400px"
+        alt="pug on a sofa looking sad" />
+</picture>
+```
 
-- Simple markup and server selects better image
-- Cloud-based services like [Cloudinary](https://cloudinary.com)
+</script></section><section data-markdown><script type="text/template">
+
+## Image Exercise 2
+
+1. Provide `webp` formats with `jpg` fallbacks for one picture. Update webpack.config.js:
+
+```diff
+     rules: [
+       {
+         test: /\.html$/,
+-        loader: 'html-loader-srcset'
++        use: {
++          loader: 'html-loader-srcset',
++          options: {
++            attrs: ['img:src', 'img:srcset', 'source:srcset']
++          }
++        }
+       },
+       {
+-        test: /\.(png|jpg|gif|svg)$/,
++        test: /\.(png|jpg|gif|svg|webp)$/,
+         use: ['file-loader']
+       },
+```
+
+2. (Optional) Install `cwebp` and create `webp` versions of the other images. See next slide for getting started...
+
+<!-- TODO: provide install and sample commands -->
+<small>[developers.google.com/speed/webp/docs/cwebp](https://developers.google.com/speed/webp/docs/cwebp)
+
+</script></section><section data-markdown><script type="text/template">
+
+## `cwebp`
+
+- Install:
+  - Mac `brew install cwebp`, Windows `choco install webp`, Red Hat `yum install libwebp-tools`, Node-based `npm i -g cwebp-bin`
+- Use:
+  - Convert `source.png` to a lossy webp file `output.webp` with a quality of 75 (0-100): `cwebp -q 75 source.png -o output.webp`
+  - Convert `source.png` to a lossless webp file `output.webp`: `cwebp -lossless source.png -o output.webp`
+  - For lossless, control compression with `-z` (0-9 with 9 being highest compression but also longest encoding)
+
+<small>[developers.google.com/speed/webp/docs/cwebp](https://developers.google.com/speed/webp/docs/cwebp)
+
+</script></section><section data-markdown><script type="text/template">
+
+## Do I really have to write all this markup?
+
+Nope. Some (not all) tooling options:
+
+- Simple `<img>` and server selects best image to respond with
+- Paid cloud-based services like [Cloudinary](https://cloudinary.com)
 - Build tools like various webpack loaders
 
 <aside class="notes"><p>(1) Many people have their server hijack the request and serve the best image to minimize markup. Could also use a serverless function. (2) Cost money. (3) So many options - both create your srcset code and process the images</p>
-</aside></script></section></section><section ><section data-markdown><script type="text/template">
-# Download cost: JavaScript
+</aside></script></section><section data-markdown><script type="text/template">
+
+## CSS Background Image Performance
+
+- Use media queries to select the best width image for a chosen screen size and DPR (use postcss/autoprefixer to get prefixes):
+  ```css
+  @media only screen and (min-width: 320px) {
+    /* small screen, DPR = 1 */ }
+  @media only screen and (min-device-pixel-ratio: 2) and (min-width: 320px),
+    only screen and (min-resolution: 192dpi) and (min-width: 320px),
+    only screen and (min-resolution: 2dppx) and (min-width: 320px),{
+    /* small screen, DPR = 2 */ }
+  ```
+- Don't use `display: none;` as a perf strategy. Some browsers will still load hidden images.
+- [Generate a CSS gradient](https://www.louisbourque.ca/Color-Extractor/) of your image to show during load.
+- Lazy-load your background images.
+
+<small>Check out this cool [Color-Extractor](https://www.louisbourque.ca/Color-Extractor/) tool built by Louis Bourque.</small>
+
+</script></section><section data-markdown><script type="text/template">
+
+## Image Exercise 3
+
+1. Check out the footer background image HTML and CSS. Observe that a gradient has already been generated. Uncomment that line to implement.
+2. Generate media queries to accommodate different screen sizes using `(min-resolution: 2dppx)`. Add `postcss-loader` and `autoprefixer` for the remaining prefixes ([docs](https://github.com/postcss/autoprefixer#what-is-the-unprefixed-version-of--webkit-min-device-pixel-ratio)):
+
+```diff
+       {
+         test: /\.css$/,
+-        use: ['style-loader', 'css-loader']
++        use: ['style-loader', 'css-loader', 'postcss-loader']
+       },
+```
+
+```javascript
+// postcss.config.js
+module.exports = {
+  plugins: [
+    require('autoprefixer')
+  ]
+}
+```
+
+</script></section><section data-markdown><script type="text/template">
+
+# Lazy Loading Images
+
+</script></section><section data-markdown><script type="text/template">
+
+## I can't wait for the future
+
+<small>Native lazy-loading for `<img>` and `<iframe>` hopefully in Chrome ~75</small>
+
+<img src="./images/native_lazy.png_large" alt="<img loading=lazy> examples" class="nooutline" width="60%">
+
+<small>[addyosmani.com/blog/lazy-loading/](https://addyosmani.com/blog/lazy-loading/)</small>
+
+</script></section><section data-markdown><script type="text/template">
+
+## Image Exercise 4: Lazy Loading for Today &trade;
+
+- Install `lazysizes` ([docs](https://github.com/aFarkas/lazysizes)): `npm i lazysizes --save`
+- Import in index.js: `import 'lazysizes';`
+- Replace `src` with `data-src` and `srcset` with `data-srcset`. Add `lazyload` class to each `<img>`. Add our small placeholder svg in the `src`.
+  ```html
+  <img class="lazyload" src="placeholder.svg"
+      data-src="image-to-lazy-load.jpg"
+      alt="Alternative text to describe image.">
+  ```
+- In webpack config, add `:data-src` and `:data-srcset` to the `attrs` for `html-loader-srcset`.
+- How big is our initial load now?
+
+</script></section><section data-markdown><script type="text/template">
+
+## Optimize your images
+
+- Use [imagemin-webpack-plugin](https://web.dev/fast/use-imagemin-to-compress-images/codelab-imagemin-webpack) to optimize on build every time.
+- Use [ImageOptim](https://imageoptim.com/) or similar to do manually.
+</script></section></section><section ><section data-markdown><script type="text/template">
+# Download cost:<br>💰 JavaScript 💰
 
 <aside class="notes"><p>Are all assets created equally?</p>
 </aside></script></section><section data-markdown><script type="text/template">
@@ -786,39 +970,40 @@ Some (not all) tooling options:
 
 ## Exercise: Bundle Analysis, Part 1
 
-1. Clone this webpack workshop repo: [tinyurl.com/webpack-workshop](https://tinyurl.com/webpack-workshop).
-2. `cd` into the directory and run `npm install`.
-3. Note that webpack-bundle-analyzer is installed (see webpack.config.js).
-4. Run `npm run build` to run the production build which currently also triggers webpack-bundle-analyzer.
-5. What do you notice about our JavaScript bundle?
+1. Note that `webpack-bundle-analyzer` is already installed in our project.
+2. Go to webpack.config.js and change `openAnalyzer` to `true`
+3. Run `npm run build` to run the production build.
+4. What do you notice about our JavaScript bundle? What are the biggest dependencies?
+5. What would you see if you ran it in development?
 
 </script></section><section data-markdown><script type="text/template">
 
 ## Module Imports
 
 ```javascript
-// Big
+// Big = 527kb
 import _ from 'lodash';
 _.isEmpty({});
 
-// Big
+// Big = 527kb
 import {isEmpty} from 'lodash';
 isEmpty({});
 
-// Little
+// Little = 24kb
 import isEmpty from 'lodash/isEmpty';
 isEmpty({})
 
-// Big
+// Big = 544kb
 import moment from 'moment';
 
-// Little
-import addMinutes from 'date-fns/addMinutes';
+// Little = 11kb
+import addMinutes from 'date-fns/add_minutes';
 ```
 
 <small>Use Moment? Try [date-fns](https://date-fns.org/) instead.</small>
 
-</script></section><section data-markdown><script type="text/template">
+<aside class="notes"><p>Tree-shaking can help do this for us so we don&#39;t have to worry so much about doing our imports &quot;correctly&quot;.</p>
+</aside></script></section><section data-markdown><script type="text/template">
 
 ## Exercise: Bundle Analysis, Part 2
 
@@ -826,12 +1011,26 @@ import addMinutes from 'date-fns/addMinutes';
 2. Update the import to only import the function(s) needed.
 3. Re-run `npm run build` to see if it improved.
 4. Hover over the various blocks. How did the sizes change for the whole bundle and for just Lodash?
+5. Replace Moment with Date-fns single-function imports. How did the sizes change?
+
+</script></section><section data-markdown><script type="text/template">
+
+We can do so much more to optimize TTI, but we need to use our build tool to implement...
+</script></section></section><section ><section data-markdown><script type="text/template">
+# 🏊🏿‍♀️ Deep-Dive: 🏊🏿‍♀️<br>JavaScript+ in Webpack
+
+<small>+ CSS + images + ...</small>
+
+</script></section><section data-markdown><script type="text/template">
+
+## Why is my app so slow?
+
+Let's profile our app with DevTools and Bundle Analyzer to generate a list of things to fix.
 
 </script></section><section data-markdown><script type="text/template">
 
 ## Optimizing Time to Interactive
 
-- **Analyze your loads and bundles! Don't over-optimize!**
 - **Only ship what's immediately needed** - use code splitting, pre-caching, and deferred or lazy loading.
 - **Minify** to speed up both download and parse/compile.
 - **Compress** with gzip or brotli.
@@ -839,6 +1038,133 @@ import addMinutes from 'date-fns/addMinutes';
 - Set up **performance budgets** to prevent performance creep.
 
 <small>https://webpack.js.org/configuration/performance/</small>
+
+</script></section><section data-markdown><script type="text/template">
+
+## Exercise: Low-hanging fruit
+
+- Set production mode
+- Extract CSS from JS and minify
+- Set browser targets for Babel
+- Generate compressed bundles
+- Disable source maps in production
+
+</script></section><section data-markdown><script type="text/template">
+
+## Set production mode
+
+Sets `NODE_ENV` to `production` for smaller builds of some libraries and turns on script minification with Terser
+
+```diff
+  {
+    ...
+    "scripts": {
+      "start": "NODE_ENV=development webpack-dev-server",
+-     "build": "webpack"
++     "build": "webpack -p"
+    },
+    ...
+  }
+```
+
+<small>See also: [the webpack docs for production builds](https://webpack.js.org/guides/production/)</small>
+
+</script></section><section data-markdown><script type="text/template">
+
+## Extract CSS from JS and minify
+
+The MiniCssExtractPlugin docs have a great [section on production](https://webpack.js.org/plugins/mini-css-extract-plugin/#minimizing-for-production) that shows how to combine these:
+
+- Use [`mini-css-extract-plugin`](https://github.com/webpack-contrib/mini-css-extract-plugin) to extract CSS from JS
+- Use [`optimize-css-assets-webpack-plugin`](https://github.com/NMFR/optimize-css-assets-webpack-plugin) to optimize
+
+</script></section><section data-markdown><script type="text/template">
+
+## webpack.config.js
+
+```diff
++const MiniCssExtractPlugin = require('mini-css-extract-plugin')
++const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
++const TerserJSPlugin = require('terser-webpack-plugin');
+
+ module.exports = {
+   module: {
+    rules: [
+       {
+         test: /\.css$/,
+-        use: ['style-loader', 'css-loader']
++        use: [ MiniCssExtractPlugin.loader, 'css-loader' ]
+       },
++  optimization: {
++    minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
++  },
+   plugins: [
+-    new CleanWebpackPlugin()
++    new CleanWebpackPlugin(),
++    new MiniCssExtractPlugin({
++      filename: '[name].[hash].css',
++    }),
+   ],
+```
+
+</script></section><section data-markdown><script type="text/template">
+
+## Set browser targets for Babel
+
+Create a `.browserslistrc`
+
+```
+last 2 versions
+> 0.2%
+not dead
+```
+
+<small>See also: [the Browserslist docs](https://github.com/browserslist/browserslist)</small>
+
+</script></section><section data-markdown><script type="text/template">
+
+## Compression
+
+- `brotli` offers higher compression with a better algorithm, but `gzip` is more widely supported.
+- Your hosting platform or CDN might be able to do this by default without you having to do it.
+- Dynamic: the server compresses on request. Simpler build but potentially slower response.
+- Static: performed at build. Slower build, but faster response.
+
+Use [brotli-webpack-plugin](https://github.com/mynameiswhm/brotli-webpack-plugin) or [compression-webpack-plugin](https://github.com/webpack-contrib/compression-webpack-plugin) (gzip) for static compression with webpack.
+
+</script></section><section data-markdown><script type="text/template">
+
+## Compressing with `compression-webpack-plugin`
+
+```bash
+npm install -D compression-webpack-plugin
+```
+
+```diff
++const CompressionPlugin = require('compression-webpack-plugin');
+
+ module.exports = {
+   plugins: [
+     new MiniCssExtractPlugin({
+       filename: '[name].[hash].css',
+     }),
++    new CompressionPlugin(),
+   ],
+```
+
+</script></section><section data-markdown><script type="text/template">
+
+## Disable source maps in production
+
+```diff
+  module.exports = {
+    ...
+-   devtool: 'source-map',
++   devtool: process.env.NODE_ENV === 'production' ? 'none' : 'source-map',
+    ...
+};
+
+```
 
 </script></section><section data-markdown><script type="text/template">
 
@@ -884,7 +1210,58 @@ import addMinutes from 'date-fns/addMinutes';
 <aside class="notes"><p>PRPL - push minimal code for initial route, render route and get interactive, pre-cache using service workers, and lazy-load async routes. Progressive bootstrapping - Send down a minimally functional page (composed of just the HTML/JS/CSS needed for the current route). As more resources arrive, the app can lazy-load and unlock more features.</p>
 </aside></script></section><section data-markdown><script type="text/template">
 
-## The Cost of Unnecessary Transpiling
+## Code Splitting Strategies
+
+1. By **entry point** manually with `entry` config (better combined with #2 to prevent dupes)
+2. Prevent duplication and **split chunks** with [SplitChunksPlugin](https://webpack.js.org/plugins/split-chunks-plugin/)
+3. **Dynamic imports** via inline functions that are only imported when needed
+
+<small>[webpack guide on code splitting](https://webpack.js.org/guides/code-splitting)</small>
+
+</script></section><section data-markdown><script type="text/template">
+
+## Exercise: Code Splitting
+
+- Let's split our code to only ship what's immediately needed on load. We'll use [dynamic imports](https://webpack.js.org/guides/code-splitting#dynamic-imports) for the rest:
+  ```diff
+  - import thing from 'packagename';
+  + import('packagename' /* webpackChunkName: "packagename" */)
+  +   .then(thing => {
+  +     // do stuff with the module here
+  +   })
+  ```
+- First, add the Babel dependencies for dynamic imports:
+  ```bash
+  npm install -D @babel/plugin-syntax-dynamic-import @babel/plugin-transform-runtime
+  npm install @babel/runtime
+  ```
+  ```diff
+   {
+     "presets": [
+       "@babel/preset-env",
+     ],
+  +  "plugins": [
+  +    "@babel/plugin-syntax-dynamic-import",
+  +    "@babel/plugin-transform-runtime"
+  +  ]
+   }
+  ```
+
+<aside class="notes"><p>The reason we need default is that since webpack 4, when importing a CommonJS module, the import will no longer resolve to the value of module.exports, it will instead create an artificial namespace object for the CommonJS module</p>
+</aside></script></section><section data-markdown><script type="text/template">
+
+## Prefetch chunks while idle
+
+```javascript
+import('marked' /* webpackChunkName: "marked", webpackPrefetch: true */)
+```
+
+<small>Read more: [`<link rel="prefetch/preload">` in webpack](https://medium.com/webpack/link-rel-prefetch-preload-in-webpack-51a52358f84c) by Tobias Koppers</small>
+
+<aside class="notes"><p>caveats about the prefetch queue even if suddenly needed now also definitely downloads so don&#39;t do too much of this</p>
+</aside></script></section><section data-markdown><script type="text/template">
+
+## Differential Serving, a.k.a. Serve modern code to modern browsers
 
 ```html
 <!-- Browsers with ES module support load this file. -->
@@ -927,8 +1304,218 @@ import addMinutes from 'date-fns/addMinutes';
 <small>https://philipwalton.com/articles/deploying-es2015-code-in-production-today/</small>
 
 <aside class="notes"><p>We transpile and polyfill most code, but most users are on modern browsers. So why are we shippping Unnecessary code? What&#39;s the impact?  Webpack can create 2 bundles for you - transpiled to ES5 and not-transpiled ES2015+. These are the results from a small blog app - remember since JS is most expensive asset this affects not just download but parse and compile time. <strong>Bigger apps mean bigger gains</strong>. No time to go through how, but this article goes through the steps. (test using script type=module, set up separate webpack config and need to include modules</p>
-</aside></script></section></section><section ><section data-markdown><script type="text/template">
-# Smooth UI: Script execution costs
+</aside></script></section><section data-markdown><script type="text/template">
+
+## Differential Serving Exercise 1: What's Babel doing?
+
+1. Run Bundle Analyzer on prod to see our starting bundle size. Run the coverage checker in DevTools to see some of the unused code. Much of this is polyfills.
+2. Update `.babelrc` to add debug:
+  ```diff
+   {
+    "presets": [
+  -    "@babel/preset-env",
+  +    [
+  +      "@babel/preset-env",
+  +      {
+  +        "debug": true
+  +      }
+  +    ]
+    ],
+    "plugins": [
+      "@babel/plugin-syntax-dynamic-import",
+  ```
+
+</script></section><section data-markdown><script type="text/template">
+
+## Differential Serving Exercise 1: What's Babel doing?
+
+- Run `npm start` and look for the targets in your terminal log:
+  ```bash
+  Using targets:
+  {
+    "android": "4.4.3",
+    "chrome": "49",
+    "edge": "17",
+    "firefox": "65",
+    "ie": "11",
+    "ios": "10.3",
+    "opera": "58",
+    "safari": "5.1",
+    "samsung": "4"
+  }
+  ```
+- Notice this line - it means it's importing ALL of babel/polyfill:
+```bash
+Using polyfills: No polyfills were added, since the `useBuiltIns`
+option was not set.
+```
+
+</script></section><section data-markdown><script type="text/template">
+
+## Differential Serving Exercise 2: Better polyfills
+
+1. Limit the polyfills to only match the targeted browsers:
+  ```diff
+       {
+         "debug": true
+  +      "useBuiltIns": "entry"
+       }
+  ```
+2. Limit the polyfills to only match those used:
+  ```diff
+  -      "useBuiltIns": "entry"
+  +      "useBuiltIns": "usage"
+  ```
+3. Delete `import "@babel/polyfill";` from index.js.
+4. Narrow the browsers supported to NOT include IE `.browserslistrc`:
+  ```bash
+  >0.25%
+  not IE 11
+  ```
+
+</script></section><section data-markdown><script type="text/template">
+
+## Differential Serving Exercise 3: Hold on to your butts
+
+1. Add new dependencies:
+  ```bash
+  npm i --save core-js
+  npm i --save-dev webpack-merge script-ext-html-webpack-plugin
+  ```
+2. Create webpack.common.js and move most of our config there except the JS rules and the `output` property.
+3. In webpack.config.js, import merge and common:
+  ```javascript
+  const merge = require('webpack-merge')
+  const common = require('./webpack.common.js')
+  ```
+4. Merge it with our existing `output` and JS rules to make sure it works before moving forward.
+
+</script></section><section data-markdown><script type="text/template">
+
+Create separate Babel configs for legacy and modernJS parts of the config for modern and legacy...
+
+```javascript
+// babel.legacy.js
+module.exports = {
+  presets: [
+    [
+      "@babel/preset-env",
+      {
+        corejs: 3,
+        modules: false,
+        useBuiltIns: "usage",
+        targets: "last 2 versions, > 0.2%, not dead"
+      }
+    ]
+  ],
+  plugins: [
+    "@babel/plugin-syntax-dynamic-import",
+    "@babel/plugin-transform-runtime"
+  ]
+}
+```
+
+</script></section><section data-markdown><script type="text/template">
+
+Also, delete .babelrc.
+
+```javascript
+// babel.modern.js
+module.exports = {
+  presets: [
+    [
+      "@babel/preset-env",
+      {
+        // corejs: 3,
+        modules: false,
+        // useBuiltIns: "usage",
+        targets: { esmodules: true }
+      }
+    ]
+  ],
+    plugins: [
+      "@babel/plugin-syntax-dynamic-import",
+      "@babel/plugin-transform-runtime"
+    ]
+}
+```
+
+</script></section><section data-markdown><script type="text/template">
+
+Create separate webpack configs for modern and legacy in webpack.config.js:
+
+```javascript
+const legacyConfig = merge(common, {
+  output: {
+    filename: '[name].js',
+    path: path.resolve('./dist')
+  },
+  module: {
+    rules: [
+      {
+        test: /\.m?js$/,
+        exclude: [/node_modules/],
+        use: {
+          loader: 'babel-loader',
+          options: babelLegacy,
+        }
+      },
+    ],
+  },
+  optimization: {
+    minimizer: [new TerserJSPlugin({})],
+  },
+})
+```
+
+</script></section><section data-markdown><script type="text/template">
+
+```javascript
+const modernConfig = merge(common, {
+  output: {
+    filename: '[name].mjs',
+    path: path.resolve('./dist')
+  },
+  module: {
+    rules: [
+      {
+        test: /\.m?js$/,
+        exclude: [/node_modules/],
+        use: {
+          loader: 'babel-loader',
+          options: babelModern,
+        }
+      },
+    ],
+  },
+  optimization: {
+    minimizer: [
+      new TerserJSPlugin({
+        test: /\.m?js(\?.*)?$/i,
+        terserOptions: {
+          ecma: 6 // This can be set to 7 or 8, too.
+        }
+      }),
+    ],
+  },
+})
+
+module.exports = [ legacyConfig, modernConfig ]
+```
+
+</script></section><section data-markdown><script type="text/template">
+
+## Tada! Oops...
+
+</script></section><section data-markdown><script type="text/template">
+
+## Differential Serving Resources
+
+- [Deploying ES2015+ Code in Production Today](https://philipwalton.com/articles/deploying-es2015-code-in-production-today/) by Philip Walton
+- [Doing Differential Serving in 2019](https://calendar.perfplanet.com/2018/doing-differential-serving-in-2019/) by Jeremy Wagner and [repo](https://github.com/malchata/diff-serving)
+- [Serve modern code to modern browsers for faster page loads](https://web.dev/fast/serve-modern-code-to-modern-browsers) by Houssein Djirdeh (and click through for codelab)
+</script></section></section><section ><section data-markdown><script type="text/template">
+# 💸 Smooth UI: 💸<br>Script execution costs
 
 </script></section><section data-markdown><script type="text/template">
 
@@ -1208,7 +1795,7 @@ window.addEventListener("visibilitychange", function() {
 }, false);
 ```
 </script></section></section><section ><section data-markdown><script type="text/template">
-# Smooth UI: Other costs
+# 🎷 Smooth UI: Other costs
 
 </script></section><section data-markdown><script type="text/template">
 
@@ -1219,7 +1806,7 @@ Check out Umar Hansa's [Modern DevTools](https://moderndevtools.com/) course to 
 - Paint costs
 - Node debugging
 </script></section></section><section ><section data-markdown><script type="text/template">
-# Accessibility debugging
+# 🦸🏻‍♀️ Accessibility 🦸🏻‍♀️<br> debugging
 
 </script></section><section data-markdown><script type="text/template">
 
@@ -1233,7 +1820,7 @@ Check out Umar Hansa's [Modern DevTools](https://moderndevtools.com/) course to 
 
 <aside class="notes"><p>Inspect text, click on color box, unfurl contrast info. up/down arrow icon in color blocks area opens palette - can choose page colors and test alternates. Do background color picker. Accessibility tree in Accessibility pane.</p>
 </aside></script></section></section><section ><section data-markdown><script type="text/template">
-# Perceived Performance
+# 🤔 Perceived 🤔<br>Performance
 
 <aside class="notes"><p>Using psychology to make an app feel faster than it actually is</p>
 </aside></script></section><section data-markdown><script type="text/template">
@@ -1250,67 +1837,61 @@ Check out Umar Hansa's [Modern DevTools](https://moderndevtools.com/) course to 
 > Are you better off making the site load faster or ensuring that users complete their tasks?
 
 <small>Christine Perfetti, [The Truth About Download Time](https://articles.uie.com/download_time/) 2006</small>
-</script></section><section ><section data-markdown><script type="text/template">
+</script></section><section  data-markdown><script type="text/template">
 <!-- .slide: data-background="./images/hero_bg.jpg" -->
 <h1 class="title dark-background">Thanks!</h1>
 Slides, resources, and more at <a href="https://bit.ly/siaspeaks" class="dark-background">bit.ly/siaspeaks</a>
+</script></section></div>
+        </div>
 
-</script></section><section data-markdown><script type="text/template">
+        <script src="./lib/js/head.min.js"></script>
+        <script src="./js/reveal.js"></script>
 
-<video autoplay loop>
-  <source src="./images/arnold_cats.mp4" type="video/mp4">
-  Sorry, your browser doesn't support embedded videos.
-</video>
-</script></section></section></div>
-    </div>
-
-    <script src="./lib/js/head.min.js"></script>
-    <script src="./js/reveal.js"></script>
-
-    <script>
-      function extend() {
-        var target = {};
-        for (var i = 0; i < arguments.length; i++) {
-          var source = arguments[i];
-          for (var key in source) {
-            if (source.hasOwnProperty(key)) {
-              target[key] = source[key];
+        <script>
+            function extend() {
+              var target = {};
+              for (var i = 0; i < arguments.length; i++) {
+                var source = arguments[i];
+                for (var key in source) {
+                  if (source.hasOwnProperty(key)) {
+                    target[key] = source[key];
+                  }
+                }
+              }
+              return target;
             }
-          }
-        }
-        return target;
-      }
 
-      // Optional libraries used to extend on reveal.js
-      var deps = [
-        { src: './lib/js/classList.js', condition: function() { return !document.body.classList; } },
-        { src: './plugin/markdown/marked.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
-        { src: './plugin/markdown/markdown.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
-        { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-        { src: './plugin/zoom-js/zoom.js', async: true },
-        { src: './plugin/notes/notes.js', async: true },
-        { src: './plugin/math/math.js', async: true }
-      ];
+            // Optional libraries used to extend on reveal.js
+            var deps = [
+              { src: './lib/js/classList.js', condition: function() { return !document.body.classList; } },
+              { src: './plugin/markdown/marked.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+              { src: './plugin/markdown/markdown.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+              { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+              { src: './plugin/zoom-js/zoom.js', async: true },
+              { src: './plugin/notes/notes.js', async: true },
+              { src: './plugin/math/math.js', async: true }
+            ];
 
-      // default options to init reveal.js
-      var defaultOptions = {
-        controls: true,
-        progress: true,
-        history: true,
-        center: true,
-        transition: 'default', // none/fade/slide/convex/concave/zoom
-        dependencies: deps
-      };
+            // default options to init reveal.js
+            var defaultOptions = {
+              controls: true,
+              progress: true,
+              history: true,
+              center: true,
+              transition: 'default', // none/fade/slide/convex/concave/zoom
+              dependencies: deps
+            };
 
-      // options from URL query string
-      var queryOptions = Reveal.getQueryHash() || {};
+            // options from URL query string
+            var queryOptions = Reveal.getQueryHash() || {};
 
-      var options = extend(defaultOptions, {}, queryOptions);
-    </script>
+            var options = {};
+            options = extend(defaultOptions, options, queryOptions);
+        </script>
 
 
-    <script>
-      Reveal.initialize(options);
-    </script>
-  </body>
+        <script>
+          Reveal.initialize(options);
+        </script>
+    </body>
 </html>
