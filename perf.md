@@ -18,6 +18,13 @@ highlightTheme: github
 
 -v-
 
+## Links for today
+
+- Slides: [bit.ly/perf-work](http://bit.ly/perf-work)
+- Project: [bit.ly/markdown-viewer](http://bit.ly/markdown-viewer) (pull down all branches)
+
+-v-
+
 ## Coding is more fun with friends 🧑🏽‍🤝‍🧑🏻
 
 - 👋 Introduce yourself to your neighbors
@@ -63,11 +70,11 @@ Note: Suggest pair programming and give them an opportunity to change seats.
     </tr>
     <tr>
       <td>[📸 Download cost: Images](#/7)</td>
-      <td>[🤔 Closing: Perceived performance](#/14)</td>
+      <td>[✏️ Exit Ticket](#/14)</td>
     </tr>
     <tr>
       <td>[💰 Download cost: JavaScript](#/8)</td>
-      <td></td>
+      <td>[🤔 Closing: Perceived performance](#/15)</td>
     </tr>
   </tbody>
 </table>
@@ -354,7 +361,7 @@ Note: Frame rate or frames per second (fps), is one measure of responsiveness. M
 
 - **Response**: process events in under 50ms
 - **Animation**: produce a frame in 10ms (for 60fps devices)
-- **Idle**: maximize idle time (50ms or less)
+- **Idle**: maximize idle time (to respond in 50ms or less)
 - **Load**: deliver content and become interactive in under 5 seconds, 2 seconds for subsequent loads*
 
 <small>[Measure Performance with the RAIL Model](https://developers.google.com/web/fundamentals/performance/rail)</small>
@@ -390,11 +397,20 @@ Note: Go through handout. Drag tabs to reorder.
 
 ## DevTools High-Level Orientation
 
-- **Performance**: script execution costs (flame chart)
+- **Performance**: script and other execution costs (flame chart)
 - **Network**: download time (waterfall)
 - **Audits**: scores performance, PWAs, accessibility, etc (Lighthouse)
 
 Note: Lots of other cool tools exist like local overrides, paint layers, etc.
+
+-v-
+
+## Exercise: Why is our site so slow?
+
+- Go to the deployed version of our app at [bit.ly/turtle-mv](http://bit.ly/turtle-mv).
+- Use DevTools or other tools to write down a list of things we might want to improve.
+
+Note: In the next units, we'll learn about the biggest issues that cause slow websites and fix them. Then this process won't feel as foreign next time you do it.
 
 ---
 
@@ -419,9 +435,9 @@ Note: Who is brave enough to admit they don't really know what that means?
 
 ## Latency Exercise #1
 
-1. Perform a Network profile on one of these websites: [espn.com](http://www.espn.com/), [go.com](http://go.com/), [nolalibrary.org/](http://nolalibrary.org/), [spiegel.de/](http://www.spiegel.de/), [grandrapidsohio.com/](http://www.grandrapidsohio.com/)
-2. Now, perform a Network profile on one of these websites: [marvel.com/captainmarvel/](https://www.marvel.com/captainmarvel/), [nytimes.com](https://www.nytimes.com/), [clioandcalliope.com](https://www.clioandcalliope.com/), [nola.gov/](https://www.nola.gov/)
-3. Compare the two. What do you notice?
+1. Perform a Network profile on one of these websites: [nolalibrary.org/](http://nolalibrary.org/), [grandrapidsohio.com/](http://www.grandrapidsohio.com/)
+2. Now, perform a Network profile on one of these websites: [marvel.com/captainmarvel/](https://www.marvel.com/captainmarvel/), [clioandcalliope.com](https://www.clioandcalliope.com/), [nola.gov/](https://www.nola.gov/)
+3. Compare the two, focusing on assets from the same domain (ignore ads and third-party scripts). How do the shapes of the waterfalls compare? Are they chained or concurrent?
 
 -v-
 
@@ -463,10 +479,10 @@ Note: In addition, header compression. HTTP2 server push has not lived up to the
   <li class="plus">Hosted on fast and reliable CDNs</li>
   <li class="plus">Can provide optimized variants based on user's browser</li>
    <li class="plus">Opportunity for shared caching on popular fonts</li>
+  <li class="plus">We now have control over FOUT and FOIT!</li>
   <li class="minus">Minumum of 2 separate requests</li>
   <li class="minus">Can't use resource hints on the font file</li>
   <li class="minus">Doesn't take advantage of HTTP2 multiplexing</li>
-  <li class="minus">No control over FOUT or FOIT</li>
 </ul>
 
 -v-
@@ -482,11 +498,11 @@ Note: In addition, header compression. HTTP2 server push has not lived up to the
 
 ## Latency Exercise #2
 
-1. Run a network profile on https://turtle-markdown-viewer.netlify.com/.
+1. Run a network profile on [bit.ly/webfont-css](http://bit.ly/webfont-css).
 <!-- TODO: Add a wbt profile -->
 <!-- Go to this webpagetest profile: [tinyurl.com/y5bl5ksn](https://tinyurl.com/y5bl5ksn). Click on the waterfall for Run 2 (the median run). -->
 2. Focus on the all the CSS and font-related lines.
-3. Write down the steps that are happening. What do you notice?
+3. Write down the steps that are happening. The code is at [bit.ly/webfont-css-code](http://bit.ly/webfont-css-code). What do you notice?
 
 Note: Need to answer question for both Google and local font. Google font is waiting to DL CSS until after current CSS, and local font is waiting until after current CSS though we know we want it.
 
@@ -519,7 +535,7 @@ Note: pause here and ask what else seems wasteful - the connection time to fonts
 
 <small>https://twitter.com/addyosmani/status/743571393174872064?lang=en</small>
 
-Note: pdf version of this is in the replies to this tweet
+Note: dns-prefetch only does the dns part of the prefetch, but on the plus side, it doesn't expire after a short amount of time.
 
 -v-
 
@@ -587,12 +603,13 @@ Note: add the `font-display` property to the `@font-face` declaration
 
 ## Exercise: Font Latency &amp; Display Optimization
 
-For each step, confirm the expected benefit by running a network profile in DevTools:
+Let's make our markdown viewer faster!
+<br>[bit.ly/markdown-viewer](http://bit.ly/markdown-viewer)
 
 1. Move the Google font load to HTML from CSS.
 2. Preconnect to fonts.gstatic.com.
 3. Preload the local fonts.
-4. Fix the FOIT.
+4. Fix the FOIT for both web and local fonts.
 5. Bonus: Use cmd + shift + p to turn on "Show coverage". Record a load and click on the results. What do you notice?
 
 -v-
@@ -986,7 +1003,7 @@ Note: Are all assets created equally?
 
 -v-
 
-## Exercise: JS DevTools, Part 3: 3rd-party scripts analysis
+## Exercise: JS DevTools, Part 3: <br>3rd-party scripts analysis
 
 1. Run a Performance profile on reload, without throttling.
 2. Check out the Summary pane for full JS execution time.
@@ -1554,6 +1571,8 @@ module.exports = [ legacyConfig, modernConfig ]
 
 ## Tada! Oops...
 
+Note: What is the first step run in the build process? Clean! We need to edit this so it doesn't keep deleting the first build that is run when starting the second build. One quick fix is editing the script by adding `rm -rf build &&` and deleting the clean-webpack-plugin stuff.
+
 -v-
 
 ## Differential Serving Resources
@@ -1877,6 +1896,19 @@ Check out Umar Hansa's [Modern DevTools](https://moderndevtools.com/) course to 
 <small>Check out Umar Hansa's free lesson here: https://www.youtube.com/watch?v=xWPMfcjhts8</small>
 
 Note: Inspect text, click on color box, unfurl contrast info. up/down arrow icon in color blocks area opens palette - can choose page colors and test alternates. Do background color picker. Accessibility tree in Accessibility pane.
+
+---
+
+# ✏️ Exit Ticket ✏️
+
+-v-
+
+## Exercise: Why is YOUR site so slow?
+
+- Go to a website YOU work on.
+- Use DevTools or other tools to write down a list of things YOU might want to improve.
+
+Note: Does this process feel more comfortable now?
 
 ---
 
