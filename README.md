@@ -27,11 +27,11 @@ We will profile real applications to both learn the tools of measurement as well
 
 ## Prerequisites
 
-To attend this workshop, you must already have a working understanding of JavaScript, HTML, CSS, and the command line. You must also have a basic understanding of Chrome DevTools, including inspecting an element and using the console. You do not need advanced mastery of DevTools as we will be learning about the Network and Performance tabs plus other tools during this session. A basic understanding of webpack would be helpful but is not required.
+To attend this workshop, you must already have a working understanding of JavaScript, HTML, CSS, and the command line. In addition, you must be comfortable using npm (or yarn) to install packages and run scripts in a project. You must also have a basic understanding of Chrome DevTools, including inspecting an element and using the console. You do not need advanced mastery of DevTools as we will be learning about the Network and Performance tabs plus other tools during this session. A basic understanding of webpack would be helpful but is not required.
 
 ## Preparation
 
-Please come with a laptop ready for development. You must have Chrome, Node (v 8+), and Git installed.
+Please come with a laptop charged and ready for development. You must have Chrome (latest or version 76+), Node (at least version 8+, 12+ preferred), npm (at least version 5+, 6+ preferred) or yarn (latest), and Git installed. All instructions will use npm, but you are welcome to use yarn instead as long as you know how to run the analogous commands.
 
 ## About the trainer
 
