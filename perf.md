@@ -46,35 +46,35 @@ Note: Suggest pair programming and give them an opportunity to change seats.
 <table id="contents-table" style="font-size:0.9em;">
   <tbody>
     <tr>
-      <td>[🤷🏼 Intro: Why?](#/2)</td>
-      <td>[🏊🏿‍♀️ Deep-Dive: JavaScript+ in Webpack](#/9)</td>
+      <td><a href="#/2">🤷🏼 Intro: Why?</a></td>
+      <td><a href="#/9">🏊🏿‍♀️ Deep-Dive: JavaScript+ in Webpack</a></td>
     </tr>
     <tr>
-      <td>[🧪 Test environments](#/3)</td>
-      <td>[💸 Smooth UI: Script execution costs](#/10)</td>
+      <td><a href="#/3">🧪 Test environments</a></td>
+      <td><a href="#/10">💸 Smooth UI: Script execution costs</a></td>
     </tr>
     <tr>
-      <td>[📈 Metrics](#/4)</td>
-      <td>[🍹 Real User Monitoring](#/11)</td>
+      <td><a href="#/4">📈 Metrics</a></td>
+      <td><a href="#/11">🍹 Real User Monitoring</a></td>
     </tr>
     <tr>
       <td>
         <img class="nooutline" width="32px" style="margin:0 0 -6px 0" src="./images/tool-devtools.svg" alt="Chrome DevTools"/>
-        [Set up DevTools #LikeABoss](#/5)
+        <a href="#/5">Set up DevTools #LikeABoss</a>
       </td>
-      <td>[ 🎷 Smooth UI: Other costs](#/12)</td>
+      <td><a href="#/12"> 🎷 Smooth UI: Other costs</a></td>
     </tr>
     <tr>
-      <td>[⌚ Download cost: Latency](#/6)</td>
-      <td>[🦸🏻‍♀️ Accessibility debugging](#/13)</td>
+      <td><a href="#/6">⌚ Download cost: Latency</a></td>
+      <td><a href="#/13">🦸🏻‍♀️ Accessibility debugging</a></td>
     </tr>
     <tr>
-      <td>[📸 Download cost: Images](#/7)</td>
-      <td>[✏️ Exit Ticket](#/14)</td>
+      <td><a href="#/7">📸 Download cost: Images</a></td>
+      <td><a href="#/14">✏️ Exit Ticket</a></td>
     </tr>
     <tr>
-      <td>[💰 Download cost: JavaScript](#/8)</td>
-      <td>[🤔 Closing: Perceived performance](#/15)</td>
+      <td><a href="#/8">💰 Download cost: JavaScript</a></td>
+      <td><a href="#/15">🤔 Closing: Perceived performance</a></td>
     </tr>
   </tbody>
 </table>
@@ -117,6 +117,18 @@ Note: Intro
 <small>https://developers.google.com/web/updates/2018/07/search-ads-speed</small>
 
 Note: In 2016, Doubleclick by Google released a report saying that 53% of mobile sites are abandoned if pages take longer than 3 seconds to load.
+
+-v-
+
+The internet consumes 416.2 TWh of electricity per year. A 10% savings would be equivalent to:
+
+- 6.2 million fewer cars on the road <!-- .element: class="fragment fade-in-then-semi-out" -->
+- 32 billion less pounds of coal being burned <!-- .element: class="fragment fade-in-then-semi-out" -->
+- 486 million tree seedlings grown for 10 years <!-- .element: class="fragment fade-in-then-semi-out" -->
+
+<small>[How is your website impacting the planet?](https://www.websitecarbon.com/), [Greenhouse Gas Equivalencies Calculator](https://www.epa.gov/energy/greenhouse-gas-equivalencies-calculator)</small>
+
+Note: Most of the energy is consumed by the network and data center, not users' devices.
 
 ---
 
@@ -170,7 +182,7 @@ Note: **Discussion**: What do you notice about each? What are the similarities/d
       </td>
       <td>
         <ul class="plus-minus" style="display:inline;">
-          <li class="plus">Performance data from **real user page loads** and interactions</li>
+          <li class="plus">Performance data from <strong>real user page loads</strong> and interactions</li>
           <li class="minus">Limited data and performance debugging capability</li>
       </td>
     </tr>
@@ -280,8 +292,10 @@ _Self-run data sent to your backend or analytics tool_
 - User Timing API for custom timings
 
 <small>
-  https://developers.google.com/web/fundamentals/performance/navigation-and-resource-timing/
-  <br />https://www.keycdn.com/blog/user-timing/
+  <p>
+    <a href="https://developers.google.com/web/fundamentals/performance/navigation-and-resource-timing/">Assessing Loading Performance in Real Life with Navigation and Resource Timing</a>
+    <br /><a href="https://www.keycdn.com/blog/user-timing/">User Timing API - Measuring User Experience Performance</a>
+  </p>
 <small>
 
 -v-
@@ -317,39 +331,66 @@ Note: Lighthouse audits also does this better now, but I still like this quick t
 
 <img src="./images/webpack_bundle_analyzer.gif" alt="Webpack bundle analyzer in action showing marimekko chart of dependencies based on size" width="80%">
 
+-v-
+
+## MOAR Tools
+
+- Dev Tools Coverage analyzer
+- [Performance Budget Calculator](https://perf-budget-calculator.firebaseapp.com/)
+- [Bundlephobia](https://bundlephobia.com/)
+- [Cloudinary Website Speed Test Image Analysis Tool](https://webspeedtest.cloudinary.com/)
+
 ---
 
 # 📈 Metrics 📈
 
 -v-
 
-## ~~Load time~~ Speed Index
-
-How quickly the page contents are visually populated
-
-- Expressed in milliseconds
-- Dependent on size of the view port
-- Measured in Lighthouse and WebPageTest
-
-> Note: It is particularly useful for comparing experiences of pages against each other (before/after optimizing, my site vs competitor, etc) and should be used in combination with the other metrics (load time, start render, etc) to better understand a site's performance. Historically we have relied on milestone timings to determine how fast or slow web pages were.  The most common of these is the time until the browser reaches the load event for the main document (onload).  The load event is easy to measure both in a lab environment and in the real world.  Unfortunately, it isn't a very good indicator of the actual end-user experience.  As pages grow and load a lot of content that is not visible to the user or off the screen (below the fold) the time to reach the load event is extended even if the user-visible content has long-since rendered. Lighthouse may use a node module called Speedline for this.
-
-<small>https://sites.google.com/a/webpagetest.org/docs/using-webpagetest/metrics/speed-index</small>
+> When optimizing for speed, <br>**user experience** should always <br>be your primary metric.
 
 -v-
 
-## Time to Interactive
+## User experience
 
-How long it takes a page to become fully interactive
+1. When can I see the page? <!-- .element: class="fragment fade-in-then-semi-out" -->
+2. When can I interact with it? <!-- .element: class="fragment fade-in-then-semi-out" -->
+3. Is it smooth? <!-- .element: class="fragment fade-in-then-semi-out" -->
+
+-v-
+
+## When can I see the page?
+
+- Speed index measures how quickly the page contents are visually populated, but it's not simple<!-- .element: class="fragment fade-in-then-semi-out" -->
+- Largest contentful paint measures when the largest image or text paint in the viewport occurs<!-- .element: class="fragment fade-in" -->
+  - Elements removed from the DOM are invalidated (splash screens)<!-- .element: class="fragment fade-in" -->
+  - Will have a larger weight in Lighthouse<!-- .element: class="fragment fade-in" -->
+
+<small>[Largest Contentful Paint (LCP)](https://web.dev/lcp/), [Speed Index](https://sites.google.com/a/webpagetest.org/docs/using-webpagetest/metrics/speed-index)</small>
+
+-v-
+
+## When can I interact with the page?
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Lx1cYJAVnzA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 <small>End to End Apps with Polymer by Kevin Schaaf, Polymer Summit 2017</small>
 
-Note: the point at which layout has stabilized, key webfonts are visible, and the main thread is available enough to handle user input within 50ms.
+-v-
+
+## When can I interact with the page?
+
+- Time to Interactive (TTI) measures how long it takes a page to become fully interactive<!-- .element: class="fragment fade-in-then-semi-out" -->
+- Total blocking time (TBT) measures the time between First Contentful Paint (FCP) and TTI where the main thread was blocked for long enough to prevent input responsiveness.<!-- .element: class="fragment fade-in-then-semi-out" -->
+- TBT will have a larger weight in Lighthouse.<!-- .element: class="fragment fade-in-then-semi-out" -->
+- Large blocks of scripting on the main thread makes both worse.<!-- .element: class="fragment fade-in-then-semi-out" -->
+
+<small>[How does TBT relate to TTI?](https://web.dev/tbt/#how-does-tbt-relate-to-tti)</small>
+
+Note: the point at which layout has stabilized, key webfonts are visible, and the main thread is available enough to handle user input within 50ms. The main thread is considered "blocked" any time there's a Long Task—a task that runs on the main thread for more than 50 milliseconds (ms).
 
 -v-
 
-## Frame Rate
+## Is it smooth? Frame Rate...
 
 <img src="./images/frames_per_second.gif" alt="Frames per second comparison for visual jank" >
 
@@ -370,14 +411,14 @@ Note: R:Complete a transition initiated by user input within 100ms. A: Have 16ms
 
 -v-
 
-## Exercise: Speed Index + TTI
+## Exercise: Metrics
 
 Look at the tools you ran earlier, and write down:
 
-1. The site's speed index
-2. The site's time-to-interactive
+1. The site's speed index, LCP, TTI, and TBT
+2. Which tools did you find them in?
 3. Under what conditions were these run (device, network, emulated/real?
-4. Bonus: where might you be able to test performance while using the app (not loading)?
+4. Bonus: Which tool lets you test performance while using the app (not loading)?
 
 ---
 
@@ -391,6 +432,8 @@ Look at the tools you ran earlier, and write down:
 
 <img class="nooutline" width="80%" src="./images/no_extensions.png" alt="Chrome extensions negatively affected this page's load performance. Try auditing the page in incognito mode or from a Chrome profile without extensions.">
 
+[bit.ly/boss-devtools](http://bit.ly/boss-devtools)
+
 Note: Go through handout. Drag tabs to reorder.
 
 -v-
@@ -400,6 +443,7 @@ Note: Go through handout. Drag tabs to reorder.
 - **Performance**: script and other execution costs (flame chart)
 - **Network**: download time (waterfall)
 - **Audits**: scores performance, PWAs, accessibility, etc (Lighthouse)
+- **Coverage**: shows used vs. unused bytes includes in the load
 
 Note: Lots of other cool tools exist like local overrides, paint layers, etc.
 
@@ -458,6 +502,10 @@ Note: Starts downloading assets as TCP connections become available
 <small>https://deliciousbrains.com/performance-best-practices-http2/</small>
 
 Note: In addition, header compression. HTTP2 server push has not lived up to the promise, but it's still a new area. For the most part, need to use https.
+
+-v-
+
+http://ishttp2fastyet.com/
 
 -v-
 
@@ -627,6 +675,15 @@ Let's make our markdown viewer faster!
 
 Note: PRPL pattern - push, render, pre-cache, lazy-load
 
+-v-
+
+## More resources mentioned
+
+- [Making Google Fonts Faster⚡](https://sia.codes/posts/making-google-fonts-faster/) - includes how do download and host locally
+- [Google Analytics + caniuse = *MAGIC*](https://sia.codes/posts/google-analytics-caniuse-magic/) - how to import your Google Analytics data into caniuse
+- [Shared Cache is Going Away](https://www.jefftk.com/p/shared-cache-is-going-away)
+- [subfont](https://github.com/Munter/subfont)
+
 ---
 
 # Optimized, Responsive <br>📸 Images 📸
@@ -673,11 +730,11 @@ Note: Raster images contain a set of data about a 2D grid of pixels. Vectors are
 
 ## File Format Options
 
-- `svg` (vector) - best for limited colors and sharp lines (e.g., logos)
-- `gif` (lossy) - fun but terrible. Use svg or video instead.
-- `png` (lossless) - best for photo-realistic with transparency.
-- `jpg` (lossy) - much better compression based on hue
-- `webp` (lossy or lossless) - best of both `png` and `jpg` with smaller file sizes
+- SVG (vector) - best for limited colors and sharp lines (e.g., logos) <!-- .element: class="fragment fade-in-then-semi-out" -->
+- GIF (lossy) - fun but terrible. Use svg or video instead. <!-- .element: class="fragment fade-in-then-semi-out" -->
+- PNG (lossless) - best for photo-realistic with transparency. <!-- .element: class="fragment fade-in-then-semi-out" -->
+- JPG (lossy) - much better compression based on hue <!-- .element: class="fragment fade-in-then-semi-out" -->
+- WEBP (lossy or lossless) - best of both PNG and JPG with smaller file sizes <!-- .element: class="fragment fade-in-then-semi-out" -->
 
 Note: Raster file formats are really just different compression methods. **SVG**: Can style and animate with CSS or make basic edits in XML. **GIF**: huge file sizes for animation, use video instead. svg or jpg are better for stills. Twitter converts GIF to video. **Lossless compression** - like using ZIP for a file but all the data is still saved. **PNG**: Use jpg if don't need transparency. **JPG**: much better compression algos.
 
@@ -757,7 +814,7 @@ Note: `srcset` can accept DPR instead of widths, though I find this more confusi
   - Run the RespImageLint bookmarklet to get suggestions here and in step 2 for `sizes`. Be lazy!
 2. **Optimize**
   - Replace the `png` image with an `svg`.
-  - Use `srcset` and `sizes` to provide options for screens with DPRs of 1 and 2 (optional: 4). Switch to `html-loader-srcset`.
+  - Use `srcset` and `sizes` to provide options for screens with DPRs of 1 and 2. Switch to `html-loader-srcset`.
 2. **Debug**
   - Find your screen DPR: `window.devicePixelRatio`.
   - Discover which file is being used: Inspect > Properties > `img` > `currentSrc`. Start with a small screen size, then observe how this changes as you increase.
@@ -880,9 +937,11 @@ Note: (1) In this `picture` tag, we have 2 sources and an img. Older browsers si
 
 Nope. Some (not all) tooling options:
 
-- Simple `<img>` and server selects best image to respond with
+- Simple `<img>` and server selects best image to serve
 - Paid cloud-based services like [Cloudinary](https://cloudinary.com)
 - Build tools like various webpack loaders
+
+<small>[Image Analysis Tool by Cloudinary](https://webspeedtest.cloudinary.com/)</small>
 
 Note: (1) Many people have their server hijack the request and serve the best image to minimize markup. Could also use a serverless function. (2) Cost money. (3) So many options - both create your srcset code and process the images
 
@@ -1067,7 +1126,7 @@ Note: Tree-shaking can help do this for us so we don't have to worry so much abo
 2. Update the import to only import the function(s) needed.
 3. Re-run `npm run build` to see if it improved.
 4. Hover over the various blocks. How did the sizes change for the whole bundle and for just Lodash?
-5. Replace Moment with Date-fns single-function imports. How did the sizes change?
+5. Optional: Replace Moment with Date-fns single-function imports. How did the sizes change?
 
 -v-
 
