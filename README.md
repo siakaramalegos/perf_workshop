@@ -62,6 +62,7 @@ Want to learn more about how to measure and improve performance? Here you go:
 - [Preload, Prefetch And Priorities in Chrome](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf) by Addy Osmani
 - [Webpack build analysis](https://survivejs.com/webpack/optimizing/build-analysis/) on SurviveJS by Juho Vepsäläinen
 - [https://www.webpagetest.org/easy](https://www.webpagetest.org/easy) easy no configuration set up for a slow-3G connection and mid-level phone, specifically Chrome on a Motorola G (gen 4) tested from Dulles, Virginia on a 400 Kbps 3G connection with 400ms of latency.
+- [Responsive Images](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images) by MDN
 - [Responsive Images](https://developers.google.com/web/fundamentals/design-and-ux/responsive/images) by Pete LePage
 - [Responsive Images Udacity Course](https://www.udacity.com/course/responsive-images--ud882) by Google
 - [Optimizing Images](https://survivejs.com/webpack/loading/images/#optimizing-images) in Webpack on SurviveJS by Juho Vepsäläinen
