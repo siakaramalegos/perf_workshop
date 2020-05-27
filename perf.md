@@ -448,9 +448,9 @@ Note: R:Complete a transition initiated by user input within 100ms. A: Have 16ms
 
 <img src="./images/core_web_vitals.png" class="plain">
 
-<small>[Web Vitals](https://web.dev/vitals/)</small>
+<small>[Web Vitals](https://web.dev/vitals/), [The Science Behind Web Vitals](https://blog.chromium.org/2020/05/the-science-behind-web-vitals.html)</small>
 
-Note: "Core Web Vitals are the subset of Web Vitals that apply to all web pages, should be measured by all site owners, and will be surfaced across all Google tools. Each of the Core Web Vitals represents a distinct facet of the user experience, is measurable in the field, and reflects the real-world experience of a critical user-centric outcome."
+Note: Target is 75% of loads. "Core Web Vitals are the subset of Web Vitals that apply to all web pages, should be measured by all site owners, and will be surfaced across all Google tools. Each of the Core Web Vitals represents a distinct facet of the user experience, is measurable in the field, and reflects the real-world experience of a critical user-centric outcome."
 
 -v-
 
@@ -462,6 +462,21 @@ Look at the tools you ran earlier, and write down:
 2. Which tools did you find them in?
 3. Under what conditions were these run (device, network, emulated/real?
 4. Bonus: Which tool lets you test performance while using the app (not loading)?
+
+-v-
+
+## Go to the next level with user-centered metrics
+
+- Twitter: [time-to-first-tweet](https://blog.twitter.com/engineering/en_us/a/2012/improving-performance-on-twittercom.html)
+- Pinterest: [pinner-wait-time](https://medium.com/pinterest-engineering/driving-user-growth-with-performance-improvements-cfc50dafadd7)
+
+<small>[Custom metrics](https://web.dev/custom-metrics/) on web.dev</small>
+
+-v-
+
+## Exercise: user-centered metrics
+
+Brainstorm custom metrics that would make or break a user's experience on your own website. Have you considered measuring these directly?
 
 ---
 
@@ -502,6 +517,8 @@ Note: Lots of other cool tools exist like local overrides, paint layers, etc.
 
 <img class="plain" src="./images/wpt-waterfall-annotated.png">
 
+Note: green - downloaded before started rendering so these files could be bottlenecks for rendering (js or css). Thumbnail view: scrolling moves the red line, gold border = visual change happened
+
 -v-
 
 ## Look for patterns of poor performance...
@@ -533,6 +550,50 @@ Note: Chained critical path/request depth - one file calling the next file calli
 <img class="plain" src="./images/css-blocking-js-annotated.png">
 
 Note: Is the script critical? If not, async/defer. If so, put before CSS.
+
+-v-
+
+By default, scripts are HTML parser blocking.
+
+<img class="plain" src="./images/asyncdefer1.svg">
+
+<small>[HTML spec: scripting](https://html.spec.whatwg.org/multipage/scripting.html)</small>
+
+-v-
+
+`defer` downloads without blocking, then waits to execute after the document is parsed. `defer` scripts are executed in order.
+
+<img class="plain" src="./images/asyncdefer2.svg">
+
+<small>[HTML spec: scripting](https://html.spec.whatwg.org/multipage/scripting.html)</small>
+
+Note: Scripts with the defer attribute will execute in the order in which they appear in the document.
+
+-v-
+
+`async` downloads without blocking, then executes right away, blocking HTML parsing.
+
+<img class="plain" src="./images/asyncdefer3.svg">
+
+<small>[HTML spec: scripting](https://html.spec.whatwg.org/multipage/scripting.html)</small>
+
+Note: Scripts with the defer attribute will execute in the order in which they appear in the document.
+
+-v-
+
+`type=module` is deferred by default unless given an `async` attribute.
+
+<img class="plain" src="./images/asyncdefer4.svg">
+
+<small>[HTML spec: scripting](https://html.spec.whatwg.org/multipage/scripting.html)</small>
+
+Note: Scripts with the defer attribute will execute in the order in which they appear in the document.
+
+-v-
+
+<img class="plain" src="./images/asyncdefer.svg">
+
+<small>[HTML spec: scripting](https://html.spec.whatwg.org/multipage/scripting.html), [`<script>`: The Script element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script) on MDN</small>
 
 -v-
 
@@ -591,6 +652,12 @@ For large or content-heavy sites like Netflix, bandwidth is critical. For everyo
 <img class="plain" src="./images/req-depth-etc.png">
 
 Note: look at variations in image lines - can visually see TCP slow start.
+
+-v-
+
+<img src="./images/latency-location.png" class="plain" width="50%">
+
+<small>[keycdn Performance Test tool](https://tools.keycdn.com/performance)</small>
 
 -v-
 
