@@ -2,6 +2,8 @@
 theme: style.css
 verticalSeparator: -v-
 highlightTheme: github
+revealOptions:
+  transition: none
 ---
 
 <!-- .slide: data-background="./images/hero_bg.jpg" -->
@@ -20,8 +22,10 @@ highlightTheme: github
 
 ## Links for today
 
-- Slides: [bit.ly/perf-work](http://bit.ly/perf-work)
-- Project: [bit.ly/markdown-viewer](http://bit.ly/markdown-viewer) (pull down all branches)
+- **Slides**: [bit.ly/perf-work](http://bit.ly/perf-work)
+- **Project** (pull down all branches):
+  - no build tool: [bit.ly/md-view-simple](https://bit.ly/md-view-simple)
+  - with webpack: [bit.ly/markdown-viewer](http://bit.ly/markdown-viewer)
 
 -v-
 
@@ -120,11 +124,17 @@ Note: In 2016, Doubleclick by Google released a report saying that 53% of mobile
 
 -v-
 
+<img src="./images/shame.png" alt="Message on slower sites to users saying 'Usually loads slow'" height="500px" style="border:none;box-shadow:none;">
+
+<small>[Moving towards a faster web](https://blog.chromium.org/2019/11/moving-towards-faster-web.html)</small>
+
+-v-
+
 The internet consumes 416.2 TWh of electricity per year. A 10% savings would be equivalent to:
 
-- 6.2 million fewer cars on the road <!-- .element: class="fragment fade-in-then-semi-out" -->
-- 32 billion less pounds of coal being burned <!-- .element: class="fragment fade-in-then-semi-out" -->
-- 486 million tree seedlings grown for 10 years <!-- .element: class="fragment fade-in-then-semi-out" -->
+- 6.2 million fewer cars on the road 🚗 <!-- .element: class="fragment fade-in-then-semi-out" -->
+- 32 billion less pounds of coal being burned 💨 <!-- .element: class="fragment fade-in-then-semi-out" -->
+- 486 million tree seedlings grown for 10 years 🌳 <!-- .element: class="fragment fade-in-then-semi-out" -->
 
 <small>[How is your website impacting the planet?](https://www.websitecarbon.com/), [Greenhouse Gas Equivalencies Calculator](https://www.epa.gov/energy/greenhouse-gas-equivalencies-calculator)</small>
 
@@ -226,7 +236,7 @@ Note: network and CPU throttling are not representative of real user experiences
 - 2-5x difference in fastest vs slowest phones
 - 75% of worldwide mobile connections on 2G or 3G
 - Not just developing countries but rural areas or spotty networks like conference wifi
-- Use Google Analytics data to profile your users and configure [webpagetest.org](https://www.webpagetest.org/) to reflect them more closely
+- Use analytics data to profile your users and configure [webpagetest.org](https://www.webpagetest.org/) to reflect them more closely
 
 <small>https://infrequently.org/2017/10/can-you-afford-it-real-world-web-performance-budgets/</small>
 
@@ -335,10 +345,12 @@ Note: Lighthouse audits also does this better now, but I still like this quick t
 
 ## MOAR Tools
 
-- Dev Tools Coverage analyzer
+- [Dev Tools Coverage analyzer](https://developers.google.com/web/tools/chrome-devtools/coverage)
 - [Performance Budget Calculator](https://perf-budget-calculator.firebaseapp.com/)
 - [Bundlephobia](https://bundlephobia.com/)
 - [Cloudinary Website Speed Test Image Analysis Tool](https://webspeedtest.cloudinary.com/)
+
+Note: Cmd+shift+p for "coverage"
 
 ---
 
@@ -354,7 +366,9 @@ Note: Lighthouse audits also does this better now, but I still like this quick t
 
 1. When can I see the page? <!-- .element: class="fragment fade-in-then-semi-out" -->
 2. When can I interact with it? <!-- .element: class="fragment fade-in-then-semi-out" -->
-3. Is it smooth? <!-- .element: class="fragment fade-in-then-semi-out" -->
+3. Is it delightful? <!-- .element: class="fragment fade-in-then-semi-out" -->
+
+Note: By delightful I mean both is it stable and smooth.
 
 -v-
 
@@ -381,12 +395,31 @@ Note: Lighthouse audits also does this better now, but I still like this quick t
 
 - Time to Interactive (TTI) measures how long it takes a page to become fully interactive<!-- .element: class="fragment fade-in-then-semi-out" -->
 - Total blocking time (TBT) measures the time between First Contentful Paint (FCP) and TTI where the main thread was blocked for long enough to prevent input responsiveness.<!-- .element: class="fragment fade-in-then-semi-out" -->
-- TBT will have a larger weight in Lighthouse.<!-- .element: class="fragment fade-in-then-semi-out" -->
-- Large blocks of scripting on the main thread makes both worse.<!-- .element: class="fragment fade-in-then-semi-out" -->
+- First Input Delay (FID) measures the delta between when an input event is received and when the main thread is next idle (field only).<!-- .element: class="fragment fade-in-then-semi-out" -->
+- Large blocks of scripting on the main thread makes interaction worse.<!-- .element: class="fragment fade-in-then-semi-out" -->
 
-<small>[How does TBT relate to TTI?](https://web.dev/tbt/#how-does-tbt-relate-to-tti)</small>
+<small>[How does TBT relate to TTI?](https://web.dev/tbt/#how-does-tbt-relate-to-tti), [First Input Delay](https://web.dev/fid/)</small>
 
-Note: the point at which layout has stabilized, key webfonts are visible, and the main thread is available enough to handle user input within 50ms. The main thread is considered "blocked" any time there's a Long Task—a task that runs on the main thread for more than 50 milliseconds (ms).
+Note: the point at which layout has stabilized, key webfonts are visible, and the main thread is available enough to handle user input within 50ms. The main thread is considered "blocked" any time there's a Long Task—a task that runs on the main thread for more than 50 milliseconds (ms). TBT will have a larger weight in Lighthouse.
+
+-v-
+
+## Is it delightful? Visual Stability...
+
+<video controls width="800" autoplay loop>
+  <source src="./images/layout-shift.mp4" type="video/mp4">
+  Sorry, your browser doesn't support embedded videos.
+</video>
+
+-v-
+
+## Visual Stability: CLS
+
+**Cumulative Layout Shift** (CLS) is a new metric that:
+
+> measures the sum total of all individual layout shift scores for every unexpeceted layout shift that occurs during the entire lifespan of the page.
+
+<small>[From web.dev](https://web.dev/cls/)</small>
 
 -v-
 
@@ -411,24 +444,34 @@ Note: R:Complete a transition initiated by user input within 100ms. A: Have 16ms
 
 -v-
 
+## Core Web Vitals
+
+<img src="./images/core_web_vitals.png" class="plain">
+
+<small>[Web Vitals](https://web.dev/vitals/)</small>
+
+Note: "Core Web Vitals are the subset of Web Vitals that apply to all web pages, should be measured by all site owners, and will be surfaced across all Google tools. Each of the Core Web Vitals represents a distinct facet of the user experience, is measurable in the field, and reflects the real-world experience of a critical user-centric outcome."
+
+-v-
+
 ## Exercise: Metrics
 
 Look at the tools you ran earlier, and write down:
 
-1. The site's speed index, LCP, TTI, and TBT
+1. The site's speed index, LCP, TTI, TBT, FID, and CLS.
 2. Which tools did you find them in?
 3. Under what conditions were these run (device, network, emulated/real?
 4. Bonus: Which tool lets you test performance while using the app (not loading)?
 
 ---
 
-# Set up DevTools #LikeABoss
+# Set up Dev Tools #LikeABoss
 
 <img class="nooutline" width="150px" src="./images/tool-devtools.svg" alt="Chrome DevTools"/>
 
 -v-
 
-## Exercise: Set up DevTools #LikeABoss
+## Exercise: Set up Dev Tools #LikeABoss
 
 <img class="nooutline" width="80%" src="./images/no_extensions.png" alt="Chrome extensions negatively affected this page's load performance. Try auditing the page in incognito mode or from a Chrome profile without extensions.">
 
@@ -438,7 +481,7 @@ Note: Go through handout. Drag tabs to reorder.
 
 -v-
 
-## DevTools High-Level Orientation
+## Dev Tools High-Level Orientation
 
 - **Performance**: script and other execution costs (flame chart)
 - **Network**: download time (waterfall)
@@ -449,10 +492,56 @@ Note: Lots of other cool tools exist like local overrides, paint layers, etc.
 
 -v-
 
+## Chrome Dev Tools Network Tab
+
+<img class="plain" src="./images/network-tab-annotated.png">
+
+-v-
+
+## WebPageTest Waterfall
+
+<img class="plain" src="./images/wpt-waterfall-annotated.png">
+
+-v-
+
+## Look for patterns of poor performance...
+
+-v-
+
+<img class="plain" src="./images/http1.png">
+
+Note: No cert so HTTP1 can only download 6-ish files at once.
+
+-v-
+
+<img class="plain" src="./images/many-connections.png">
+
+Note: Many connections to different domains.
+
+-v-
+
+<img class="plain" src="./images/chained-requests.png">
+
+Note: Chained critical path/request depth - one file calling the next file calling the next.
+
+-v-
+
+<img class="plain" src="./images/req-depth-etc.png">
+
+-v-
+
+<img class="plain" src="./images/css-blocking-js-annotated.png">
+
+Note: Is the script critical? If not, async/defer. If so, put before CSS.
+
+-v-
+
 ## Exercise: Why is our site so slow?
 
-- Go to the deployed version of our app at [bit.ly/turtle-mv](http://bit.ly/turtle-mv).
-- Use DevTools or other tools to write down a list of things we might want to improve.
+- Go to the deployed version of our app:
+  - No build tool version: [turtle-no-build.netlify.app/](https://turtle-no-build.netlify.app/)
+  - Webpack version: [bit.ly/turtle-mv](http://bit.ly/turtle-mv).
+- Use Dev Tools or other tools to write down a list of things we might want to improve.
 
 Note: In the next units, we'll learn about the biggest issues that cause slow websites and fix them. Then this process won't feel as foreign next time you do it.
 
@@ -474,6 +563,34 @@ Note: Who is brave enough to admit they don't really know what that means?
       <br /><small><em>"poor performance due to network latency"</em></small></li>
   </ul>
 </section>
+
+-v-
+
+> Bandwidth is the width of the tube and latency is its length.
+
+<small>[A brief guide to using WebpageTest](https://davidea.st/articles/a-brief-guide-to-webpagetest)</small>
+
+-v-
+
+For large or content-heavy sites like Netflix, bandwidth is critical. For everyone else, it's the **latency**.
+
+-v-
+
+<iframe src="https://player.vimeo.com/video/14439742" width="640" height="480" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+
+<small><a href="https://vimeo.com/14439742">Packet Flight: HTTP request @ 40X</a> from <a href="https://vimeo.com/carlosb">Carlos Bueno</a> on <a href="https://vimeo.com">Vimeo</a>. [TCP congestion control](https://en.wikipedia.org/wiki/TCP_congestion_control)</small>
+
+-v-
+
+<img class="plain" src="./images/tcp-slow-start.webp">
+
+<small>[What Is TCP Slow Start](https://www.keycdn.com/support/tcp-slow-start)</small>
+
+-v-
+
+<img class="plain" src="./images/req-depth-etc.png">
+
+Note: look at variations in image lines - can visually see TCP slow start.
 
 -v-
 
@@ -515,22 +632,80 @@ http://ishttp2fastyet.com/
 
 -v-
 
+# Caching
+
+<img class="nooutline" width="50%" src="./images/boxes.jpg" alt="Giant heap of varied boxes" />
+
+<small>Photo by chuttersnap on Unsplash</small>
+
+-v-
+
+Don't forget to set your headers!
+
+<img class="nooutline" width="50%" src="./images/cache-control-flowchart.png" alt="Flowchart from the article mentioned below" />
+
+<small>[Prevent unnecessary network requests with the HTTP Cache](https://web.dev/http-cache/#cache-control), [HTTP Cache Headers - A Complete Guide](https://www.keycdn.com/blog/http-cache-headers)</small>
+
+-v-
+
+Use service workers for offline access and custom caching behavior.
+
+<small>[Service workers and the Cache Storage API](https://web.dev/service-workers-cache-storage/)</small>
+
+-v-
+
 # Fonts
 
 <img class="nooutline" width="50%" src="./images/fonts.png" alt="Screenshot of a Google fonts font option" />
 
 -v-
 
+<!-- .slide: data-background="./images/AA-font.jpg" -->
+
+<div style="background-color:rgba(255,255,255,0.75);padding:20px;">
+
+> Typography is what language looks like.
+
+<small>—Ellen Lupton, Thinking with Type</small>
+
+</div>
+
+-v-
+
+
+<img class="nooutline" width="50%" src="./images/hello1.png" alt="hello in a large slab font" />
+
+<small>[When Typography Speaks Louder Than Words](https://www.smashingmagazine.com/2012/04/when-typography-speaks-louder-than-words/)</small>
+
+-v-
+
+<img class="nooutline" width="50%" src="./images/hello2.png" alt="hello in a small caps italic font" />
+
+<small>[When Typography Speaks Louder Than Words](https://www.smashingmagazine.com/2012/04/when-typography-speaks-louder-than-words/)</small>
+
+-v-
+
+<img class="nooutline" width="50%" src="./images/ny-fonts.jpg" alt="hello in a small caps italic font" />
+
+-v-
+
+<!-- .slide: data-background="./images/frustration.jpg" -->
+<h1 class="dark-background">
+  <span class="highlighter">What annoys you about fonts?</span>
+</h1>
+
+-v-
+
 ## Webfonts
 
 <ul class="plus-minus">
-  <li class="plus">Hosted on fast and reliable CDNs</li>
-  <li class="plus">Can provide optimized variants based on user's browser</li>
-   <li class="plus">Opportunity for shared caching on popular fonts</li>
-  <li class="plus">We now have control over FOUT and FOIT!</li>
-  <li class="minus">Minumum of 2 separate requests</li>
-  <li class="minus">Can't use resource hints on the font file</li>
-  <li class="minus">Doesn't take advantage of HTTP2 multiplexing</li>
+  <li class="plus fragment fade-in-then-semi-out">Hosted on fast and reliable CDNs</li>
+  <li class="plus fragment fade-in-then-semi-out">Can provide optimized variants based on user's browser</li>
+   <li class="plus fragment fade-in-then-semi-out"><del>Opportunity for shared caching on popular fonts</del></li>
+  <li class="plus fragment fade-in-then-semi-out">We now have control over FOUT and FOIT!</li>
+  <li class="minus fragment fade-in-then-semi-out">Minumum of 2 separate requests</li>
+  <li class="minus fragment fade-in-then-semi-out">Can't use resource hints on the font file</li>
+  <li class="minus fragment fade-in-then-semi-out">Doesn't take advantage of HTTP2 multiplexing</li>
 </ul>
 
 -v-
@@ -547,12 +722,19 @@ http://ishttp2fastyet.com/
 ## Latency Exercise #2
 
 1. Run a network profile on [bit.ly/webfont-css](http://bit.ly/webfont-css).
-<!-- TODO: Add a wbt profile -->
 <!-- Go to this webpagetest profile: [tinyurl.com/y5bl5ksn](https://tinyurl.com/y5bl5ksn). Click on the waterfall for Run 2 (the median run). -->
 2. Focus on the all the CSS and font-related lines.
 3. Write down the steps that are happening. The code is at [bit.ly/webfont-css-code](http://bit.ly/webfont-css-code). What do you notice?
 
 Note: Need to answer question for both Google and local font. Google font is waiting to DL CSS until after current CSS, and local font is waiting until after current CSS though we know we want it.
+
+-v-
+
+<img class="nooutline" src="./images/fonts-css.png" alt="Google fonts load waterfall showing wasted time from loading from css">
+
+<small>[WebPageTest waterfall](http://webpagetest.org/customWaterfall.php?test=190406_EP_2dc139e2f92f617a2ec5f39624d6c8ca&run=2&width=930)</small>
+
+Note: pause here and ask what else seems wasteful - calling from css and connection time to 2nd domain
 
 -v-
 
@@ -564,7 +746,20 @@ Note: Need to answer question for both Google and local font. Google font is wai
 
 <img src="./images/webfonts_css.png" alt="Google fonts load waterfall showing wasted time from loading from css">
 
+<small>[WebPageTest waterfall](http://webpagetest.org/customWaterfall.php?test=190406_EP_2dc139e2f92f617a2ec5f39624d6c8ca&run=2&width=930)</small>
+
 Note: pause here and ask what else seems wasteful - the connection time to fonts.gstatic.com
+
+-v-
+
+## Loading Google Fonts from HTML
+
+```html
+<link href="https://fonts.googleapis.com/css?family=Muli:400"
+      rel="stylesheet">
+```
+
+<img class="nooutline" src="./images/fonts-html.png" alt="Google fonts load waterfall showing wasted time from loading from css">
 
 -v-
 
@@ -609,11 +804,27 @@ Note: dns-prefetch only does the dns part of the prefetch, but on the plus side,
   href="./fonts/muli-v12-latin-700.woff2" crossorigin>
 ```
 
+<img class="nooutline" src="./images/fonts-local.png" alt="Google fonts load waterfall showing local font waiting to load until after CSS">
+
+<small>[WebPageTest waterfall](http://webpagetest.org/customWaterfall.php?test=190406_S0_0a529e9ce6086cbea8e3aadc942ddbf6&run=2&width=930)</small>
+
+-v-
+
+## Self-Hosted Fonts
+
+```html
+<link as="font" type="font/woff2"
+  href="./fonts/muli-v12-latin-regular.woff2" crossorigin>
+
+<link as="font" type="font/woff2"
+  href="./fonts/muli-v12-latin-700.woff2" crossorigin>
+```
+
 <img src="./images/no-preload.png" alt="Google fonts load waterfall showing local font waiting to load until after CSS">
 
 -v-
 
-## Preloading self-hosted fonts
+## Preloading self-hosted fonts*
 
 ```html
 <link rel="preload" as="font" type="font/woff2"
@@ -625,9 +836,31 @@ Note: dns-prefetch only does the dns part of the prefetch, but on the plus side,
 
 <img src="./images/font_preload.png" alt="Self-hosted waterfall showing preload">
 
-<small>Note that `preload` loads a resource whether used or not. Only preload resources that are needed on a particular page. Don't self-host popular webfonts like Open Sans or Roboto (sabotages caching).</small>
+<small>* Note that `preload` loads a resource whether used or not. Only preload resources that are needed on a particular page.</small>
 
 Note: `rel="preload"` tells the browser to declaratively fetch the resource but not “execute” it (our CSS will queue usage). `as="font"` tells the browser what it will be downloading so that it can set an appropriate priority. Without it, the browser would set a default low priority. `type="font/woff2` tells the browser the file type so that it only downloads the resource if it supports that file type. `crossorigin` is required because fonts are fetched using anonymous mode CORS.
+
+-v-
+
+<img src="./images/caniuse-preload.png" alt="caniuse coverage report for link rel=preload">
+
+<small>[caniuse](https://caniuse.com/#feat=link-rel-preload)</small>
+
+-v-
+
+## [Shared Cache is Going Away](https://www.jefftk.com/p/shared-cache-is-going-away)
+
+<small>[Chrome](https://www.chromestatus.com/feature/5730772021411840), [Firefox](https://bugzilla.mozilla.org/show_bug.cgi?id=1536058), [Safari](https://bugs.webkit.org/show_bug.cgi?id=110269)</small>
+
+-v-
+
+<!-- .slide: data-background="./images/no.jpg" -->
+
+<div style="background-color:rgba(255,255,255,0.75);padding:20px;">
+
+# UX: Font Rendering
+
+</div>
 
 -v-
 
@@ -646,6 +879,34 @@ Note: FOIT in action — note the missing navbar text in the filmstrip scree
 <small>https://font-display.glitch.me/</small>
 
 Note: add the `font-display` property to the `@font-face` declaration
+
+-v-
+
+<img src="./images/googlefonts-fontdisplay.png" class="nooutline" alt="Shipped! @GoogleFonts now let's you control web font loading using `font-display`. Say hello to the `display` parameter " width="55%">
+
+
+<small>https://twitter.com/addyosmani/status/1128548064287952896/</small>
+
+-v-
+
+## FOUT
+
+<video autoplay loop>
+  <source src="./images/fout.mp4" type="video/mp4">
+  Oops, video not supported
+</video>
+
+-v-
+
+> The style doesn’t matter so much, it’s that it has to flow the same way.
+
+— Tim Brown, Twitter
+
+-v-
+
+## Font Style-Matcher by Monica Dinculescu
+
+[meowni.ca/font-style-matcher/](https://meowni.ca/font-style-matcher/)
 
 -v-
 
@@ -686,18 +947,58 @@ Note: PRPL pattern - push, render, pre-cache, lazy-load
 
 ---
 
-# Optimized, Responsive <br>📸 Images 📸
+<!-- .slide: data-background="./images/yellow-camera.jpg" -->
+<h1 class="title" style="text-align:left;color: rgb(214, 61, 31);">Optimized, <br><span class="translucent">Responsive </span><br>Images</h1>
 
 -v-
 
-## Image Goals
+Images account for 50% of the bytes transferred <br>(median) needed to load a webpage.
 
-1. Users shouldn't download unnecessary bytes.
-2. Our images should look good.
+<small>[httparchive.org](https://httparchive.org), January 2020</small>
 
 -v-
 
-## Responsive &amp; Optimized Toolbox
+<img src="./images/httparchive-images.png" alt="HTTPArchive chart of image bytes transferred over time" style="border:none">
+
+<small>[httparchive.org](https://httparchive.org), January 2020</small>
+
+-v-
+
+## kB by Percentile
+
+<img src="./images/chart.svg" alt="" style="border:none">
+
+<small>[httparchive.org](https://httparchive.org), January 2020</small>
+
+-v-
+
+"18% of global Android Chrome users have Lite Mode enabled (aka Save-Data)"
+
+<img src="./images/save-data-usage.jpg" alt="" style="border:none">
+
+<small>https://twitter.com/colinbendell/status/1265675813204172810</small>
+
+Note: true numbers higher https://twitter.com/addyosmani/status/1265677876608655361
+
+-v-
+
+# #Goals
+
+-v-
+
+<large style="font-size: 48px">Users shouldn't download<br> unnecessary bytes. 💾</large>
+
+-v-
+
+<large style="font-size: 48px">Images should look good. 💅🏼</large>
+
+-v-
+
+<large style="font-size: 48px">Stop the layout shift. ✋🏽</large>
+
+-v-
+
+## Responsive &amp; Optimized Toolbox 🧰
 
 - Best file format <!-- .element: class="fragment fade-in-then-semi-out" -->
 - Right size and resolution <!-- .element: class="fragment fade-in-then-semi-out" -->
@@ -706,7 +1007,9 @@ Note: PRPL pattern - push, render, pre-cache, lazy-load
 
 -v-
 
-# 💾  File Format  💾
+<!-- .slide: data-background="./images/disk-drive.jpg" class="dark-highlighter" -->
+
+# File Format <!-- .element: class="dark-background" style="color:#fecf16" -->
 
 -v-
 
@@ -728,49 +1031,130 @@ Note: Raster images contain a set of data about a 2D grid of pixels. Vectors are
 
 -v-
 
-## File Format Options
+<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="turquoise" /><circle cx="150" cy="100" r="80" fill="rebeccapurple" /><text x="150" y="125" font-size="60" text-anchor="middle" fill="white">SVG</text></svg>
 
-- SVG (vector) - best for limited colors and sharp lines (e.g., logos) <!-- .element: class="fragment fade-in-then-semi-out" -->
-- GIF (lossy) - fun but terrible. Use svg or video instead. <!-- .element: class="fragment fade-in-then-semi-out" -->
-- PNG (lossless) - best for photo-realistic with transparency. <!-- .element: class="fragment fade-in-then-semi-out" -->
-- JPG (lossy) - much better compression based on hue <!-- .element: class="fragment fade-in-then-semi-out" -->
-- WEBP (lossy or lossless) - best of both PNG and JPG with smaller file sizes <!-- .element: class="fragment fade-in-then-semi-out" -->
+```xml
+<svg version="1.1"
+     width="300" height="200"
+     xmlns="http://www.w3.org/2000/svg">
 
-Note: Raster file formats are really just different compression methods. **SVG**: Can style and animate with CSS or make basic edits in XML. **GIF**: huge file sizes for animation, use video instead. svg or jpg are better for stills. Twitter converts GIF to video. **Lossless compression** - like using ZIP for a file but all the data is still saved. **PNG**: Use jpg if don't need transparency. **JPG**: much better compression algos.
+  <rect width="100%" height="100%" fill="turquoise" />
+  <circle cx="150" cy="100" r="80" fill="rebeccapurple" />
+  <text x="150" y="125" font-size="60"
+        text-anchor="middle" fill="white">SVG</text>
+</svg>
+```
+
+Note: (vector) - best for limited colors and sharp lines (e.g., logos)
 
 -v-
 
-# 📺 Size &amp; Resolution 📺
+## GIF
+
+Just. Don't.
+
+<video controls width="700" autoplay loop>
+  <source src="./images/dont.mp4" type="video/mp4">
+  Sorry, your browser doesn't support embedded videos.
+</video>
+
+Note: (lossy) - fun but terrible. Use SVG or video instead. Inspect this (or on Twitter) and see that's it's video.
+
+-v-
+
+## PNG: photo-like images with transparency
+
+<img class="plain" src="./images/harry.png" alt="cut out image of my dog with no/transparent background">
+
+Note: (lossless) - best for photo-realistic with transparency. **Lossless compression** - like using ZIP for a file but all the data is still saved.
+
+-v-
+
+## JPG: photo-like images with no transparency
+
+<img class="plain" src="./images/harry-garden.jpg" alt="photo of my dog in a garden" width=600px>
+
+Note: JPG is your photo workhorse. It's a lossy format that was created to compress by hue - in a way that human eyes are less likely to detect, so it's smaller than PNG. Use for all:
+
+-v-
+
+## Progressive JPG
+
+<img class="plain" width=600px src="./images/sleepy-purrito-baseline-timeline.jpeg" alt="cats rendering in a raster way">
+<img class="plain" width=600px src="./images/sleepy-purrito-progressive-timeline.jpeg" alt="cats rendering from blurry to sharp">
+
+<small>[What is a progressive JPEG?](https://www.liquidweb.com/kb/what-is-a-progressive-jpeg/) by Liquid Web</small>
+
+Note: hard to tell when an image has actually finished loading. You might even get a bad impression from a website because “the photos look blurry” (while in fact the site was still loading and you only saw a progressive preview of the photos)
+
+-v-
+
+## WEBP: best of both worlds
+
+<img class="plain" src="./images/caniuse-webp.png" alt="caniuse page for webp showing no safari support">
+
+<small>[caniuse](https://caniuse.com/#feat=webp)</small>
+
+Note: WEBP is a new format available on most modern browsers (I'm looking at you, Safari) that combines the best of JPG and PNG with smaller sizes. It's lossy or lossless and supports transparency.
+
+-v-
+
+## Cheatsheet
+
+- ✅ SVG: logos and icons <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
+- ❌ GIF: don't. use jpg for a still or video for animation. <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
+- ✅ PNG: photo-like images with transparency <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
+- ✅ JPG: photo-like images with no transparency <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
+- ✅ WEBP: smaller, but need to serve fallbacks <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
+
+<small>[Responsive Doggos Demo](https://projects.sia.codes/responsive-images-demo/)</small>
+
+Note: Raster file formats are really just different compression methods. **SVG**: Can style and animate with CSS or make basic edits in XML. **GIF**: huge file sizes for animation, use video instead. svg or jpg are better for stills. Twitter converts GIF to video.  **PNG**: Use jpg if don't need transparency. **JPG**: much better compression algos.
+
+-v-
+
+<!-- .slide: data-background="./images/stormtrooper.jpg" -->
+
+# Size &amp; Resolution <!-- .element: style="color:#333; text-align:left;" -->
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+-v-
+
+## Demystifying DPR (device pixel ratio)
+
+On a 2x screen, a displayed image width of 100px needs a 200px file/natural width image to look good.
+
+<img class="plain" src="./images/bantha-resolution.jpeg" alt="Dog in a bantha costume at multiple resolutions from blurry to clear">
+
+Note: n this exaggerated example, the natural width of the bantha doggo on the left is 150px, then 300px, then 600px. The display width is 300px, and my screen has a DPR (device pixel ratio) of 2. 150px is fuzzy. Looking closely, the middle image is not the best quality either.
 
 -v-
 
 ## `srcset`
 
-- Defines a set of images and the natural size of each image
-- Always include a **base src** attribute for older browsers.
-- The browser chooses the best image to download based on assumed display width of `100vw` and the user's screen resolution.
-
-**`srcset` files are candidates, not commands.**
-
 ```html
 <img srcset="https://placekitten.com/300/200 300w,
-             https://placekitten.com/600/400 600w,
-             https://placekitten.com/900/500 900w"
+             https://placekitten.com/600/400 600w"
      src="https://placekitten.com/300/200"
      alt="cute random kitten" />
 ```
 
-Note: `srcset` is an attribute for `<img>`. Width is in pixels even though is says `w`. Format is filename, space, actual image width in pixels. Alternatively, use x-descriptors.
+- States a set of images and the natural size of each image <!-- .element: class="fragment fade-in-then-semi-out" -->
+- Browser assumes a display width of 100vw <!-- .element: class="fragment fade-in-then-semi-out" -->
+- Files are candidates, not commands. <!-- .element: class="fragment fade-in-then-semi-out" -->
+
+Note: States a set of images and the natural size of each image. Browser assumes a display width of 100vw.  Files are candidates, not commands.. Alternatively, use x-descriptors.
 
 -v-
 
 ## `sizes`
-
-- Defines a set of media conditions and sizes intended for display of the image
-- Leave out the media condition for the last one (serves as default for no matches)
-- **Order matters! First match is used.**
-- Browser chooses the best image to load based on matching display width and user's screen resolution.
-- Add analogous CSS
 
 ```html
 <img src="https://placekitten.com/300/200"
@@ -783,26 +1167,27 @@ Note: `srcset` is an attribute for `<img>`. Width is in pixels even though is sa
   alt="cute random kitten" />
 ```
 
+- States display width for a set of media conditions <!-- .element: class="fragment fade-in-then-semi-out" -->
+- Order matters! First match is used. <!-- .element: class="fragment fade-in-then-semi-out" -->
+- No media condition for the last one (default for no match). <!-- .element: class="fragment fade-in-then-semi-out" -->
+- Add analogous CSS. <!-- .element: class="fragment fade-in-then-semi-out" -->
+
 Note: Format is [media condition][space][display width]. Once again, these are candidates, not commands. We are letting the browser choose which file to use ultimately.
 
 -v-
 
-## Demystifying Resolution
+## RespImageLint FTW 🏆
 
-- **DPR (device pixel ratio)** = viewport CSS pixels/actual screen resolution
-- **In layman's terms**: on a 2x screen, a displayed image width of 100px needs a 200px file/natural width image to look good.
-- **Example**: If the viewport is 320px, the pixel ratio for the medium image would be 800/320 = 2.5x. Thus, the browser would choose the medium image for a Retina (2x) display:
+<img src="./images/respimagelint.png" alt="RespImageLint screenshot showing suggested sizes for an image" style="border:none;">
 
-```html
-<img
-  src="fallback.jpg"
-  srcset="small.jpg 400w,
-          medium.jpg 800w,
-          large.jpg 1600w"
-  alt="..." />
-```
+<small>[RespImageLint bookmarklet](https://ausi.github.io/respimagelint/)</small>
 
-Note: `srcset` can accept DPR instead of widths, though I find this more confusing.
+-v-
+
+<!-- .slide: data-background="./images/elder-phone.jpg" -->
+<h1 style="text-align:right;">🤔</h1>
+
+Note: How many different resolutions? Science suggests humans can see 720ppi 1 foot from a screen. The iPhone 11 is 326ppi (MBP is 227) so in most cases, you're safe providing only 1x and 2x. You might consider 4x in cases of high-resolution projectors or art.
 
 -v-
 
@@ -825,9 +1210,22 @@ Note: Demo pups? Mention how behavior is different in different browsers. Sharp 
 
 -v-
 
-# 🎨 Art Direction 🎨
 
-<img src="./images/art-direction.png" alt="examples of the same image on multiple devices" style="border:none;box-shadow:none;">
+<!-- .slide: data-background="./images/chilis.jpg" -->
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+# Art Direction <!-- .element: style="text-align:right;color:#111;" -->
+
+-v-
+
+<img src="./images/art-direction.png" alt="examples of the same image on multiple devices" class="plain">
 
 Note: (1) Art direction is a technique for drawing attention to the most important parts, or targeting specific features of an image, even when it’s viewed on different devices or platforms. (2) So how do we do art direction?
 
@@ -856,11 +1254,7 @@ Note: (1) In this `picture` tag, we have 2 sources and an img. Older browsers si
 
 -v-
 
-## Bleeding-Edge File Formats
-
-- Use `<picture>` for new file formats like `webp`!
-- The browser uses the first compatible file type listed.
-- The `<img>` source should be a fallback file format for browsers that don't support the previous formats listed.
+## Bleeding-Edge File Formats (WEBP!)
 
 ```html
 <picture>
@@ -870,9 +1264,43 @@ Note: (1) In this `picture` tag, we have 2 sources and an img. Older browsers si
 </picture>
 ```
 
+- Browser uses the first compatible file type.
+- Set `<img>` `src` to a format supported by all browsers.
+
+Note: Browser uses the first compatible file type. Set `<img>` `src` to a format supported by all browsers.
+
 -v-
 
-## `webp`, `srcset`, &amp; `sizes`, oh my!
+## CSS Background Images
+
+- Use media queries for width and DPR
+- Use postcss/autoprefixer to get prefixes
+- Don't use `display: none;` as a perf strategy. Some browsers will still load hidden images.
+- [Generate a CSS gradient](https://www.louisbourque.ca/Color-Extractor/) of your image to show during load.
+- Lazy-load your background images.
+
+```css
+@media only screen and (min-width: 320px) {
+  /* small screen, DPR = 1 */ }
+@media only screen and (min-device-pixel-ratio: 2) and (min-width: 320px),
+  only screen and (min-resolution: 192dpi) and (min-width: 320px),
+  only screen and (min-resolution: 2dppx) and (min-width: 320px),{
+  /* small screen, DPR = 2 */ }
+```
+
+Note: When should an image be in the HTML vs CSS?
+
+-v-
+
+# `display: none;`
+# not a perf strategy.
+
+Note: Some browsers will still load hidden images.
+
+
+-v-
+
+## webp, srcset, &amp; sizes, oh my! 🦁🐯🐻
 
 ```html
 <picture>
@@ -933,40 +1361,47 @@ Note: (1) In this `picture` tag, we have 2 sources and an img. Older browsers si
 
 -v-
 
-## Do I really have to write all this markup?
 
-Nope. Some (not all) tooling options:
+<!-- .slide: data-background="./images/photo-collage.jpg" class="dark-highlighter" -->
 
-- Simple `<img>` and server selects best image to serve
-- Paid cloud-based services like [Cloudinary](https://cloudinary.com)
-- Build tools like various webpack loaders
+# Generating Images & Markup <!-- .element: style="color:#fecf16;" -->
 
-<small>[Image Analysis Tool by Cloudinary](https://webspeedtest.cloudinary.com/)</small>
+-v-
+
+<img class="nooutline" src="./images/image-cli-tweet.png" alt="Are you a developer like me that does not have fancy design tools? You can still process images with CLI tools! Here's a reference I use whenever I want to convert or resize images, using ImageMagick, cwebp, and more." height="500px">
+
+<small>[Images on the Command Line reference](https://github.com/siakaramalegos/images-on-the-command-line), [Tweet](https://twitter.com/TheGreenGreek/status/1201494377522225153)</small>
+
+-v-
+
+## Paid Services 💰
+
+- [Cloudinary](https://cloudinary.com/)
+- [Netlify large media](https://docs.netlify.com/large-media/overview/#large-media-docs)
+- ...and many others
+
+```bash
+[baseUrl]/eeeps/image/upload/f_auto,q_70,w_512/photo.jpg
+/images/apples.jpg?nf_resize=fit&w=300&h=400
+```
+
+<small>[Image Analysis Tool by Cloudinary](https://webspeedtest.cloudinary.com/)*</small>
+
+-v-
+
+## Other tooling options:
+
+- Simple `<img>` and server/serverless function selects best image to serve
+- Build tools like various webpack loaders (but `sizes` not supported)
+  - [responsive-loader](https://github.com/herrstucki/responsive-loader)
+  - [gatsby-image](https://www.gatsbyjs.org/packages/gatsby-image/) and [gatsby-transformer-sharp](https://image-processing.gatsbyjs.org/)
+
 
 Note: (1) Many people have their server hijack the request and serve the best image to minimize markup. Could also use a serverless function. (2) Cost money. (3) So many options - both create your srcset code and process the images
 
 -v-
 
-## CSS Background Image Performance
-
-- Use media queries to select the best width image for a chosen screen size and DPR (use postcss/autoprefixer to get prefixes):
-  ```css
-  @media only screen and (min-width: 320px) {
-    /* small screen, DPR = 1 */ }
-  @media only screen and (min-device-pixel-ratio: 2) and (min-width: 320px),
-    only screen and (min-resolution: 192dpi) and (min-width: 320px),
-    only screen and (min-resolution: 2dppx) and (min-width: 320px),{
-    /* small screen, DPR = 2 */ }
-  ```
-- Don't use `display: none;` as a perf strategy. Some browsers will still load hidden images.
-- [Generate a CSS gradient](https://www.louisbourque.ca/Color-Extractor/) of your image to show during load.
-- Lazy-load your background images.
-
-<small>Check out this cool [Color-Extractor](https://www.louisbourque.ca/Color-Extractor/) tool built by Louis Bourque.</small>
-
--v-
-
-## Image Exercise 3
+## Image Exercise 3 (webpack only)
 
 1. Check out the footer background image HTML and CSS. Observe that a gradient has already been generated. Uncomment that line to implement.
 2. Generate media queries to accommodate different screen sizes using `(min-resolution: 2dppx)`. Add `postcss-loader` and `autoprefixer` for the remaining prefixes ([docs](https://github.com/postcss/autoprefixer#what-is-the-unprefixed-version-of--webkit-min-device-pixel-ratio)):
@@ -990,21 +1425,90 @@ module.exports = {
 
 -v-
 
-# Lazy Loading Images
+<!-- .slide: data-background="./images/falling-mountains.jpg" class="dark-highlighter" -->
+
+# Layout Shift
 
 -v-
 
-## I can't wait for the future
+<video controls width="800" autoplay loop>
+  <source src="./images/layout-shift.mp4" type="video/mp4">
+  Sorry, your browser doesn't support embedded videos.
+</video>
 
-<small>Native lazy-loading for `<img>` and `<iframe>` hopefully in Chrome ~75</small>
+-v-
 
-<img src="./images/native_lazy.png_large" alt="<img loading=lazy> examples" class="nooutline" width="60%">
+```html
+<img src="/img/show-money/show-money.jpg"
+     alt="Man's hand holding out a fist full of dollars toward the viewer"
+     height="383"
+     width="680">
+```
+
+```css
+img {
+  height: auto;
+  /* max-width: 100%; */
+}
+```
+
+<small>[Do This to Improve Image Loading on Your Website](https://www.youtube.com/watch?v=4-d_SoCHeWE&feature=youtu.be) - video by Jen Simmons</small>
+
+Note: Setting the height and width on the image sets an aspect ratio, and then the CSS is respected.
+
+-v-
+
+<video controls width="800" autoplay loop>
+  <source src="./images/fixed-layout-shift.mp4" type="video/mp4">
+  Sorry, your browser doesn't support embedded videos.
+</video>
+
+-v-
+
+<!-- .slide: data-background="./images/loading.jpg" class="dark-highlighter" -->
+
+# Loading <!-- .element: style="color:#fecf16;" -->
+
+-v-
+
+
+## ⚡🦄🌈⚡ Native lazy-loading ⚡🦄🌈⚡
+
+```html
+<!-- Lazy-load offscreen image when user scrolls near -->
+<img src="./hotlanta.jpg" loading="lazy" alt="...">
+
+<!-- Load an image immediately -->
+<img src="./hotlanta.jpg" loading="eager" alt="...">
+```
 
 <small>[addyosmani.com/blog/lazy-loading/](https://addyosmani.com/blog/lazy-loading/)</small>
 
 -v-
 
+# ⚡🦄🐈🌈🐼🍕🎂🍾🎉🐶🦄🐈🌈🐼🍕🎂🍾🎉🐶⚡🐈🌈🐼🍕🎂🍾🎉🐶⚡🦄🌈🐼🍕🎂🍾🎉🐶⚡🦄🐈
+
+-v-
+
+# 😭😭😭😭😭😭
+
+<img src="./images/caniuse-loading.png" alt="Can I Use shows 62% compatibility with loading attr" width="80%" style="border:none">
+
+<small>[caniuse](https://caniuse.com/#feat=loading-lazy-attr)</small>
+
+-v-
+
+In the meantime, use a tool like [lazysizes](https://github.com/aFarkas/lazysizes).
+
+<small>Also check out: [Lazy load embedded YouTube videos](https://css-tricks.com/lazy-load-embedded-youtube-videos/) on CSS Tricks</small>
+
+Note: Can also do a blur-up and calculate sizes for you.
+
+-v-
+
 ## Image Exercise 4: Lazy Loading for Today &trade;
+
+<small>(webpack only)</small>
 
 - Install `lazysizes` ([docs](https://github.com/aFarkas/lazysizes)): `npm i lazysizes --save`
 - Import in index.js: `import 'lazysizes';`
@@ -1019,10 +1523,21 @@ module.exports = {
 
 -v-
 
-## Optimize your images
 
-- Use [imagemin-webpack-plugin](https://web.dev/fast/use-imagemin-to-compress-images/codelab-imagemin-webpack) to optimize on build every time.
-- Use [ImageOptim](https://imageoptim.com/) or similar to do manually.
+## Toolbox 🧰
+
+- Use the right image type (png vs jpg, gif vs video). <!-- .element: class="fragment fade-in-then-semi-out" -->
+- Serve the right size image for the user's screen width and device pixel ratio <!-- .element: class="fragment fade-in-then-semi-out" -->
+- Compress images with a tool like ImageOptim, TinyPNG, or use a webpack plugin like imagemin-webpack-plugin <!-- .element: class="fragment fade-in-then-semi-out" -->
+- Use newer, improved formats like webp. <!-- .element: class="fragment fade-in-then-semi-out" -->
+- Lazy loading with a tool like lazysizes <!-- .element: class="fragment fade-in-then-semi-out" -->
+
+<br>
+<br>
+<small>
+  Check out <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images">Responsive images</a> on MDN &amp; <a href="https://abookapart.com/products/image-performance">Image Performance</a> by Mat Marquis.
+  <br><a href="https://www.npmjs.com/package/sharp">Sharp</a> &amp; <a href="https://www.imagemagick.org/script/index.php">Imagemagick</a> are great for resizing images. Examples at <a href="https://web.dev/fast/serve-responsive-images">Serve Responsive Images</a>. Use cwebp for creating webp files (<a href="https://developers.google.com/speed/webp/docs/cwebp">docs</a>).
+</small>
 
 ---
 
@@ -1688,6 +2203,22 @@ Note: Great for things like finding out your CDN provider doesn't serve a partic
   https://developers.google.com/web/fundamentals/performance/navigation-and-resource-timing/
   <br />https://www.keycdn.com/blog/user-timing/
 <small>
+
+-v-
+
+## Navigation Timing Overview
+
+<img src="./images/navigation-timing.png" class="plain" width="85%">
+
+<small>[Navigation Timing; W3C Recommendation 17 December 2012](https://www.w3.org/TR/navigation-timing/)</small>
+
+-v-
+
+## Resource Timing Overview
+
+<img src="./images/resource-timing.png" class="plain">
+
+<small>[Resource Timing Level 1; W3C Candidate Recommendation 30 March 2017](https://www.w3.org/TR/resource-timing/)</small>
 
 -v-
 
