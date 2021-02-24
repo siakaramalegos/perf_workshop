@@ -390,3 +390,6 @@ table.fixed-two-column td {
   display: inline-block;
   margin: 20px;
 }
+.dark-highlighter {
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+}
