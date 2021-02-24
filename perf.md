@@ -517,7 +517,7 @@ Note: Lots of other cool tools exist like local overrides, paint layers, etc.
 
 <img class="plain" src="./images/wpt-waterfall-annotated.png">
 
-Note: green - downloaded before started rendering so these files could be bottlenecks for rendering (js or css). Thumbnail view: scrolling moves the red line, gold border = visual change happened
+Note: green - downloaded before started rendering so these files could be bottlenecks for rendering (js or css). Thumbnail view: scrolling moves the red line, gold border = visual change happened. https://webpagetest.org/result/200525_57_18cda7ecd946450919406f43121c34d0/
 
 -v-
 
@@ -663,7 +663,7 @@ Note: look at variations in image lines - can visually see TCP slow start.
 
 ## Latency Exercise #1
 
-1. Perform a Network profile on one of these websites: [nolalibrary.org/](http://nolalibrary.org/), [grandrapidsohio.com/](http://www.grandrapidsohio.com/)
+1. Perform a Network profile on [nolalibrary.org/](http://nolalibrary.org/)
 2. Now, perform a Network profile on one of these websites: [marvel.com/captainmarvel/](https://www.marvel.com/captainmarvel/), [clioandcalliope.com](https://www.clioandcalliope.com/), [nola.gov/](https://www.nola.gov/)
 3. Compare the two, focusing on assets from the same domain (ignore ads and third-party scripts). How do the shapes of the waterfalls compare? Are they chained or concurrent?
 
@@ -724,10 +724,10 @@ Use service workers for offline access and custom caching behavior.
 # Fonts
 
 <img class="nooutline" width="50%" src="./images/fonts.png" alt="Screenshot of a Google fonts font option" />
+<!-- .slide: data-background="./images/AA-font.jpg" -->
 
 -v-
 
-<!-- .slide: data-background="./images/AA-font.jpg" -->
 
 <div style="background-color:rgba(255,255,255,0.75);padding:20px;">
 
@@ -756,7 +756,6 @@ Use service workers for offline access and custom caching behavior.
 
 -v-
 
-<!-- .slide: data-background="./images/frustration.jpg" -->
 <h1 class="dark-background">
   <span class="highlighter">What annoys you about fonts?</span>
 </h1>
@@ -766,13 +765,13 @@ Use service workers for offline access and custom caching behavior.
 ## Webfonts
 
 <ul class="plus-minus">
-  <li class="plus fragment fade-in-then-semi-out">Hosted on fast and reliable CDNs</li>
-  <li class="plus fragment fade-in-then-semi-out">Can provide optimized variants based on user's browser</li>
-   <li class="plus fragment fade-in-then-semi-out"><del>Opportunity for shared caching on popular fonts</del></li>
-  <li class="plus fragment fade-in-then-semi-out">We now have control over FOUT and FOIT!</li>
-  <li class="minus fragment fade-in-then-semi-out">Minumum of 2 separate requests</li>
-  <li class="minus fragment fade-in-then-semi-out">Can't use resource hints on the font file</li>
-  <li class="minus fragment fade-in-then-semi-out">Doesn't take advantage of HTTP2 multiplexing</li>
+  <li class="plus">Hosted on fast and reliable CDNs</li>
+  <li class="plus">Can provide optimized variants based on user's browser</li>
+   <li class="plus"><del>Opportunity for shared caching on popular fonts</del></li>
+  <li class="plus">We now have control over FOUT and FOIT!</li>
+  <li class="minus">Minumum of 2 separate requests</li>
+  <li class="minus">Can't use resource hints on the font file</li>
+  <li class="minus">Doesn't take advantage of HTTP2 multiplexing</li>
 </ul>
 
 -v-
@@ -918,14 +917,14 @@ Note: `rel="preload"` tells the browser to declaratively fetch the resource but 
 ## [Shared Cache is Going Away](https://www.jefftk.com/p/shared-cache-is-going-away)
 
 <small>[Chrome](https://www.chromestatus.com/feature/5730772021411840), [Firefox](https://bugzilla.mozilla.org/show_bug.cgi?id=1536058), [Safari](https://bugs.webkit.org/show_bug.cgi?id=110269)</small>
+<!-- .slide: data-background="./images/no.jpg" -->
 
 -v-
 
-<!-- .slide: data-background="./images/no.jpg" -->
 
 <div style="background-color:rgba(255,255,255,0.75);padding:20px;">
 
-# UX: Font Rendering
+# UX: Font Rendering <!-- .element: style="color:#333" -->
 
 </div>
 
@@ -1595,7 +1594,7 @@ Note: Can also do a blur-up and calculate sizes for you.
 
 - Use the right image type (png vs jpg, gif vs video). <!-- .element: class="fragment fade-in-then-semi-out" -->
 - Serve the right size image for the user's screen width and device pixel ratio <!-- .element: class="fragment fade-in-then-semi-out" -->
-- Compress images with a tool like ImageOptim, TinyPNG, or use a webpack plugin like imagemin-webpack-plugin <!-- .element: class="fragment fade-in-then-semi-out" -->
+- Compress images with a tool like ImageOptim, TinyPNG, SVGOMG, or use a webpack plugin like imagemin-webpack-plugin <!-- .element: class="fragment fade-in-then-semi-out" -->
 - Use newer, improved formats like webp. <!-- .element: class="fragment fade-in-then-semi-out" -->
 - Lazy loading with a tool like lazysizes <!-- .element: class="fragment fade-in-then-semi-out" -->
 
