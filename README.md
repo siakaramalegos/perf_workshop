@@ -7,15 +7,15 @@
 - [Resources](#resources)
 
 ## Abstract
-Are you losing revenue to performance? 53% of mobile site visits are abandoned if a page takes longer than 3 seconds to load. Pinterest reduced load times by 40% and saw a 15% increase in sign ups. Starbucks implemented a 2x faster time to interactive resulting in a 65% increase in rewards registrations. AliExpress reduced load by 36% and saw a 10.5% increase in orders.
+Are you losing revenue to performance? 53% of mobile site visits are abandoned if a page takes longer than 3 seconds to load. Pinterest reduced load times by 40% and saw a 15% increase in sign ups. Starbucks implemented a 2x faster time to interactive resulting in a 65% increase in rewards registrations. AliExpress reduced load by 36% and saw a 10.5% increase in orders. On top of that, SEO is now impacted by your Core Web Vitals scores. 
 
 Performance is important. Tooling can be hard. Do flame charts intimidate you? Come learn how to audit and fix common performance issues using Chrome DevTools, Lighthouse, PageSpeed Insights, and webpagetest.org. During this hands-on, full-day workshop, you will learn how to:
 
 - Optimize and familiarize yourself with your DevTools environment
-- Understand which metrics matter
+- Understand the various metrics, including the Core Web Vitals
 - Measure the performance of existing applications
 - Diagnose and prioritize performance problems
-- Implement performance fixes
+- How to implement common performance fixes
 
 We will profile real applications to both learn the tools of measurement as well as see real performance problems in action. By the end of this workshop, you will be familiar with the following performance concepts. Many will be covered in-depth with exercises, and others will be covered in an overview with resources to learn more.
 
