@@ -23,9 +23,10 @@ revealOptions:
 ## Links for today
 
 - **Slides**: [bit.ly/perf-work](http://bit.ly/perf-work)
-- **Project** (pull down all branches):
-  - no build tool: [bit.ly/md-view-simple](https://bit.ly/md-view-simple)
-  - with webpack: [bit.ly/markdown-viewer](http://bit.ly/markdown-viewer)
+- **Projects** (pull down all branches):
+  - Images exercise: [github.com/siakaramalegos/images-exercise](https://github.com/siakaramalegos/images-exercise)
+  - Big project no build tool: [bit.ly/md-view-simple](https://bit.ly/md-view-simple)
+  - Big project with webpack: [bit.ly/markdown-viewer](http://bit.ly/markdown-viewer)
 
 -v-
 
@@ -106,7 +107,7 @@ Note: Intro
 
 > Starbucks implemented a 2x faster time to interactive resulting in a 65% increase in rewards registrations.
 
-<small>[Chrome Dev Summit 2018](https://www.youtube.com/watch?v=Xryhxi45Q5M&t=1113s&index=6&list=PLNYkxOF6rcIDjlCx1PcphPpmf43aKOAdF )</small>
+<small>[Chrome Dev Summit 2018](https://www.youtube.com/watch?v=Xryhxi45Q5M&t=1113s&index=6&list=PLNYkxOF6rcIDjlCx1PcphPpmf43aKOAdF)</small>
 
 -v-
 
@@ -159,11 +160,12 @@ Note: Most of the energy is consumed by the network and data center, not users' 
 
 Pick a website you work on. Run it through each of these tools, keeping each open in separate tabs:
 
-1. **Lighthouse** (DevTools audit tab, only check performance)
-2. **PageSpeed Insights** [developers.google.com/speed/pagespeed/insights/](https://developers.google.com/speed/pagespeed/insights/)
-3. **WebPageTest** [webpagetest.org/easy](http://webpagetest.org/easy)
-4. **Test My Site** [testmysite.thinkwithgoogle.com](https://testmysite.thinkwithgoogle.com)
-5. **RespImageLint** [ausi.github.io/respimagelint/](https://ausi.github.io/respimagelint/) (requires some set up)
+1. **WebPageTest** [webpagetest.org/easy](http://webpagetest.org/easy)
+2. **Lighthouse** (DevTools audit tab, only check performance)
+3. **Lighthouse Treemap** (Look for button in the Lighthouse report)
+4. **PageSpeed Insights** [developers.google.com/speed/pagespeed/insights/](https://developers.google.com/speed/pagespeed/insights/)
+5. **Test My Site** [testmysite.thinkwithgoogle.com](https://testmysite.thinkwithgoogle.com)
+6. **RespImageLint** [ausi.github.io/respimagelint/](https://ausi.github.io/respimagelint/) (requires some set up)
 
 Note: **Discussion**: What do you notice about each? What are the similarities/differences? What do you like/dislike?
 
@@ -198,7 +200,6 @@ Note: **Discussion**: What do you notice about each? What are the similarities/d
     </tr>
   </tbody>
 </table>
-
 
 -v-
 
@@ -295,7 +296,17 @@ _Publicly available data_
 
 ## Field/RUM Testing Tools
 
-_Self-run data sent to your backend or analytics tool_
+_Packages and vendors_
+
+- [Web Vitals Report](https://web-vitals-report.web.app/) + [web-vitals npm package](https://github.com/GoogleChrome/web-vitals)
+- Many analytics vendors ([Speedcurve](https://www.speedcurve.com/), [Calibre](https://calibreapp.com/))
+- Starting to be bundled in more general analytics/deployment products like [Layer 0](https://www.layer0.co/performance-monitor)
+
+-v-
+
+## Field/RUM Testing Tools
+
+_Custom data sent to your backend or analytics tool_
 
 - Navigation Timing API
 - Resource Timing API
@@ -336,8 +347,9 @@ Note: Lighthouse audits also does this better now, but I still like this quick t
 
 ## Bundle Analyzers
 
-- Several webpack tools exist - check out options on [SurviveJS](https://survivejs.com/webpack/optimizing/build-analysis/)
-- One of my favorites: `webpack-bundle-analyzer`
+- [Lighthouse Treemap](https://sia.codes/posts/lighthouse-treemap/)
+- NextJS build analytics in the CLI
+- Several [webpack tools](https://survivejs.com/webpack/optimizing/build-analysis/) like `webpack-bundle-analyzer`
 
 <img src="./images/webpack_bundle_analyzer.gif" alt="Webpack bundle analyzer in action showing marimekko chart of dependencies based on size" width="80%">
 
@@ -374,12 +386,13 @@ Note: By delightful I mean both is it stable and smooth.
 
 ## When can I see the page?
 
-- Speed index measures how quickly the page contents are visually populated, but it's not simple<!-- .element: class="fragment fade-in-then-semi-out" -->
-- Largest contentful paint measures when the largest image or text paint in the viewport occurs<!-- .element: class="fragment fade-in" -->
-  - Elements removed from the DOM are invalidated (splash screens)<!-- .element: class="fragment fade-in" -->
-  - Will have a larger weight in Lighthouse<!-- .element: class="fragment fade-in" -->
+**Largest contentful paint** (LCP) measures when the largest image or text paint in the viewport occurs
 
-<small>[Largest Contentful Paint (LCP)](https://web.dev/lcp/), [Speed Index](https://sites.google.com/a/webpagetest.org/docs/using-webpagetest/metrics/speed-index)</small>
+- Elements removed from the DOM are invalidated (splash screens)<!-- .element: class="fragment fade-in" -->
+- A "good" experience is < 2.5 seconds<!-- .element: class="fragment fade-in" -->
+- Impacted by slow server response (TTFB), render-blocking resources, client-side rendering<!-- .element: class="fragment fade-in" -->
+
+<small>[Largest Contentful Paint (LCP)](https://web.dev/lcp/)</small>
 
 -v-
 
@@ -393,14 +406,20 @@ Note: By delightful I mean both is it stable and smooth.
 
 ## When can I interact with the page?
 
-- Time to Interactive (TTI) measures how long it takes a page to become fully interactive<!-- .element: class="fragment fade-in-then-semi-out" -->
-- Total blocking time (TBT) measures the time between First Contentful Paint (FCP) and TTI where the main thread was blocked for long enough to prevent input responsiveness.<!-- .element: class="fragment fade-in-then-semi-out" -->
-- First Input Delay (FID) measures the delta between when an input event is received and when the main thread is next idle (field only).<!-- .element: class="fragment fade-in-then-semi-out" -->
-- Large blocks of scripting on the main thread makes interaction worse.<!-- .element: class="fragment fade-in-then-semi-out" -->
+<ul>
+  <li class="fragment fade-in-then-semi-out"><strong>Time to Interactive</strong> (TTI) measures how long it takes a page to become fully interactive</li>
+  <li class="fragment fade-in-then-semi-out"><strong>Total blocking time</strong>  (TBT) measures the time between First Contentful Paint (FCP) and TTI where the main thread was blocked for long enough to prevent input responsiveness.</li>
+  <li class="fragment fade-in-then-semi-out"><strong>First Input Delay</strong> (FID) measures the delta between when an input event is received and when the main thread is next idle (field only).</li>
+  <li class="fragment fade-in-then-semi-out">Caused by large blocks of scripting on the main thread</li>
+</ul>
 
 <small>[How does TBT relate to TTI?](https://web.dev/tbt/#how-does-tbt-relate-to-tti), [First Input Delay](https://web.dev/fid/)</small>
 
 Note: the point at which layout has stabilized, key webfonts are visible, and the main thread is available enough to handle user input within 50ms. The main thread is considered "blocked" any time there's a Long Task—a task that runs on the main thread for more than 50 milliseconds (ms). TBT will have a larger weight in Lighthouse.
+
+-v-
+
+<a href="https://twitter.com/hdjirdeh/status/1456169370023985152"><img src="./images/new_responsive_metrics.png" alt="The Chrome Speed Metrics team are working on two new metrics: 1. Responsiveness: Assess the overall responsiveness of a page by measuring all user inputs Up pointing backhand index https://web.dev/responsiveness/ 2. Smoothness: Quantify smoothness based on animation frame data Butter https://web.dev/smoothness/" width="50%" class="nooutline"></a>
 
 -v-
 
@@ -436,7 +455,7 @@ Note: Frame rate or frames per second (fps), is one measure of responsiveness. M
 - **Response**: process events in under 50ms
 - **Animation**: produce a frame in 10ms (for 60fps devices)
 - **Idle**: maximize idle time (to respond in 50ms or less)
-- **Load**: deliver content and become interactive in under 5 seconds, 2 seconds for subsequent loads*
+- **Load**: deliver content and become interactive in under 5 seconds, 2 seconds for subsequent loads\*
 
 <small>[Measure Performance with the RAIL Model](https://developers.google.com/web/fundamentals/performance/rail)</small>
 
@@ -458,7 +477,7 @@ Note: Target is 75% of loads. "Core Web Vitals are the subset of Web Vitals that
 
 Look at the tools you ran earlier, and write down:
 
-1. The site's speed index, LCP, TTI, TBT, FID, and CLS.
+1. The site's speed index, TTFB, FCP, LCP, TBT, FID, and CLS.
 2. Which tools did you find them in?
 3. Under what conditions were these run (device, network, emulated/real?
 4. Bonus: Which tool lets you test performance while using the app (not loading)?
@@ -661,14 +680,6 @@ Note: look at variations in image lines - can visually see TCP slow start.
 
 -v-
 
-## Latency Exercise #1
-
-1. Perform a Network profile on [nolalibrary.org/](http://nolalibrary.org/)
-2. Now, perform a Network profile on one of these websites: [marvel.com/captainmarvel/](https://www.marvel.com/captainmarvel/), [clioandcalliope.com](https://www.clioandcalliope.com/), [nola.gov/](https://www.nola.gov/)
-3. Compare the two, focusing on assets from the same domain (ignore ads and third-party scripts). How do the shapes of the waterfalls compare? Are they chained or concurrent?
-
--v-
-
 ## HTTP/1.1
 
 <img src="./images/http1-waterfall.png" alt="HTTP/1.1 waterfall showing only 6 downloads at one time" />
@@ -728,7 +739,6 @@ Use service workers for offline access and custom caching behavior.
 
 -v-
 
-
 <div style="background-color:rgba(255,255,255,0.75);padding:20px;">
 
 > Typography is what language looks like.
@@ -738,7 +748,6 @@ Use service workers for offline access and custom caching behavior.
 </div>
 
 -v-
-
 
 <img class="nooutline" width="50%" src="./images/hello1.png" alt="hello in a large slab font" />
 
@@ -785,7 +794,7 @@ Use service workers for offline access and custom caching behavior.
 
 -v-
 
-## Latency Exercise #2
+## Latency Exercise
 
 1. Run a network profile on [bit.ly/webfont-css](http://bit.ly/webfont-css).
 <!-- Go to this webpagetest profile: [tinyurl.com/y5bl5ksn](https://tinyurl.com/y5bl5ksn). Click on the waterfall for Run 2 (the median run). -->
@@ -807,7 +816,7 @@ Note: pause here and ask what else seems wasteful - calling from css and connect
 ## Loading Google Fonts from CSS
 
 ```css
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,700");
 ```
 
 <img src="./images/webfonts_css.png" alt="Google fonts load waterfall showing wasted time from loading from css">
@@ -821,8 +830,10 @@ Note: pause here and ask what else seems wasteful - the connection time to fonts
 ## Loading Google Fonts from HTML
 
 ```html
-<link href="https://fonts.googleapis.com/css?family=Muli:400"
-      rel="stylesheet">
+<link
+  href="https://fonts.googleapis.com/css?family=Muli:400"
+  rel="stylesheet"
+/>
 ```
 
 <img class="nooutline" src="./images/fonts-html.png" alt="Google fonts load waterfall showing wasted time from loading from css">
@@ -832,9 +843,12 @@ Note: pause here and ask what else seems wasteful - the connection time to fonts
 ## Loading Google Fonts from HTML
 
 ```html
-<link href="https://fonts.googleapis.com/css?family=Muli:400"
-      rel="stylesheet">
+<link
+  href="https://fonts.googleapis.com/css?family=Muli:400"
+  rel="stylesheet"
+/>
 ```
+
 <!-- TODO: animate the image to show circle on click and slow bc no preconnect -->
 <img src="./images/webfonts_before.png" alt="Google fonts load waterfall showing wasted time">
 
@@ -851,9 +865,11 @@ Note: dns-prefetch only does the dns part of the prefetch, but on the plus side,
 ## Loading Google Fonts with preconnect to fonts.gstatic.com
 
 ```html
-<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-<link href="https://fonts.googleapis.com/css?family=Muli:400"
-      rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css?family=Muli:400"
+  rel="stylesheet"
+/>
 ```
 
 <img src="./images/webfonts_preconnect.png" alt="Google fonts load waterfall showing preconnect">
@@ -863,11 +879,19 @@ Note: dns-prefetch only does the dns part of the prefetch, but on the plus side,
 ## Self-Hosted Fonts
 
 ```html
-<link as="font" type="font/woff2"
-  href="./fonts/muli-v12-latin-regular.woff2" crossorigin>
+<link
+  as="font"
+  type="font/woff2"
+  href="./fonts/muli-v12-latin-regular.woff2"
+  crossorigin
+/>
 
-<link as="font" type="font/woff2"
-  href="./fonts/muli-v12-latin-700.woff2" crossorigin>
+<link
+  as="font"
+  type="font/woff2"
+  href="./fonts/muli-v12-latin-700.woff2"
+  crossorigin
+/>
 ```
 
 <img class="nooutline" src="./images/fonts-local.png" alt="Google fonts load waterfall showing local font waiting to load until after CSS">
@@ -879,36 +903,54 @@ Note: dns-prefetch only does the dns part of the prefetch, but on the plus side,
 ## Self-Hosted Fonts
 
 ```html
-<link as="font" type="font/woff2"
-  href="./fonts/muli-v12-latin-regular.woff2" crossorigin>
+<link
+  as="font"
+  type="font/woff2"
+  href="./fonts/muli-v12-latin-regular.woff2"
+  crossorigin
+/>
 
-<link as="font" type="font/woff2"
-  href="./fonts/muli-v12-latin-700.woff2" crossorigin>
+<link
+  as="font"
+  type="font/woff2"
+  href="./fonts/muli-v12-latin-700.woff2"
+  crossorigin
+/>
 ```
 
 <img src="./images/no-preload.png" alt="Google fonts load waterfall showing local font waiting to load until after CSS">
 
 -v-
 
-## Preloading self-hosted fonts*
+## Preloading self-hosted fonts\*
 
 ```html
-<link rel="preload" as="font" type="font/woff2"
-  href="./fonts/muli-v12-latin-regular.woff2" crossorigin>
+<link
+  rel="preload"
+  as="font"
+  type="font/woff2"
+  href="./fonts/muli-v12-latin-regular.woff2"
+  crossorigin
+/>
 
-<link rel="preload" as="font" type="font/woff2"
-  href="./fonts/muli-v12-latin-700.woff2" crossorigin>
+<link
+  rel="preload"
+  as="font"
+  type="font/woff2"
+  href="./fonts/muli-v12-latin-700.woff2"
+  crossorigin
+/>
 ```
 
 <img src="./images/font_preload.png" alt="Self-hosted waterfall showing preload">
 
-<small>* Note that `preload` loads a resource whether used or not. Only preload resources that are needed on a particular page.</small>
+<small>\* Note that `preload` loads a resource whether used or not. Only preload resources that are needed on a particular page.</small>
 
 Note: `rel="preload"` tells the browser to declaratively fetch the resource but not “execute” it (our CSS will queue usage). `as="font"` tells the browser what it will be downloading so that it can set an appropriate priority. Without it, the browser would set a default low priority. `type="font/woff2` tells the browser the file type so that it only downloads the resource if it supports that file type. `crossorigin` is required because fonts are fetched using anonymous mode CORS.
 
 -v-
 
-<img src="./images/caniuse-preload.png" alt="caniuse coverage report for link rel=preload">
+<img src="./images/caniuse-preload.png" class="nooutline" alt="caniuse coverage report for link rel=preload">
 
 <small>[caniuse](https://caniuse.com/#feat=link-rel-preload)</small>
 
@@ -917,10 +959,10 @@ Note: `rel="preload"` tells the browser to declaratively fetch the resource but 
 ## [Shared Cache is Going Away](https://www.jefftk.com/p/shared-cache-is-going-away)
 
 <small>[Chrome](https://www.chromestatus.com/feature/5730772021411840), [Firefox](https://bugzilla.mozilla.org/show_bug.cgi?id=1536058), [Safari](https://bugs.webkit.org/show_bug.cgi?id=110269)</small>
+
 <!-- .slide: data-background="./images/no.jpg" -->
 
 -v-
-
 
 <div style="background-color:rgba(255,255,255,0.75);padding:20px;">
 
@@ -949,7 +991,6 @@ Note: add the `font-display` property to the `@font-face` declaration
 -v-
 
 <img src="./images/googlefonts-fontdisplay.png" class="nooutline" alt="Shipped! @GoogleFonts now let's you control web font loading using `font-display`. Say hello to the `display` parameter " width="55%">
-
 
 <small>https://twitter.com/addyosmani/status/1128548064287952896/</small>
 
@@ -1007,7 +1048,7 @@ Note: PRPL pattern - push, render, pre-cache, lazy-load
 ## More resources mentioned
 
 - [Making Google Fonts Faster⚡](https://sia.codes/posts/making-google-fonts-faster/) - includes how do download and host locally
-- [Google Analytics + caniuse = *MAGIC*](https://sia.codes/posts/google-analytics-caniuse-magic/) - how to import your Google Analytics data into caniuse
+- [Google Analytics + caniuse = _MAGIC_](https://sia.codes/posts/google-analytics-caniuse-magic/) - how to import your Google Analytics data into caniuse
 - [Shared Cache is Going Away](https://www.jefftk.com/p/shared-cache-is-going-away)
 - [subfont](https://github.com/Munter/subfont)
 
@@ -1165,6 +1206,16 @@ Note: WEBP is a new format available on most modern browsers (I'm looking at you
 
 -v-
 
+## AVIF: the future
+
+<img class="plain" src="./images/caniuse_avif.png" alt="caniuse page for webp showing no safari support">
+
+<small>[Equal file sizes demo](https://jakearchibald.com/2020/avif-has-landed/#at-equal-file-sizes) by Jake Archibald, [caniuse](https://caniuse.com/avif)</small>
+
+Note: AVIF is an extraction from the keyframes of the now popular video format AV1. Best compression, supports transparency and more.
+
+-v-
+
 ## Cheatsheet
 
 - ✅ SVG: logos and icons <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
@@ -1172,10 +1223,11 @@ Note: WEBP is a new format available on most modern browsers (I'm looking at you
 - ✅ PNG: photo-like images with transparency <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
 - ✅ JPG: photo-like images with no transparency <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
 - ✅ WEBP: smaller, but need to serve fallbacks <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
+- ✅ AVIF: EVEN SMALLER, but need to serve fallbacks <!-- .element: class="fragment fade-in-then-semi-out no-bullet" -->
 
 <small>[Responsive Doggos Demo](https://projects.sia.codes/responsive-images-demo/)</small>
 
-Note: Raster file formats are really just different compression methods. **SVG**: Can style and animate with CSS or make basic edits in XML. **GIF**: huge file sizes for animation, use video instead. svg or jpg are better for stills. Twitter converts GIF to video.  **PNG**: Use jpg if don't need transparency. **JPG**: much better compression algos.
+Note: Raster file formats are really just different compression methods. **SVG**: Can style and animate with CSS or make basic edits in XML. **GIF**: huge file sizes for animation, use video instead. svg or jpg are better for stills. Twitter converts GIF to video. **PNG**: Use jpg if don't need transparency. **JPG**: much better compression algos.
 
 -v-
 
@@ -1206,31 +1258,39 @@ Note: n this exaggerated example, the natural width of the bantha doggo on the l
 ## `srcset`
 
 ```html
-<img srcset="https://placekitten.com/300/200 300w,
-             https://placekitten.com/600/400 600w"
-     src="https://placekitten.com/300/200"
-     alt="cute random kitten" />
+<img
+  srcset="
+    https://placekitten.com/300/200 300w,
+    https://placekitten.com/600/400 600w
+  "
+  src="https://placekitten.com/300/200"
+  alt="cute random kitten"
+/>
 ```
 
 - States a set of images and the natural size of each image <!-- .element: class="fragment fade-in-then-semi-out" -->
 - Browser assumes a display width of 100vw <!-- .element: class="fragment fade-in-then-semi-out" -->
 - Files are candidates, not commands. <!-- .element: class="fragment fade-in-then-semi-out" -->
 
-Note: States a set of images and the natural size of each image. Browser assumes a display width of 100vw.  Files are candidates, not commands.. Alternatively, use x-descriptors.
+Note: States a set of images and the natural size of each image. Browser assumes a display width of 100vw. Files are candidates, not commands.. Alternatively, use x-descriptors.
 
 -v-
 
 ## `sizes`
 
 ```html
-<img src="https://placekitten.com/300/200"
-  srcset="https://placekitten.com/300/200 300w,
-          https://placekitten.com/600/400 600w,
-          https://placekitten.com/900/500 900w"
+<img
+  src="https://placekitten.com/300/200"
+  srcset="
+    https://placekitten.com/300/200 300w,
+    https://placekitten.com/600/400 600w,
+    https://placekitten.com/900/500 900w
+  "
   sizes="(max-width: 320px) 280px,
          (max-width: 640px) 580px,
          1000px"
-  alt="cute random kitten" />
+  alt="cute random kitten"
+/>
 ```
 
 - States display width for a set of media conditions <!-- .element: class="fragment fade-in-then-semi-out" -->
@@ -1257,25 +1317,29 @@ Note: How many different resolutions? Science suggests humans can see 720ppi 1 f
 
 -v-
 
+<img src="./images/gov-uk-screen-data.jpeg" alt="Chart showing preponderance of 2x and 3x DPR for mobile and 1x for desktop" class="nooutline" width="55%">
+
+<small><a href="https://twitter.com/TheRealNooshu/status/1397862141894529027">Tweet thread</a> with GOV.UK screen width and DPR data, <a href="https://jakearchibald.com/2021/serving-sharp-images-to-high-density-screens/">Halve the size of images by optimising for high density displays</a></small>
+
+Note: Furthermore, nowadays most mobile screens are 2x and 3x so we can simplify by not providing 1x options at those screen sizes
+
+-v-
+
 ## Image Exercise 1
 
-1. **Analyze**
-  - Write down how big our initial load is now.
-  - Inspect `<img>`, hover on filename to see displayed/ natural sizes.
-  - Run the RespImageLint bookmarklet to get suggestions here and in step 2 for `sizes`. Be lazy!
-2. **Optimize**
-  - Replace the `png` image with an `svg`.
-  - Use `srcset` and `sizes` to provide options for screens with DPRs of 1 and 2. Switch to `html-loader-srcset`.
-2. **Debug**
-  - Find your screen DPR: `window.devicePixelRatio`.
-  - Discover which file is being used: Inspect > Properties > `img` > `currentSrc`. Start with a small screen size, then observe how this changes as you increase.
+1. **Analyze**: How big is our initial load for [sia-images-exercise.netlify.app](https://sia-images-exercise.netlify.app/)?
+2. Inspect `<img>`, hover on file to see displayed/natural sizes.
+3. Run the RespImageLint bookmarklet to get suggestions.
+4. **Optimize**: Replace the `png` image with an `svg`.
+5. Use `srcset` and `sizes` to make responsive options.
+6. **Debug**: Find your screen DPR: `window.devicePixelRatio`.
+7. Discover which file is being used: Inspect > Properties > `img` > `currentSrc`. Start with a small screen size, then observe how this changes as you increase.
 
 <small>[Sharp](https://www.npmjs.com/package/sharp) &amp; [Imagemagick](https://www.imagemagick.org/script/index.php) are great for resizing images. Examples at [Serve Responsive Images](https://web.dev/fast/serve-responsive-images).</small>
 
 Note: Demo pups? Mention how behavior is different in different browsers. Sharp for JS and batch, Imagemagick for CLI. `convert galaxy.jpg -resize 720 galaxy_720.jpg`
 
 -v-
-
 
 <!-- .slide: data-background="./images/chilis.jpg" -->
 
@@ -1305,14 +1369,15 @@ Note: (1) Art direction is a technique for drawing attention to the most importa
 
 ```html
 <picture>
-  <source media="(min-width: 800px)"
-          srcset="wide_800.jpg 800w,
-                  wide_1600.jpg 1600w">
-  <source media="(min-width: 400px)"
-          srcset="narrow_400.jpg 400w,
-                  narrow_800.jpg 800w">
-  <img src="wide_800.jpg"
-       alt="Woman with dog looking at Grand Canyon">
+  <source
+    media="(min-width: 800px)"
+    srcset="wide_800.jpg 800w, wide_1600.jpg 1600w"
+  />
+  <source
+    media="(min-width: 400px)"
+    srcset="narrow_400.jpg 400w, narrow_800.jpg 800w"
+  />
+  <img src="wide_800.jpg" alt="Woman with dog looking at Grand Canyon" />
 </picture>
 ```
 
@@ -1324,9 +1389,8 @@ Note: (1) In this `picture` tag, we have 2 sources and an img. Older browsers si
 
 ```html
 <picture>
-  <source type="image/webp" srcset="pug_life.webp">
-  <img src="pug_life.jpg"
-       alt="pug wearing a striped t-shirt like a boss">
+  <source type="image/webp" srcset="pug_life.webp" />
+  <img src="pug_life.jpg" alt="pug wearing a striped t-shirt like a boss" />
 </picture>
 ```
 
@@ -1347,11 +1411,13 @@ Note: Browser uses the first compatible file type. Set `<img>` `src` to a format
 
 ```css
 @media only screen and (min-width: 320px) {
-  /* small screen, DPR = 1 */ }
+  /* small screen, DPR = 1 */
+}
 @media only screen and (min-device-pixel-ratio: 2) and (min-width: 320px),
   only screen and (min-resolution: 192dpi) and (min-width: 320px),
-  only screen and (min-resolution: 2dppx) and (min-width: 320px),{
-  /* small screen, DPR = 2 */ }
+  only screen and (min-resolution: 2dppx) and (min-width: 320px), {
+  /* small screen, DPR = 2 */
+}
 ```
 
 Note: When should an image be in the HTML vs CSS?
@@ -1359,10 +1425,10 @@ Note: When should an image be in the HTML vs CSS?
 -v-
 
 # `display: none;`
+
 # not a perf strategy.
 
 Note: Some browsers will still load hidden images.
-
 
 -v-
 
@@ -1370,15 +1436,17 @@ Note: Some browsers will still load hidden images.
 
 ```html
 <picture>
-  <source srcset="./images/sofa_pug_400.webp 400w,
-                  ./images/sofa_pug_800.webp 800w"
-          type="image/webp" />
-  <img src="./images/sofa_pug_400.jpg"
-        srcset="./images/sofa_pug_400.jpg 400w,
-                ./images/sofa_pug_800.jpg 800w"
-        sizes="400px"
-        width="400px"
-        alt="pug on a sofa looking sad" />
+  <source
+    srcset="./images/sofa_pug_400.webp 400w, ./images/sofa_pug_800.webp 800w"
+    type="image/webp"
+  />
+  <img
+    src="./images/sofa_pug_400.jpg"
+    srcset="./images/sofa_pug_400.jpg 400w, ./images/sofa_pug_800.jpg 800w"
+    sizes="400px"
+    width="400px"
+    alt="pug on a sofa looking sad"
+  />
 </picture>
 ```
 
@@ -1386,7 +1454,15 @@ Note: Some browsers will still load hidden images.
 
 ## Image Exercise 2
 
-1. Provide `webp` formats with `jpg` fallbacks for one picture. Update webpack.config.js:
+Provide `webp` formats with `jpg` fallbacks.
+
+<small>Webpack config instructions on following slide (if you went the big project route).</small>
+
+-v-
+
+## Webpack Supplemental Instructions (optional)
+
+Update webpack.config.js:
 
 ```diff
      rules: [
@@ -1407,9 +1483,12 @@ Note: Some browsers will still load hidden images.
        },
 ```
 
-2. (Optional) Install `cwebp` and create `webp` versions of the other images. See next slide for getting started...
+-v-
 
-<!-- TODO: provide install and sample commands -->
+## Supplemental Big Project Exercise (optional)
+
+(Optional) Install `cwebp` and create `webp` versions of the other images. See next slide for getting started...
+
 <small>[developers.google.com/speed/webp/docs/cwebp](https://developers.google.com/speed/webp/docs/cwebp)
 
 -v-
@@ -1426,7 +1505,6 @@ Note: Some browsers will still load hidden images.
 <small>[developers.google.com/speed/webp/docs/cwebp](https://developers.google.com/speed/webp/docs/cwebp)
 
 -v-
-
 
 <!-- .slide: data-background="./images/photo-collage.jpg" class="dark-highlighter" -->
 
@@ -1451,7 +1529,13 @@ Note: Some browsers will still load hidden images.
 /images/apples.jpg?nf_resize=fit&w=300&h=400
 ```
 
-<small>[Image Analysis Tool by Cloudinary](https://webspeedtest.cloudinary.com/)*</small>
+<small>[Image Analysis Tool by Cloudinary](https://webspeedtest.cloudinary.com/)\*</small>
+
+-v-
+
+## Image Exercise 3
+
+Similar to the previous exercise, make the second big image which comes from Cloudinary responsive (hint: the previous slide shows an example).
 
 -v-
 
@@ -1462,12 +1546,11 @@ Note: Some browsers will still load hidden images.
   - [responsive-loader](https://github.com/herrstucki/responsive-loader)
   - [gatsby-image](https://www.gatsbyjs.org/packages/gatsby-image/) and [gatsby-transformer-sharp](https://image-processing.gatsbyjs.org/)
 
-
 Note: (1) Many people have their server hijack the request and serve the best image to minimize markup. Could also use a serverless function. (2) Cost money. (3) So many options - both create your srcset code and process the images
 
 -v-
 
-## Image Exercise 3 (webpack only)
+## Webpack Image Exercise 4 (optional)
 
 1. Check out the footer background image HTML and CSS. Observe that a gradient has already been generated. Uncomment that line to implement.
 2. Generate media queries to accommodate different screen sizes using `(min-resolution: 2dppx)`. Add `postcss-loader` and `autoprefixer` for the remaining prefixes ([docs](https://github.com/postcss/autoprefixer#what-is-the-unprefixed-version-of--webkit-min-device-pixel-ratio)):
@@ -1483,10 +1566,8 @@ Note: (1) Many people have their server hijack the request and serve the best im
 ```javascript
 // postcss.config.js
 module.exports = {
-  plugins: [
-    require('autoprefixer')
-  ]
-}
+  plugins: [require("autoprefixer")],
+};
 ```
 
 -v-
@@ -1505,10 +1586,12 @@ module.exports = {
 -v-
 
 ```html
-<img src="/img/show-money/show-money.jpg"
-     alt="Man's hand holding out a fist full of dollars toward the viewer"
-     height="383"
-     width="680">
+<img
+  src="/img/show-money/show-money.jpg"
+  alt="Man's hand holding out a fist full of dollars toward the viewer"
+  height="383"
+  width="680"
+/>
 ```
 
 ```css
@@ -1531,21 +1614,26 @@ Note: Setting the height and width on the image sets an aspect ratio, and then t
 
 -v-
 
+## Image exercise 5
+
+Add the necessary HTML and CSS so that our images don't shift on load.
+
+-v-
+
 <!-- .slide: data-background="./images/loading.jpg" class="dark-highlighter" -->
 
 # Loading <!-- .element: style="color:#fecf16;" -->
 
 -v-
 
-
 ## ⚡🦄🌈⚡ Native lazy-loading ⚡🦄🌈⚡
 
 ```html
 <!-- Lazy-load offscreen image when user scrolls near -->
-<img src="./hotlanta.jpg" loading="lazy" alt="...">
+<img src="./hotlanta.jpg" loading="lazy" alt="..." />
 
 <!-- Load an image immediately -->
-<img src="./hotlanta.jpg" loading="eager" alt="...">
+<img src="./hotlanta.jpg" loading="eager" alt="..." />
 ```
 
 <small>[addyosmani.com/blog/lazy-loading/](https://addyosmani.com/blog/lazy-loading/)</small>
@@ -1572,31 +1660,40 @@ Note: Can also do a blur-up and calculate sizes for you.
 
 -v-
 
+## Image Exercise 5: Native Lazy Loading
+
+1. Should we lazy-load our images? Why/why not?
+2. Make the code changes you think should occur. You're welcome to contrive an example.
+
+-v-
+
 ## Image Exercise 4: Lazy Loading for Today &trade;
 
-<small>(webpack only)</small>
+<small>(optional, webpack only)</small>
 
 - Install `lazysizes` ([docs](https://github.com/aFarkas/lazysizes)): `npm i lazysizes --save`
 - Import in index.js: `import 'lazysizes';`
 - Replace `src` with `data-src` and `srcset` with `data-srcset`. Add `lazyload` class to each `<img>`. Add our small placeholder svg in the `src`.
   ```html
-  <img class="lazyload" src="placeholder.svg"
-      data-src="image-to-lazy-load.jpg"
-      alt="Alternative text to describe image.">
+  <img
+    class="lazyload"
+    src="placeholder.svg"
+    data-src="image-to-lazy-load.jpg"
+    alt="Alternative text to describe image."
+  />
   ```
 - In webpack config, add `:data-src` and `:data-srcset` to the `attrs` for `html-loader-srcset`.
 - How big is our initial load now?
 
 -v-
 
-
 ## Toolbox 🧰
 
 - Use the right image type (png vs jpg, gif vs video). <!-- .element: class="fragment fade-in-then-semi-out" -->
 - Serve the right size image for the user's screen width and device pixel ratio <!-- .element: class="fragment fade-in-then-semi-out" -->
 - Compress images with a tool like ImageOptim, TinyPNG, SVGOMG, or use a webpack plugin like imagemin-webpack-plugin <!-- .element: class="fragment fade-in-then-semi-out" -->
-- Use newer, improved formats like webp. <!-- .element: class="fragment fade-in-then-semi-out" -->
-- Lazy loading with a tool like lazysizes <!-- .element: class="fragment fade-in-then-semi-out" -->
+- Use newer, improved formats like webp and avif. <!-- .element: class="fragment fade-in-then-semi-out" -->
+- Lazy loading, native or with a tool like lazysizes <!-- .element: class="fragment fade-in-then-semi-out" -->
 
 <br>
 <br>
@@ -1636,14 +1733,7 @@ Note: Are all assets created equally?
 
 -v-
 
-## Exercise: JS DevTools, Part 2
-
-1. Type **cmd + shift + p**, then start typing "third" to find and turn on: `Appearance: Show third party badges`.
-2. Now, what do you notice?
-
--v-
-
-## Exercise: JS DevTools, Part 3: <br>3rd-party scripts analysis
+## Exercise: JS DevTools, Part 2: <br>3rd-party scripts analysis
 
 1. Run a Performance profile on reload, without throttling.
 2. Check out the Summary pane for full JS execution time.
@@ -1652,7 +1742,7 @@ Note: Are all assets created equally?
 
 -v-
 
-## Exercise: JS DevTools, Part 4: 3rd-party scripts analysis
+## Exercise: JS DevTools, Part 3: 3rd-party scripts analysis
 
 1. Go back to the Network tab, right-click on one or more of your worst offenders, and select "Block request domain".
 2. Go back to the Performance tab and re-run the profile on reload.
@@ -1664,6 +1754,16 @@ Note: 3rd party scripts can be your biggest JS offender. Know how to find and me
 -v-
 
 ## Exercise: Bundle Analysis, Part 1
+
+1. Run Lighthouse on [turtle-markdown-viewer.netlify.app](https://turtle-markdown-viewer.netlify.app/).
+2. Look at the Lighthouse Treemap.
+3. What do you notice about our JavaScript bundle? What are the biggest dependencies?
+
+<small>Webpack alternate exercise on next slide</small>
+
+-v-
+
+## Optional: Webpack Bundle Analysis
 
 1. Note that `webpack-bundle-analyzer` is already installed in our project.
 2. Go to webpack.config.js and change `openAnalyzer` to `true`
@@ -1677,31 +1777,35 @@ Note: 3rd party scripts can be your biggest JS offender. Know how to find and me
 
 ```javascript
 // Big = 527kb
-import _ from 'lodash';
+import _ from "lodash";
 _.isEmpty({});
 
 // Big = 527kb
-import {isEmpty} from 'lodash';
+import { isEmpty } from "lodash";
 isEmpty({});
 
 // Little = 24kb
-import isEmpty from 'lodash/isEmpty';
-isEmpty({})
+import isEmpty from "lodash/isEmpty";
+isEmpty({});
+
+// Little = 24kb
+import { isEmpty } from "lodash-es";
+isEmpty({});
 
 // Big = 544kb
-import moment from 'moment';
+import moment from "moment";
 
 // Little = 11kb
-import addMinutes from 'date-fns/add_minutes';
+import addMinutes from "date-fns/add_minutes";
 ```
 
-<small>Use Moment? Try [date-fns](https://date-fns.org/) instead.</small>
+<small>Use Moment? Try [date-fns](https://date-fns.org/) instead. Compare your dependencies on [Bundlephobia](https://bundlephobia.com/).</small>
 
 Note: Tree-shaking can help do this for us so we don't have to worry so much about doing our imports "correctly".
 
 -v-
 
-## Exercise: Bundle Analysis, Part 2
+## Optional Webpack Exercise: <br>Bundle Analysis, Part 2
 
 1. Find where Lodash is used in the project.
 2. Update the import to only import the function(s) needed.
@@ -1908,7 +2012,6 @@ Note: Paul Lewis coined the term "uncanny valley". Optimizing for content visibi
 
 Note: PRPL - push minimal code for initial route, render route and get interactive, pre-cache using service workers, and lazy-load async routes. Progressive bootstrapping - Send down a minimally functional page (composed of just the HTML/JS/CSS needed for the current route). As more resources arrive, the app can lazy-load and unlock more features.
 
-
 -v-
 
 ## Code Splitting Strategies
@@ -1955,7 +2058,7 @@ Note: The reason we need default is that since webpack 4, when importing a Commo
 ## Prefetch chunks while idle
 
 ```javascript
-import('marked' /* webpackChunkName: "marked", webpackPrefetch: true */)
+import("marked" /* webpackChunkName: "marked", webpackPrefetch: true */);
 ```
 
 <small>Read more: [`<link rel="prefetch/preload">` in webpack](https://medium.com/webpack/link-rel-prefetch-preload-in-webpack-51a52358f84c) by Tobias Koppers</small>
@@ -2006,7 +2109,7 @@ Note: caveats about the prefetch queue even if suddenly needed now also definite
 
 <small>https://philipwalton.com/articles/deploying-es2015-code-in-production-today/</small>
 
-Note: We transpile and polyfill most code, but most users are on modern browsers. So why are we shippping Unnecessary code? What's the impact?  Webpack can create 2 bundles for you - transpiled to ES5 and not-transpiled ES2015+. These are the results from a small blog app - remember since JS is most expensive asset this affects not just download but parse and compile time. <strong>Bigger apps mean bigger gains</strong>. No time to go through how, but this article goes through the steps. (test using script type=module, set up separate webpack config and need to include modules
+Note: We transpile and polyfill most code, but most users are on modern browsers. So why are we shippping Unnecessary code? What's the impact? Webpack can create 2 bundles for you - transpiled to ES5 and not-transpiled ES2015+. These are the results from a small blog app - remember since JS is most expensive asset this affects not just download but parse and compile time. <strong>Bigger apps mean bigger gains</strong>. No time to go through how, but this article goes through the steps. (test using script type=module, set up separate webpack config and need to include modules
 
 -v-
 
@@ -2014,20 +2117,21 @@ Note: We transpile and polyfill most code, but most users are on modern browsers
 
 1. Run Bundle Analyzer on prod to see our starting bundle size. Run the coverage checker in DevTools to see some of the unused code. Much of this is polyfills.
 2. Update `.babelrc` to add debug:
-  ```diff
-   {
-    "presets": [
-  -    "@babel/preset-env",
-  +    [
-  +      "@babel/preset-env",
-  +      {
-  +        "debug": true
-  +      }
-  +    ]
-    ],
-    "plugins": [
-      "@babel/plugin-syntax-dynamic-import",
-  ```
+
+```diff
+ {
+  "presets": [
+-    "@babel/preset-env",
++    [
++      "@babel/preset-env",
++      {
++        "debug": true
++      }
++    ]
+  ],
+  "plugins": [
+    "@babel/plugin-syntax-dynamic-import",
+```
 
 -v-
 
@@ -2049,6 +2153,7 @@ Note: We transpile and polyfill most code, but most users are on modern browsers
   }
   ```
 - Notice this line - it means it's importing ALL of babel/polyfill:
+
 ```bash
 Using polyfills: No polyfills were added, since the `useBuiltIns`
 option was not set.
@@ -2059,39 +2164,48 @@ option was not set.
 ## Differential Serving Exercise 2: Better polyfills
 
 1. Limit the polyfills to only match the targeted browsers:
-  ```diff
-       {
-         "debug": true
-  +      "useBuiltIns": "entry"
-       }
-  ```
+
+```diff
+     {
+       "debug": true
++      "useBuiltIns": "entry"
+     }
+```
+
 2. Limit the polyfills to only match those used:
-  ```diff
-  -      "useBuiltIns": "entry"
-  +      "useBuiltIns": "usage"
-  ```
+
+```diff
+-      "useBuiltIns": "entry"
++      "useBuiltIns": "usage"
+```
+
 3. Delete `import "@babel/polyfill";` from index.js.
 4. Narrow the browsers supported to NOT include IE `.browserslistrc`:
-  ```bash
-  >0.25%
-  not IE 11
-  ```
+
+```bash
+>0.25%
+not IE 11
+```
 
 -v-
 
 ## Differential Serving Exercise 3: Hold on to your butts
 
 1. Add new dependencies:
-  ```bash
-  npm i --save core-js
-  npm i --save-dev webpack-merge script-ext-html-webpack-plugin
-  ```
+
+```bash
+npm i --save core-js
+npm i --save-dev webpack-merge script-ext-html-webpack-plugin
+```
+
 2. Create webpack.common.js and move most of our config there except the JS rules and the `output` property.
 3. In webpack.config.js, import merge and common:
-  ```javascript
-  const merge = require('webpack-merge')
-  const common = require('./webpack.common.js')
-  ```
+
+```javascript
+const merge = require("webpack-merge");
+const common = require("./webpack.common.js");
+```
+
 4. Merge it with our existing `output` and JS rules to make sure it works before moving forward.
 
 -v-
@@ -2108,15 +2222,15 @@ module.exports = {
         corejs: 3,
         modules: false,
         useBuiltIns: "usage",
-        targets: "last 2 versions, > 0.2%, not dead"
-      }
-    ]
+        targets: "last 2 versions, > 0.2%, not dead",
+      },
+    ],
   ],
   plugins: [
     "@babel/plugin-syntax-dynamic-import",
-    "@babel/plugin-transform-runtime"
-  ]
-}
+    "@babel/plugin-transform-runtime",
+  ],
+};
 ```
 
 -v-
@@ -2133,15 +2247,15 @@ module.exports = {
         // corejs: 3,
         modules: false,
         // useBuiltIns: "usage",
-        targets: { esmodules: true }
-      }
-    ]
+        targets: { esmodules: true },
+      },
+    ],
   ],
-    plugins: [
-      "@babel/plugin-syntax-dynamic-import",
-      "@babel/plugin-transform-runtime"
-    ]
-}
+  plugins: [
+    "@babel/plugin-syntax-dynamic-import",
+    "@babel/plugin-transform-runtime",
+  ],
+};
 ```
 
 -v-
@@ -2151,8 +2265,8 @@ Create separate webpack configs for modern and legacy in webpack.config.js:
 ```javascript
 const legacyConfig = merge(common, {
   output: {
-    filename: '[name].js',
-    path: path.resolve('./dist')
+    filename: "[name].js",
+    path: path.resolve("./dist"),
   },
   module: {
     rules: [
@@ -2160,16 +2274,16 @@ const legacyConfig = merge(common, {
         test: /\.m?js$/,
         exclude: [/node_modules/],
         use: {
-          loader: 'babel-loader',
+          loader: "babel-loader",
           options: babelLegacy,
-        }
+        },
       },
     ],
   },
   optimization: {
     minimizer: [new TerserJSPlugin({})],
   },
-})
+});
 ```
 
 -v-
@@ -2177,8 +2291,8 @@ const legacyConfig = merge(common, {
 ```javascript
 const modernConfig = merge(common, {
   output: {
-    filename: '[name].mjs',
-    path: path.resolve('./dist')
+    filename: "[name].mjs",
+    path: path.resolve("./dist"),
   },
   module: {
     rules: [
@@ -2186,9 +2300,9 @@ const modernConfig = merge(common, {
         test: /\.m?js$/,
         exclude: [/node_modules/],
         use: {
-          loader: 'babel-loader',
+          loader: "babel-loader",
           options: babelModern,
-        }
+        },
       },
     ],
   },
@@ -2197,14 +2311,14 @@ const modernConfig = merge(common, {
       new TerserJSPlugin({
         test: /\.m?js(\?.*)?$/i,
         terserOptions: {
-          ecma: 6 // This can be set to 7 or 8, too.
-        }
+          ecma: 6, // This can be set to 7 or 8, too.
+        },
       }),
     ],
   },
-})
+});
 
-module.exports = [ legacyConfig, modernConfig ]
+module.exports = [legacyConfig, modernConfig];
 ```
 
 -v-
@@ -2294,26 +2408,28 @@ Navigation and Resource Timing (and related APIs) store performance entries in a
 
 ```javascript
 // Get ALL the timings
-performance.getEntries()
+performance.getEntries();
 
 // Navigation Timing API entries
-performance.getEntriesByType('navigation')
+performance.getEntriesByType("navigation");
 
 // Resource Timing API entries
-performance.getEntriesByType('resource')
+performance.getEntriesByType("resource");
 
 // Get timing data for an important hero image
-var heroImageTime = performance.getEntriesByName("https://somesite.com/images/hero-image.jpg")
+var heroImageTime = performance.getEntriesByName(
+  "https://somesite.com/images/hero-image.jpg"
+);
 
 // Get timing data for an important hero image
 var allTheTimings = performance.getEntries({
   // Get entries by name
-  "name": "https://somesite.com/images/hero-image.jpg",
+  name: "https://somesite.com/images/hero-image.jpg",
   // Get entries by type
-  "entryType": "resource",
+  entryType: "resource",
   // Get entries by their initiatorType value:
-  "initiatorType": "img"
-})
+  initiatorType: "img",
+});
 ```
 
 -v-
@@ -2380,22 +2496,22 @@ Note: Times are in milliseconds
 
 ```javascript
 // Add a timing called 'start'
-performance.mark('start')
+performance.mark("start");
 
 // Add a timing called 'end'
-performance.mark('end')
+performance.mark("end");
 
 // Measure the difference between 'start' and 'end'
 // and call it 'difference'
-performance.measure('difference', 'start', 'end')
+performance.measure("difference", "start", "end");
 
 // Clear a mark or a measure
-performance.clearMarks('start')
-performance.clearMeasures('difference')
+performance.clearMarks("start");
+performance.clearMeasures("difference");
 
 // User Timing entries
-performance.getEntriesByType('mark')
-performance.getEntriesByType('measure')
+performance.getEntriesByType("mark");
+performance.getEntriesByType("measure");
 ```
 
 <small>https://developer.mozilla.org/en-US/docs/Web/API/User_Timing_API</small>
@@ -2505,23 +2621,27 @@ Note: What is the most critical element on the page that tells the user it is fi
 ## `navigator.sendBeacon()` in action
 
 ```javascript
-window.addEventListener("visibilitychange", function() {
-  // Caution: If you have a _lot_ of performance entries, don't send _everything_ via getEntries. This is just an example.
-  let rumData = new FormData();
-  rumData.append("entries", JSON.stringify(performance.getEntries()));
+window.addEventListener(
+  "visibilitychange",
+  function () {
+    // Caution: If you have a _lot_ of performance entries, don't send _everything_ via getEntries. This is just an example.
+    let rumData = new FormData();
+    rumData.append("entries", JSON.stringify(performance.getEntries()));
 
-  // Check for sendBeacon support:
-  if("sendBeacon" in navigator) {
-    // Queue beacon request and inspect for failure
-    if(navigator.sendBeacon(endpoint, rumData)) {
-      // sendBeacon worked! We're good!
+    // Check for sendBeacon support:
+    if ("sendBeacon" in navigator) {
+      // Queue beacon request and inspect for failure
+      if (navigator.sendBeacon(endpoint, rumData)) {
+        // sendBeacon worked! We're good!
+      } else {
+        // sendBeacon failed! Use XHR or fetch instead
+      }
     } else {
-      // sendBeacon failed! Use XHR or fetch instead
+      // sendBeacon not available! Use XHR or fetch instead
     }
-  } else {
-    // sendBeacon not available! Use XHR or fetch instead
-  }
-}, false);
+  },
+  false
+);
 ```
 
 ---
