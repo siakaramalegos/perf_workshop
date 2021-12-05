@@ -1059,15 +1059,17 @@ Note: PRPL pattern - push, render, pre-cache, lazy-load
 
 -v-
 
-Images account for 50% of the bytes transferred <br>(median) needed to load a webpage.
+Images account for 45% of the bytes <br>on average needed to load a webpage.
 
-<small>[httparchive.org](https://httparchive.org), January 2020</small>
+<small>[httparchive.org](https://httparchive.org), October 2021</small>
+
+Note: actually down from 50% - maybe due to increased use of lazy loading
 
 -v-
 
-<img src="./images/httparchive-images.png" alt="HTTPArchive chart of image bytes transferred over time" style="border:none">
+<img src="./images/timeseries-of-image-byte.png" alt="HTTPArchive chart of image bytes transferred over time" style="border:none">
 
-<small>[httparchive.org](https://httparchive.org), January 2020</small>
+<small>[httparchive.org](https://httparchive.org), October 2021</small>
 
 -v-
 
@@ -1075,7 +1077,7 @@ Images account for 50% of the bytes transferred <br>(median) needed to load a we
 
 <img src="./images/chart.svg" alt="" style="border:none">
 
-<small>[httparchive.org](https://httparchive.org), January 2020</small>
+<small>[httparchive.org](https://httparchive.org), October 2021</small>
 
 -v-
 
@@ -1385,10 +1387,11 @@ Note: (1) In this `picture` tag, we have 2 sources and an img. Older browsers si
 
 -v-
 
-## Bleeding-Edge File Formats (WEBP!)
+## Bleeding-Edge File Formats
 
 ```html
 <picture>
+  <source type="image/avif" srcset="pug_life.avif" />
   <source type="image/webp" srcset="pug_life.webp" />
   <img src="pug_life.jpg" alt="pug wearing a striped t-shirt like a boss" />
 </picture>
@@ -1542,9 +1545,10 @@ Similar to the previous exercise, make the second big image which comes from Clo
 ## Other tooling options:
 
 - Simple `<img>` and server/serverless function selects best image to serve
-- Build tools like various webpack loaders (but `sizes` not supported)
+- Build tools like various webpack loaders (but `sizes` not always supported)
   - [responsive-loader](https://github.com/herrstucki/responsive-loader)
   - [gatsby-image](https://www.gatsbyjs.org/packages/gatsby-image/) and [gatsby-transformer-sharp](https://image-processing.gatsbyjs.org/)
+  - [Eleventy image plugin](https://www.11ty.dev/docs/plugins/image/)
 
 Note: (1) Many people have their server hijack the request and serve the best image to minimize markup. Could also use a serverless function. (2) Cost money. (3) So many options - both create your srcset code and process the images
 
