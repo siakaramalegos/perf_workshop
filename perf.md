@@ -14,7 +14,7 @@ revealOptions:
 
 ## hi, i'm sia
 
-⚡ 👩🏻‍💻 🇬🇷 🐶 🐺 🎨 📓 ✈️
+[sia.codes](https://sia.codes)
 
 <img src="./images/sia.gif" alt="Sia at Mardi Gras" height="450px" style="border:none;">
 
@@ -56,22 +56,22 @@ Note: Suggest pair programming and give them an opportunity to change seats.
     </tr>
     <tr>
       <td><a href="#/3">🧪 Test environments</a></td>
-      <td><a href="#/10">💸 Smooth UI: Script execution costs</a></td>
+      <td><a href="#/10">🍹 Real User Monitoring</a></td>
     </tr>
     <tr>
       <td><a href="#/4">📈 Metrics</a></td>
-      <td><a href="#/11">🍹 Real User Monitoring</a></td>
+      <td><a href="#/11"> 🎷 Smooth UI: Other costs</a></td>
     </tr>
     <tr>
       <td>
         <img class="nooutline" width="32px" style="margin:0 0 -6px 0" src="./images/tool-devtools.svg" alt="Chrome DevTools"/>
         <a href="#/5">Set up DevTools #LikeABoss</a>
       </td>
-      <td><a href="#/12"> 🎷 Smooth UI: Other costs</a></td>
+      <td><a href="#/12">🦸🏻‍♀️ Accessibility debugging</a></td>
     </tr>
     <tr>
       <td><a href="#/6">⌚ Download cost: Latency</a></td>
-      <td><a href="#/13">🦸🏻‍♀️ Accessibility debugging</a></td>
+      <td><a href="#/13">🗂️ Appendix: Webpack</a></td>
     </tr>
     <tr>
       <td><a href="#/7">📸 Download cost: Images</a></td>
@@ -161,11 +161,11 @@ Note: Most of the energy is consumed by the network and data center, not users' 
 Pick a website you work on. Run it through each of these tools, keeping each open in separate tabs:
 
 1. **WebPageTest** [webpagetest.org/easy](http://webpagetest.org/easy)
-2. **Lighthouse** (DevTools audit tab, only check performance)
-3. **Lighthouse Treemap** (Look for button in the Lighthouse report)
+2. **Lighthouse** (DevTools, only check performance)
+3. **Lighthouse Treemap** (button in the Lighthouse report)
 4. **PageSpeed Insights** [developers.google.com/speed/pagespeed/insights/](https://developers.google.com/speed/pagespeed/insights/)
-5. **Test My Site** [testmysite.thinkwithgoogle.com](https://testmysite.thinkwithgoogle.com)
-6. **RespImageLint** [ausi.github.io/respimagelint/](https://ausi.github.io/respimagelint/) (requires some set up)
+5. **TREO** [treo.sh/sitespeed](https://treo.sh/sitespeed)
+6. **RespImageLint** [ausi.github.io/respimagelint/](https://ausi.github.io/respimagelint/) (bookmarklet - drag to bookmarks bar to use)
 
 Note: **Discussion**: What do you notice about each? What are the similarities/differences? What do you like/dislike?
 
@@ -345,6 +345,14 @@ Note: Lighthouse audits also does this better now, but I still like this quick t
 
 -v-
 
+## ct.css
+
+Take a look inside your `<head>` - the order of items in the head of your HTML can significantly impact performance
+
+[csswizardry.com/ct/](https://csswizardry.com/ct/)
+
+-v-
+
 ## Bundle Analyzers
 
 - [Lighthouse Treemap](https://sia.codes/posts/lighthouse-treemap/)
@@ -358,9 +366,12 @@ Note: Lighthouse audits also does this better now, but I still like this quick t
 ## MOAR Tools
 
 - [Dev Tools Coverage analyzer](https://developers.google.com/web/tools/chrome-devtools/coverage)
-- [Performance Budget Calculator](https://perf-budget-calculator.firebaseapp.com/)
 - [Bundlephobia](https://bundlephobia.com/)
+- [keycdn Performance Test tool](https://tools.keycdn.com/performance)
 - [Cloudinary Website Speed Test Image Analysis Tool](https://webspeedtest.cloudinary.com/)
+- Loading in a browser with JavaScript disabled
+
+<small>[An Informal Survey of Web Performance Tooling in 2021](https://sia.codes/posts/survey-web-performance-tooling/)</small>
 
 Note: Cmd+shift+p for "coverage"
 
@@ -419,6 +430,22 @@ Note: the point at which layout has stabilized, key webfonts are visible, and th
 
 -v-
 
+## Is the page responding to my action?
+
+**Interaction to Next Paint** (INP): new, experimental metric that assesses how fast a page responds to user input
+
+- Visual feedback is important<!-- .element: class="fragment fade-in" -->
+- Measures overall interaction latency<!-- .element: class="fragment fade-in" -->
+- Duration from user interaction until next frame is presented after event handlers executed<!-- .element: class="fragment fade-in" -->
+- "Good" is currently < 200 ms<!-- .element: class="fragment fade-in" -->
+- Impacted by too much JS, other non-JS work on the main thread running concurrently with user interactions<!-- .element: class="fragment fade-in" -->
+
+<small>[Interaction to Next Paint (INP)](https://web.dev/inp/)</small>
+
+Note: measures the worst interaction when < 50 or the 98th percentile
+
+-v-
+
 <a href="https://twitter.com/hdjirdeh/status/1456169370023985152"><img src="./images/new_responsive_metrics.png" alt="The Chrome Speed Metrics team are working on two new metrics: 1. Responsiveness: Assess the overall responsiveness of a page by measuring all user inputs Up pointing backhand index https://web.dev/responsiveness/ 2. Smoothness: Quantify smoothness based on animation frame data Butter https://web.dev/smoothness/" width="50%" class="nooutline"></a>
 
 -v-
@@ -436,9 +463,9 @@ Note: the point at which layout has stabilized, key webfonts are visible, and th
 
 **Cumulative Layout Shift** (CLS) is a new metric that:
 
-> measures the sum total of all individual layout shift scores for every unexpeceted layout shift that occurs during the entire lifespan of the page.
+> measures the sum total of all individual layout shift scores for every unexpeceted layout shift that occurs during ~~the entire lifespan of the page~~ a maximum session window with a 1 second gap, capped at 5 seconds.
 
-<small>[From web.dev](https://web.dev/cls/)</small>
+<small>[web.dev/cls](https://web.dev/cls/), [Evolving Cumulative Layout Shift in web tooling](https://web.dev/cls-web-tooling/)</small>
 
 -v-
 
@@ -499,17 +526,13 @@ Brainstorm custom metrics that would make or break a user's experience on your o
 
 ---
 
-# Set up Dev Tools #LikeABoss
-
-<img class="nooutline" width="150px" src="./images/tool-devtools.svg" alt="Chrome DevTools"/>
-
--v-
-
-## Exercise: Set up Dev Tools #LikeABoss
+# Use Dev Tools #LikeABoss
 
 <img class="nooutline" width="80%" src="./images/no_extensions.png" alt="Chrome extensions negatively affected this page's load performance. Try auditing the page in incognito mode or from a Chrome profile without extensions.">
 
-[bit.ly/boss-devtools](http://bit.ly/boss-devtools)
+-v-
+
+## Set up a new Chrome profile with <br> ⚠️ NO EXTENSIONS ⚠️
 
 Note: Go through handout. Drag tabs to reorder.
 
@@ -519,8 +542,8 @@ Note: Go through handout. Drag tabs to reorder.
 
 - **Performance**: script and other execution costs (flame chart)
 - **Network**: download time (waterfall)
-- **Audits**: scores performance, PWAs, accessibility, etc (Lighthouse)
-- **Coverage**: shows used vs. unused bytes includes in the load
+- **Lighthouse**: scores performance, PWAs, accessibility, etc.
+- **Coverage**: shows used vs. unused bytes included in the load (also shown in Lighthouse Treemap)
 
 Note: Lots of other cool tools exist like local overrides, paint layers, etc.
 
@@ -529,6 +552,15 @@ Note: Lots of other cool tools exist like local overrides, paint layers, etc.
 ## Chrome Dev Tools Network Tab
 
 <img class="plain" src="./images/network-tab-annotated.png">
+
+Note: Disable the cache. Use large request rows. Play with sorting and filtering. Right-click on the column headers and enable the Priority column. Notice that HTML and CSS are highest. Images vary on placement, and JavaScript varies. Be careful: Scripts after images get deprioritized and iframe widgets can prioritize to highest because of the file type.
+
+-v-
+
+## Chrome tricks
+
+- **cmd + shift + p** searches settings like "screenshots" and "Coverage"
+- **magical shift key** - shift and hover over files: red shows the files downloaded by the file hovered, and green shows the file that initiated the download of the file hovered
 
 -v-
 
@@ -732,6 +764,64 @@ Use service workers for offline access and custom caching behavior.
 
 -v-
 
+# Render-blocking resources
+
+-v-
+
+<img class="nooutline" width="50%" src="./images/critical_render_path_sia_karamalegos.svg" alt="The critical render path" />
+
+Note: https://sia.codes/posts/render-blocking-resources/#what-is-the-critical-rendering-path%3F
+
+-v-
+
+> Render-blocking resources are files that "press pause" on the critical rendering path. They interrupt one or more of the steps.
+
+-v-
+
+## CSS is render blocking.
+
+The browser needs it before it can create the CSSOM, which blocks all later steps.
+
+-v-
+
+## JavaScript CAN be render blocking.
+
+When the browser encounters a script meant to run synchronously, it will stop DOM creation until the script is finished running...
+
+-v-
+
+<img class="nooutline" width="50%" src="./images/critical_render_path_JS_karamalegos.svg" alt="The critical render path" />
+
+Note: Synchronous JavaScript (no async or defer) will block the HTML parser during both download and execution of the JavaScript
+
+-v-
+
+## But wait, it can get worse
+
+Additionally, if CSS appears before a script, the script will not be executed until the CSSOM is created...
+
+-v-
+
+<img class="nooutline" width="50%" src="./images/critical_render_path_CSS_JS_karamalegos_2.svg" alt="The critical render path" />
+
+-v-
+
+<img class="nooutline" src="./images/eliminate_render_blocking_resources_lighthouse_ujbxsj.avif" alt="The critical render path" />
+
+-v-
+
+<img class="nooutline" src="./images/render_blocking_indicator_webpagetest_j5thod.avif" alt="The critical render path" />
+
+-v-
+
+## How would you reduce render-blocking resources?
+
+<small>Learn more: [How to Eliminate Render-Blocking Resources: a Deep Dive](https://sia.codes/posts/render-blocking-resources/)</small>
+
+Note: reduce our CSS and JavaScript bytes, lazy-load non-critical CSS and JavaScript, and use the defer, async, or module attribute on our scripts.
+
+-v-
+
 # Fonts
 
 <img class="nooutline" width="50%" src="./images/fonts.png" alt="Screenshot of a Google fonts font option" />
@@ -762,12 +852,6 @@ Use service workers for offline access and custom caching behavior.
 -v-
 
 <img class="nooutline" width="50%" src="./images/ny-fonts.jpg" alt="hello in a small caps italic font" />
-
--v-
-
-<h1 class="dark-background">
-  <span class="highlighter">What annoys you about fonts?</span>
-</h1>
 
 -v-
 
@@ -1014,6 +1098,12 @@ Note: add the `font-display` property to the `@font-face` declaration
 ## Font Style-Matcher by Monica Dinculescu
 
 [meowni.ca/font-style-matcher/](https://meowni.ca/font-style-matcher/)
+
+-v-
+
+## Automatic font matching by Malte Ubl
+
+[Automatic font matching for minimal CLS tool](https://www.industrialempathy.com/perfect-ish-font-fallback/?font=Montserrat)
 
 -v-
 
@@ -1459,53 +1549,7 @@ Note: Some browsers will still load hidden images.
 
 Provide `webp` formats with `jpg` fallbacks.
 
-<small>Webpack config instructions on following slide (if you went the big project route).</small>
-
--v-
-
-## Webpack Supplemental Instructions (optional)
-
-Update webpack.config.js:
-
-```diff
-     rules: [
-       {
-         test: /\.html$/,
--        loader: 'html-loader-srcset'
-+        use: {
-+          loader: 'html-loader-srcset',
-+          options: {
-+            attrs: ['img:src', 'img:srcset', 'source:srcset']
-+          }
-+        }
-       },
-       {
--        test: /\.(png|jpg|gif|svg)$/,
-+        test: /\.(png|jpg|gif|svg|webp)$/,
-         use: ['file-loader']
-       },
-```
-
--v-
-
-## Supplemental Big Project Exercise (optional)
-
-(Optional) Install `cwebp` and create `webp` versions of the other images. See next slide for getting started...
-
-<small>[developers.google.com/speed/webp/docs/cwebp](https://developers.google.com/speed/webp/docs/cwebp)
-
--v-
-
-## `cwebp`
-
-- Install:
-  - Mac `brew install cwebp`, Windows `choco install webp`, Red Hat `yum install libwebp-tools`, Node-based `npm i -g cwebp-bin`
-- Use:
-  - Convert `source.png` to a lossy webp file `output.webp` with a quality of 75 (0-100): `cwebp -q 75 source.png -o output.webp`
-  - Convert `source.png` to a lossless webp file `output.webp`: `cwebp -lossless source.png -o output.webp`
-  - For lossless, control compression with `-z` (0-9 with 9 being highest compression but also longest encoding)
-
-<small>[developers.google.com/speed/webp/docs/cwebp](https://developers.google.com/speed/webp/docs/cwebp)
+<small>Webpack config instructions in <a href="#/14">appendix</a>.</small>
 
 -v-
 
@@ -1551,28 +1595,6 @@ Similar to the previous exercise, make the second big image which comes from Clo
   - [Eleventy image plugin](https://www.11ty.dev/docs/plugins/image/)
 
 Note: (1) Many people have their server hijack the request and serve the best image to minimize markup. Could also use a serverless function. (2) Cost money. (3) So many options - both create your srcset code and process the images
-
--v-
-
-## Webpack Image Exercise 4 (optional)
-
-1. Check out the footer background image HTML and CSS. Observe that a gradient has already been generated. Uncomment that line to implement.
-2. Generate media queries to accommodate different screen sizes using `(min-resolution: 2dppx)`. Add `postcss-loader` and `autoprefixer` for the remaining prefixes ([docs](https://github.com/postcss/autoprefixer#what-is-the-unprefixed-version-of--webkit-min-device-pixel-ratio)):
-
-```diff
-       {
-         test: /\.css$/,
--        use: ['style-loader', 'css-loader']
-+        use: ['style-loader', 'css-loader', 'postcss-loader']
-       },
-```
-
-```javascript
-// postcss.config.js
-module.exports = {
-  plugins: [require("autoprefixer")],
-};
-```
 
 -v-
 
@@ -1671,26 +1693,6 @@ Note: Can also do a blur-up and calculate sizes for you.
 
 -v-
 
-## Image Exercise 4: Lazy Loading for Today &trade;
-
-<small>(optional, webpack only)</small>
-
-- Install `lazysizes` ([docs](https://github.com/aFarkas/lazysizes)): `npm i lazysizes --save`
-- Import in index.js: `import 'lazysizes';`
-- Replace `src` with `data-src` and `srcset` with `data-srcset`. Add `lazyload` class to each `<img>`. Add our small placeholder svg in the `src`.
-  ```html
-  <img
-    class="lazyload"
-    src="placeholder.svg"
-    data-src="image-to-lazy-load.jpg"
-    alt="Alternative text to describe image."
-  />
-  ```
-- In webpack config, add `:data-src` and `:data-srcset` to the `attrs` for `html-loader-srcset`.
-- How big is our initial load now?
-
--v-
-
 ## Toolbox 🧰
 
 - Use the right image type (png vs jpg, gif vs video). <!-- .element: class="fragment fade-in-then-semi-out" -->
@@ -1763,17 +1765,17 @@ Note: 3rd party scripts can be your biggest JS offender. Know how to find and me
 2. Look at the Lighthouse Treemap.
 3. What do you notice about our JavaScript bundle? What are the biggest dependencies?
 
-<small>Webpack alternate exercise on next slide</small>
+<small>Webpack alternate exercise in appendix</small>
 
 -v-
 
-## Optional: Webpack Bundle Analysis
+## Optimizing Time to Interactive
 
-1. Note that `webpack-bundle-analyzer` is already installed in our project.
-2. Go to webpack.config.js and change `openAnalyzer` to `true`
-3. Run `npm run build` to run the production build.
-4. What do you notice about our JavaScript bundle? What are the biggest dependencies?
-5. What would you see if you ran it in development?
+- **Remove unused code** with tree shaking and using module imports effectively.
+- **Only ship what's immediately needed** - use code splitting, pre-caching, and deferred or lazy loading.
+- **Minify** to speed up both download and parse/compile.
+- **Compress** with gzip or brotli.
+- Set up **performance budgets** to prevent performance creep.
 
 -v-
 
@@ -1809,17 +1811,102 @@ Note: Tree-shaking can help do this for us so we don't have to worry so much abo
 
 -v-
 
-## Optional Webpack Exercise: <br>Bundle Analysis, Part 2
+## Client vs Server vs Progressive Rendering
 
-1. Find where Lodash is used in the project.
-2. Update the import to only import the function(s) needed.
-3. Re-run `npm run build` to see if it improved.
-4. Hover over the various blocks. How did the sizes change for the whole bundle and for just Lodash?
-5. Optional: Replace Moment with Date-fns single-function imports. How did the sizes change?
+<iframe width="749.4849246231156" height="463.3975" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTlTFx0oq6iA73uPBd4X1kaF05-R82KHMMGF7wzgvPTvdgMsPyjKZk5fAPOmPhc33g_Zoul7EsB2Cg9/pubchart?oid=882710936&amp;format=interactive"></iframe>
+
+<small>Inspired by https://twitter.com/aerotwist/status/729712502943174657</small>
 
 -v-
 
-We can do so much more to optimize TTI, but we need to use our build tool to implement...
+## Client vs Server vs Progressive Rendering
+
+<iframe width="749.4849246231156" height="463.3975" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTlTFx0oq6iA73uPBd4X1kaF05-R82KHMMGF7wzgvPTvdgMsPyjKZk5fAPOmPhc33g_Zoul7EsB2Cg9/pubchart?oid=2121502741&amp;format=interactive"></iframe>
+
+<small>Inspired by https://twitter.com/aerotwist/status/729712502943174657</small>
+
+-v-
+
+## Client vs Server vs Progressive Rendering
+
+<iframe width="749.4849246231156" height="463.3975" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTlTFx0oq6iA73uPBd4X1kaF05-R82KHMMGF7wzgvPTvdgMsPyjKZk5fAPOmPhc33g_Zoul7EsB2Cg9/pubchart?oid=1240736189&amp;format=interactive"></iframe>
+
+<small>Inspired by https://twitter.com/aerotwist/status/729712502943174657</small>
+
+-v-
+
+## Client vs Server vs Progressive Rendering
+
+<iframe width="749.4849246231156" height="463.3975" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTlTFx0oq6iA73uPBd4X1kaF05-R82KHMMGF7wzgvPTvdgMsPyjKZk5fAPOmPhc33g_Zoul7EsB2Cg9/pubchart?oid=1546390226&amp;format=interactive"></iframe>
+
+<small>Inspired by https://twitter.com/aerotwist/status/729712502943174657</small>
+
+Note: Paul Lewis coined the term "uncanny valley". Optimizing for content visibility instead of time to interactivity can leave users more frustrated.
+
+-v-
+
+## Client vs Server vs Progressive Rendering
+
+<iframe width="749.4849246231156" height="463.3975" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTlTFx0oq6iA73uPBd4X1kaF05-R82KHMMGF7wzgvPTvdgMsPyjKZk5fAPOmPhc33g_Zoul7EsB2Cg9/pubchart?oid=1471728610&amp;format=interactive"></iframe>
+
+<small>Inspired by https://twitter.com/aerotwist/status/729712502943174657</small>
+
+Note: PRPL - push minimal code for initial route, render route and get interactive, pre-cache using service workers, and lazy-load async routes. Progressive bootstrapping - Send down a minimally functional page (composed of just the HTML/JS/CSS needed for the current route). As more resources arrive, the app can lazy-load and unlock more features.
+
+-v-
+
+## Compression
+
+- `brotli` offers higher compression with a better algorithm, but `gzip` is more widely supported.
+- Your hosting platform or CDN might be able to do this by default without you having to do it.
+- Dynamic: the server compresses on request. Simpler build but potentially slower response.
+- Static: performed at build. Slower build, but faster response.
+
+-v-
+
+## Differential Serving, a.k.a. Serve modern code to modern browsers
+
+```html
+<!-- Browsers with ES module support load this file. -->
+<script type="module" src="main.mjs"></script>
+
+<!-- Older browsers load this file (and module-supporting -->
+<!-- browsers know *not* to load this file). -->
+<script nomodule src="main.es5.js"></script>
+```
+
+-v-
+
+## The Cost of Unnecessary Transpiling
+
+<table>
+  <thead>
+    <tr>
+      <th>Version</th>
+      <th>Size <br />(minified)</th>
+      <th>Size <br />(minified + gzipped)</th>
+      <th>Parse/eval time (avg)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ES2015+</td>
+      <td>80K</td>
+      <td><strong>21K</strong></td>
+      <td><strong>172ms</strong></td>
+    </tr>
+    <tr>
+      <td>ES5</td>
+      <td>175K</td>
+      <td><strong>43K</strong></td>
+      <td><strong>367ms</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<small>https://philipwalton.com/articles/deploying-es2015-code-in-production-today/</small>
+
+Note: We transpile and polyfill most code, but most users are on modern browsers. So why are we shippping Unnecessary code? What's the impact? Webpack can create 2 bundles for you - transpiled to ES5 and not-transpiled ES2015+. These are the results from a small blog app - remember since JS is most expensive asset this affects not just download but parse and compile time. <strong>Bigger apps mean bigger gains</strong>. No time to go through how, but this article goes through the steps. (test using script type=module, set up separate webpack config and need to include modules
 
 ---
 
@@ -1974,50 +2061,6 @@ npm install -D compression-webpack-plugin
 
 -v-
 
-## Client vs Server vs Progressive Rendering
-
-<iframe width="749.4849246231156" height="463.3975" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTlTFx0oq6iA73uPBd4X1kaF05-R82KHMMGF7wzgvPTvdgMsPyjKZk5fAPOmPhc33g_Zoul7EsB2Cg9/pubchart?oid=882710936&amp;format=interactive"></iframe>
-
-<small>Inspired by https://twitter.com/aerotwist/status/729712502943174657</small>
-
--v-
-
-## Client vs Server vs Progressive Rendering
-
-<iframe width="749.4849246231156" height="463.3975" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTlTFx0oq6iA73uPBd4X1kaF05-R82KHMMGF7wzgvPTvdgMsPyjKZk5fAPOmPhc33g_Zoul7EsB2Cg9/pubchart?oid=2121502741&amp;format=interactive"></iframe>
-
-<small>Inspired by https://twitter.com/aerotwist/status/729712502943174657</small>
-
--v-
-
-## Client vs Server vs Progressive Rendering
-
-<iframe width="749.4849246231156" height="463.3975" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTlTFx0oq6iA73uPBd4X1kaF05-R82KHMMGF7wzgvPTvdgMsPyjKZk5fAPOmPhc33g_Zoul7EsB2Cg9/pubchart?oid=1240736189&amp;format=interactive"></iframe>
-
-<small>Inspired by https://twitter.com/aerotwist/status/729712502943174657</small>
-
--v-
-
-## Client vs Server vs Progressive Rendering
-
-<iframe width="749.4849246231156" height="463.3975" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTlTFx0oq6iA73uPBd4X1kaF05-R82KHMMGF7wzgvPTvdgMsPyjKZk5fAPOmPhc33g_Zoul7EsB2Cg9/pubchart?oid=1546390226&amp;format=interactive"></iframe>
-
-<small>Inspired by https://twitter.com/aerotwist/status/729712502943174657</small>
-
-Note: Paul Lewis coined the term "uncanny valley". Optimizing for content visibility instead of time to interactivity can leave users more frustrated.
-
--v-
-
-## Client vs Server vs Progressive Rendering
-
-<iframe width="749.4849246231156" height="463.3975" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTlTFx0oq6iA73uPBd4X1kaF05-R82KHMMGF7wzgvPTvdgMsPyjKZk5fAPOmPhc33g_Zoul7EsB2Cg9/pubchart?oid=1471728610&amp;format=interactive"></iframe>
-
-<small>Inspired by https://twitter.com/aerotwist/status/729712502943174657</small>
-
-Note: PRPL - push minimal code for initial route, render route and get interactive, pre-cache using service workers, and lazy-load async routes. Progressive bootstrapping - Send down a minimally functional page (composed of just the HTML/JS/CSS needed for the current route). As more resources arrive, the app can lazy-load and unlock more features.
-
--v-
-
 ## Code Splitting Strategies
 
 1. By **entry point** manually with `entry` config (better combined with #2 to prevent dupes)
@@ -2068,52 +2111,6 @@ import("marked" /* webpackChunkName: "marked", webpackPrefetch: true */);
 <small>Read more: [`<link rel="prefetch/preload">` in webpack](https://medium.com/webpack/link-rel-prefetch-preload-in-webpack-51a52358f84c) by Tobias Koppers</small>
 
 Note: caveats about the prefetch queue even if suddenly needed now also definitely downloads so don't do too much of this
-
--v-
-
-## Differential Serving, a.k.a. Serve modern code to modern browsers
-
-```html
-<!-- Browsers with ES module support load this file. -->
-<script type="module" src="main.mjs"></script>
-
-<!-- Older browsers load this file (and module-supporting -->
-<!-- browsers know *not* to load this file). -->
-<script nomodule src="main.es5.js"></script>
-```
-
--v-
-
-## The Cost of Unnecessary Transpiling
-
-<table>
-  <thead>
-    <tr>
-      <th>Version</th>
-      <th>Size <br />(minified)</th>
-      <th>Size <br />(minified + gzipped)</th>
-      <th>Parse/eval time (avg)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>ES2015+</td>
-      <td>80K</td>
-      <td><strong>21K</strong></td>
-      <td><strong>172ms</strong></td>
-    </tr>
-    <tr>
-      <td>ES5</td>
-      <td>175K</td>
-      <td><strong>43K</strong></td>
-      <td><strong>367ms</strong></td>
-    </tr>
-  </tbody>
-</table>
-
-<small>https://philipwalton.com/articles/deploying-es2015-code-in-production-today/</small>
-
-Note: We transpile and polyfill most code, but most users are on modern browsers. So why are we shippping Unnecessary code? What's the impact? Webpack can create 2 bundles for you - transpiled to ES5 and not-transpiled ES2015+. These are the results from a small blog app - remember since JS is most expensive asset this affects not just download but parse and compile time. <strong>Bigger apps mean bigger gains</strong>. No time to go through how, but this article goes through the steps. (test using script type=module, set up separate webpack config and need to include modules
 
 -v-
 
@@ -2338,30 +2335,6 @@ Note: What is the first step run in the build process? Clean! We need to edit th
 - [Deploying ES2015+ Code in Production Today](https://philipwalton.com/articles/deploying-es2015-code-in-production-today/) by Philip Walton
 - [Doing Differential Serving in 2019](https://calendar.perfplanet.com/2018/doing-differential-serving-in-2019/) by Jeremy Wagner and [repo](https://github.com/malchata/diff-serving)
 - [Serve modern code to modern browsers for faster page loads](https://web.dev/fast/serve-modern-code-to-modern-browsers) by Houssein Djirdeh (and click through for codelab)
-
----
-
-# 💸 Smooth UI: 💸<br>Script execution costs
-
--v-
-
-## Exercise: Finding long-running JS
-
-1. Clone https://github.com/benweet/stackedit.
-2. cd into the repo and run `npm install`.
-3. Run `npm start`.
-4. Navigate to the app in localhost, and select some text in the editor.
-5. Go to the Performance tab, and check screenshots.
-6. In quick succession, hit record, click one of the transformations in the app's navbar, then stop recording.
-7. Where is the long-running JS? Can you tell from the screenshots what is happening?
-
--v-
-
-## We Do: Frame data and Flame charts
-
-- How many frames per second is one of the long frames running?
-- Can you identify a source for long-running JS (file and line number)?
-- How might we confirm this or even see real-user data for this long-running JS?
 
 ---
 
@@ -2676,6 +2649,97 @@ Check out Umar Hansa's [Modern DevTools](https://moderndevtools.com/) course to 
 <small>Check out Umar Hansa's free lesson here: https://www.youtube.com/watch?v=xWPMfcjhts8</small>
 
 Note: Inspect text, click on color box, unfurl contrast info. up/down arrow icon in color blocks area opens palette - can choose page colors and test alternates. Do background color picker. Accessibility tree in Accessibility pane.
+
+---
+
+# 🗂️ Appendix: Webpack exercises & supplements
+
+-v-
+
+## Image Exercise 2 Webpack Supplemental Instructions (optional)
+
+Update webpack.config.js:
+
+```diff
+     rules: [
+       {
+         test: /\.html$/,
+-        loader: 'html-loader-srcset'
++        use: {
++          loader: 'html-loader-srcset',
++          options: {
++            attrs: ['img:src', 'img:srcset', 'source:srcset']
++          }
++        }
+       },
+       {
+-        test: /\.(png|jpg|gif|svg)$/,
++        test: /\.(png|jpg|gif|svg|webp)$/,
+         use: ['file-loader']
+       },
+```
+
+-v-
+
+## Webpack Image Exercise 4 (optional)
+
+1. Check out the footer background image HTML and CSS. Observe that a gradient has already been generated. Uncomment that line to implement.
+2. Generate media queries to accommodate different screen sizes using `(min-resolution: 2dppx)`. Add `postcss-loader` and `autoprefixer` for the remaining prefixes ([docs](https://github.com/postcss/autoprefixer#what-is-the-unprefixed-version-of--webkit-min-device-pixel-ratio)):
+
+```diff
+       {
+         test: /\.css$/,
+-        use: ['style-loader', 'css-loader']
++        use: ['style-loader', 'css-loader', 'postcss-loader']
+       },
+```
+
+```javascript
+// postcss.config.js
+module.exports = {
+  plugins: [require("autoprefixer")],
+};
+```
+
+-v-
+
+## Image Exercise 4: Lazy Loading for Today &trade;
+
+<small>(optional, webpack only)</small>
+
+- Install `lazysizes` ([docs](https://github.com/aFarkas/lazysizes)): `npm i lazysizes --save`
+- Import in index.js: `import 'lazysizes';`
+- Replace `src` with `data-src` and `srcset` with `data-srcset`. Add `lazyload` class to each `<img>`. Add our small placeholder svg in the `src`.
+  ```html
+  <img
+    class="lazyload"
+    src="placeholder.svg"
+    data-src="image-to-lazy-load.jpg"
+    alt="Alternative text to describe image."
+  />
+  ```
+- In webpack config, add `:data-src` and `:data-srcset` to the `attrs` for `html-loader-srcset`.
+- How big is our initial load now?
+
+-v-
+
+## Exercise: Webpack Bundle Analysis
+
+1. Note that `webpack-bundle-analyzer` is already installed in our project.
+2. Go to webpack.config.js and change `openAnalyzer` to `true`
+3. Run `npm run build` to run the production build.
+4. What do you notice about our JavaScript bundle? What are the biggest dependencies?
+5. What would you see if you ran it in development?
+
+-v-
+
+## Optional Webpack Exercise: <br>Bundle Analysis, Part 2
+
+1. Find where Lodash is used in the project.
+2. Update the import to only import the function(s) needed.
+3. Re-run `npm run build` to see if it improved.
+4. Hover over the various blocks. How did the sizes change for the whole bundle and for just Lodash?
+5. Optional: Replace Moment with Date-fns single-function imports. How did the sizes change?
 
 ---
 
