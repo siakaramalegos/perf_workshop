@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "reveal-md perf.md --scripts footerLink.js --watch",
-    "build": "rm -rf build && reveal-md perf.md --static build --static-dirs=images && mkdir build/_assets && cp style.css build/_assets && cp -a fonts/. build/_assets/fonts/ && touch build/.nojekyll",
+    "build-gh-pages": "rm -rf build && reveal-md perf.md --static build --static-dirs=images && mkdir build/_assets && cp style.css build/_assets && cp -a fonts/. build/_assets/fonts/ && touch build/.nojekyll",
+    "build": "reveal-md perf.md --static build --static-dirs=images && mkdir build/_assets && cp style.css build/_assets && cp -a fonts/. build/_assets/fonts/",
     "deploy": "gh-pages -d build --dotfiles"
   },
   "repository": {
