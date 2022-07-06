@@ -7,6 +7,7 @@
 - [Resources](#resources)
 
 ## Abstract
+
 Are you losing revenue to performance? 53% of mobile site visits are abandoned if a page takes longer than 3 seconds to load. Pinterest reduced load times by 40% and saw a 15% increase in sign ups. Starbucks implemented a 2x faster time to interactive resulting in a 65% increase in rewards registrations. AliExpress reduced load by 36% and saw a 10.5% increase in orders.
 
 Performance is important. Tooling can be hard. Do flame charts intimidate you? Come learn how to audit and fix common performance issues using Chrome DevTools, Lighthouse, PageSpeed Insights, and webpagetest.org. During this hands-on, full-day workshop, you will learn how to:
@@ -19,10 +20,10 @@ Performance is important. Tooling can be hard. Do flame charts intimidate you? C
 
 We will profile real applications to both learn the tools of measurement as well as see real performance problems in action. By the end of this workshop, you will be familiar with the following performance concepts. Many will be covered in-depth with exercises, and others will be covered in an overview with resources to learn more.
 
-- Latency and loading:  HTTP2, code splitting, caching and service workers, resource and priority hints, progressive rendering and lazy loading, third party scripts
+- Latency and loading: HTTP2, code splitting, caching and service workers, resource and priority hints, progressive rendering and lazy loading, third party scripts
 - Reducing code: tree shaking, responsible imports, performance budgets, differential serving
 - Assets: responsive images, font loading, network client hints
-- Buttery smooth UI:  long-running JavaScript
+- Buttery smooth UI: long-running JavaScript
 - Perceived performance and UX
 
 ## Prerequisites
@@ -41,7 +42,7 @@ Please come with a laptop charged and ready for development. You must have Chrom
 
 ## Slides and Controls
 
-The slides are deployed [here](https://siakaramalegos.github.io/perf_workshop/#/). To advance the slides, use `n` for next and `p` for previous. The right arrow jumps to the next section (and left for previous section). Up and down to advance through slides within a section.
+The slides are deployed [here](https://glittery-starship-29cecf.netlify.app). To advance the slides, use `n` for next and `p` for previous. The right arrow jumps to the next section (and left for previous section). Up and down to advance through slides within a section.
 
 ## Resources
 
