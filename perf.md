@@ -557,10 +557,14 @@ Note: Disable the cache. Use large request rows. Play with sorting and filtering
 
 -v-
 
-## Chrome tricks
+## Tricks + shortcuts
 
-- **cmd + shift + p** searches settings like "screenshots" and "Coverage"
+- **cmd + shift + p** searches settings like "Enable network request blocking" and “Coverage”
 - **magical shift key** - shift and hover over files: red shows the files downloaded by the file hovered, and green shows the file that initiated the download of the file hovered
+- **Performance tab/flame chart**: Scroll up/down (zoom in/out), left/right (right/left). Keyboard shortcuts w/s (zoom in/out) and a/d (move right/left).
+- **cmd + e**: start/stop recording
+- **cmd + alt + f**: project-wide search
+- **cmd + shift + o**: in sources tab in a CSS file, finds a selector
 
 -v-
 
@@ -1565,9 +1569,19 @@ Provide `webp` formats with `jpg` fallbacks.
 
 -v-
 
+## Framework tools
+
+- Next.js Image component
+- nuxt-img
+- Shopify image_tag
+- ...
+
+-v-
+
 ## Paid Services 💰
 
 - [Cloudinary](https://cloudinary.com/)
+- [imgIX](https://imgix.com/)
 - [Netlify large media](https://docs.netlify.com/large-media/overview/#large-media-docs)
 - ...and many others
 
@@ -1675,14 +1689,6 @@ Add the necessary HTML and CSS so that our images don't shift on load.
 <img src="./images/caniuse-loading.png" alt="Can I Use shows 62% compatibility with loading attr" width="80%" style="border:none">
 
 <small>[caniuse](https://caniuse.com/#feat=loading-lazy-attr)</small>
-
--v-
-
-In the meantime, use a tool like [lazysizes](https://github.com/aFarkas/lazysizes).
-
-<small>Also check out: [Lazy load embedded YouTube videos](https://css-tricks.com/lazy-load-embedded-youtube-videos/) on CSS Tricks</small>
-
-Note: Can also do a blur-up and calculate sizes for you.
 
 -v-
 
