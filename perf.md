@@ -290,7 +290,7 @@ _Publicly available data_
   <div>Google BigQuery</div>
 </div>
 
-<small>Chrome User Experience (CrUX) data is available in PageSpeed Insights or BigQuery.</small>
+<small>Chrome User Experience (CrUX) data is available in PageSpeed Insights, BigQuery, TREO, WebPageTest, and via the [CrUX Dashboard Launcher](https://rviscomi.github.io/crux-dash-launcher/).</small>
 
 -v-
 
